@@ -1,4 +1,4 @@
-﻿using Plugins.FileSystem;
+﻿using IvarI.Plugins.FileSystem;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,7 +27,13 @@ namespace ToolBox.Core
     {
       var loader = new Loader(configuration);
       this.tools.Clear();
-      this.tools.AddRange(loader.Load<ITool>());
+      var a = loader.Load<ITool>();
+      this.tools.AddRange(a);
+    }
+
+    public void Load()
+    {
+      this.Load(FileSystemConfiguration.Default);
     }
   }
 }
