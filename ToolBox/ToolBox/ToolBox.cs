@@ -1,12 +1,14 @@
-﻿using System;
+﻿using NLog;
+using System;
 
 namespace ToolBox
 {
-  class Program
+  class ToolBox
   {
     static void Main(string[] args)
     {
-      Console.WriteLine("Hello World!");
+      var log = LogManager.GetCurrentClassLogger();
+      log.Info("Hello World!");
     }
   }
 }
