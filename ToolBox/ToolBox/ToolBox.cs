@@ -5,9 +5,10 @@ namespace ToolBox
 {
   class ToolBox
   {
+    static ILogger log = LogManager.GetCurrentClassLogger();
+
     static void Main(string[] args)
     {
-      var log = LogManager.GetCurrentClassLogger();
       log.Info("Hello World!");
     }
   }
