@@ -29,15 +29,14 @@ namespace ToolBox
       if (paths == null)
         throw new ApplicationException($"Parameter {nameof(paths)} can not be null.");
       this.CreateDefaultToolsDirectoryIfNotExists();
-      var newConf = new Configuration();
-      newConf.AddSubDirectories(baseToolsPath);
+      this.configuration = new Configuration();
+      this.configuration.AddSubDirectories(baseToolsPath, 1);
       foreach (var path in paths)
-        newConf.AddDirectory(path);
-      if (newConf.GetPaths().Count() == 0)
+        this.configuration.AddDirectory(path);
+      if (this.configuration.GetPaths().Count() == 0)
         log.Warn("Sources configuration: Empty.");
-      foreach (var path in newConf.GetPaths())
+      foreach (var path in this.configuration.GetPaths())
         log.Debug($"Sources configuration: {path}");
-      this.configuration = newConf;
     }
 
     private void CreateDefaultToolsDirectoryIfNotExists()
