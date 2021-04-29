@@ -18,21 +18,19 @@ namespace ToolBox
 
     static void Main(string[] args)
     {
-      var additionalToolsSources = GetAdditionalToolsSources(args);
+      var cli = CommandLineBuilder.GetInstance();
+      cli.InitApplication();
       var toolBox = new ToolBox();
-      toolBox.ConfigureToolsSources(additionalToolsSources);
+      toolBox.ConfigureToolsSources();
       toolBox.LoadTools();
+      cli.Application.Execute(args);
     }
 
-    private void ConfigureToolsSources(IEnumerable<string> paths)
+    private void ConfigureToolsSources()
     {
-      if (paths == null)
-        throw new ApplicationException($"Parameter {nameof(paths)} can not be null.");
       this.CreateDefaultToolsDirectoryIfNotExists();
       this.configuration = new Configuration();
       this.configuration.AddSubDirectories(baseToolsPath, 1);
-      foreach (var path in paths)
-        this.configuration.AddDirectory(path);
       if (this.configuration.GetPaths().Count() == 0)
         log.Warn("Sources configuration: Empty.");
       foreach (var path in this.configuration.GetPaths())
@@ -46,11 +44,6 @@ namespace ToolBox
       log.Warn($"Default tools path does not exist: {baseToolsPath}");
       Directory.CreateDirectory(baseToolsPath);
       log.Info($"Create: {baseToolsPath}");
-    }
-
-    private static List<string> GetAdditionalToolsSources(params string[] args)
-    {
-      return new List<string>();
     }
 
     private void LoadTools()
