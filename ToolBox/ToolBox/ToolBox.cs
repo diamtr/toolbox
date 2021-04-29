@@ -18,7 +18,7 @@ namespace ToolBox
 
     static void Main(string[] args)
     {
-      var cli = CommandLineBuilder.GetInstance();
+      var cli = new CommandLineBuilder();
       cli.InitApplication();
       var toolBox = new ToolBox();
       toolBox.ConfigureToolsSources();
