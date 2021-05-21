@@ -2,7 +2,7 @@
 
 namespace ToolBox.Shared
 {
-  public interface IExhibitable
+  public interface IUiTool
   {
     string DisplayName { get; }
     UserControl UserControl { get; }

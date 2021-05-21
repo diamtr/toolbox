@@ -1,7 +1,8 @@
 {
   "profiles": {
     "ToolBox": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "hwt"
     }
   }
 }

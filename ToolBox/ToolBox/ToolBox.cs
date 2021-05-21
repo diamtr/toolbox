@@ -1,62 +1,49 @@
 ﻿using IvarI.Plugins.FileSystem;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace ToolBox
 {
-  sealed class ToolBox
+  public class ToolBox
   {
-    const string DefaultToolsDirectory = "tools";
-
     static ILogger log = LogManager.GetCurrentClassLogger();
-    string baseToolsPath => Path.Join(AppDomain.CurrentDomain.BaseDirectory, DefaultToolsDirectory);
-    ISourcesConfiguration configuration;
-    List<object> tools;
+    const string DefaultToolsDirectoryName = "tools";
+    string defaultToolsDirectoryPath => Path.Join(AppDomain.CurrentDomain.BaseDirectory, DefaultToolsDirectoryName);
+    IStartUpCnfiguration startUpConfiguration;
 
-    static void Main(string[] args)
+    public void CreateDefaultToolsDirectoryIfNotExists()
     {
-      var cli = new CommandLineBuilder();
-      cli.InitApplication();
-      var toolBox = new ToolBox();
-      toolBox.ConfigureToolsSources();
-      toolBox.LoadTools();
-      cli.Application.Execute(args);
-    }
-
-    private void ConfigureToolsSources()
-    {
-      this.CreateDefaultToolsDirectoryIfNotExists();
-      this.configuration = new Configuration();
-      this.configuration.AddSubDirectories(baseToolsPath, 1);
-      if (this.configuration.GetPaths().Count() == 0)
-        log.Warn("Sources configuration: Empty.");
-      foreach (var path in this.configuration.GetPaths())
-        log.Debug($"Sources configuration: {path}");
-    }
-
-    private void CreateDefaultToolsDirectoryIfNotExists()
-    {
-      if (Directory.Exists(baseToolsPath))
+      if (Directory.Exists(defaultToolsDirectoryPath))
         return;
-      log.Warn($"Default tools path does not exist: {baseToolsPath}");
-      Directory.CreateDirectory(baseToolsPath);
-      log.Info($"Create: {baseToolsPath}");
+      log.Warn($"Default tools path does not exist: {defaultToolsDirectoryPath}");
+      Directory.CreateDirectory(defaultToolsDirectoryPath);
+      log.Info($"Create: {defaultToolsDirectoryPath}");
     }
 
-    private void LoadTools()
+    public void LoadTools()
     {
-      log.Info("Load tools...");
-      var loader = new Loader(this.configuration);
-      var tools = loader.Load<object>();
-      log.Info("Load tools. Done");
+      log.Debug($"Start loading tools: {defaultToolsDirectoryPath}");
+      var loadConfiguration = new Configuration();
+      loadConfiguration.AddSubDirectories(defaultToolsDirectoryPath, 1);
+      if (loadConfiguration.GetPaths().Count() == 0)
+        log.Warn($"Is empty: {defaultToolsDirectoryPath}");
+      foreach (var path in loadConfiguration.GetPaths())
+        log.Debug($"Found: {path}");
+
+      this.startUpConfiguration.LoadTools(loadConfiguration);
     }
 
-    public ToolBox()
+    public void Run()
     {
-      this.tools = new List<object>();
+      log.Debug("Start run");
+      this.startUpConfiguration.Run();
+    }
+
+    public ToolBox(IStartUpCnfiguration configuration)
+    {
+      this.startUpConfiguration = configuration;
     }
   }
 }

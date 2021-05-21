@@ -2,7 +2,7 @@
 
 namespace ToolBox.Shared
 {
-  public interface ICommandLineExecutable
+  public interface IConsoleTool
   {
     CommandLineApplication Command { get; }
   }
