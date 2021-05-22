@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(TargetPath)&quot; xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)\ToolBox\bin\Debug\netcoreapp3.1\tools\hwtool\&quot; /y" />
+    <Exec Command="if exist &quot;$(TargetPath)&quot; xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)\ToolBox\bin\$(ConfigurationName)\netcoreapp3.1\tools\hwtool\&quot; /y" />
   </Target>
 
 </Project>
