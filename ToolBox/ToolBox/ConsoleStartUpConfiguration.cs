@@ -33,11 +33,7 @@ namespace ToolBox
     protected CommandLineApplication InitCommandLineApplication()
     {
       log.Debug("Init CommandLineApplication");
-      var app = new CommandLineApplication()
-      {
-        Name = "tool",
-        Description = "Tool to execute."
-      };
+      var app = new CommandLineApplication();
       app.HelpOption(inherited: true);
       app.OnExecute(() => {
         log.Warn("Have no tool to execute.");
