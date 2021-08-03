@@ -25,7 +25,7 @@ namespace ToolBox
     public void Run()
     {
       if (this.args == null)
-        throw new ApplicationException($"Console arguments is required in console mode.");
+        throw new ApplicationException($"Console arguments are required in console mode.");
       var app = this.InitCommandLineApplication();
       app.Execute(this.args.ToArray());
     }
