@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="ToolBox.Desktop.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ToolBox.Desktop"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\Styles\MainStyles.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Grid Margin="10, 5, 10, 5">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0">
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <TextBlock Text="Settings" Grid.Column="0" Style="{StaticResource Header_0}" />
+
+      <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
+        <Button Content="Save" Command="{Binding SaveSettingsCommand}" />
+      </StackPanel>
+
+    </Grid>
+    
+    <Grid Grid.Row="1">
+      
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="50*"/>
+        <ColumnDefinition Width="50*"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid Grid.Column="0">
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="10"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Tools path" Grid.Column="0" Grid.Row="0" Margin="0,0,0,10"/>
+        <TextBox Text="{Binding Settings.ToolsPath}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Top"/>
+
+        <TextBlock Text="Remember last opened tool" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10"/>
+        <CheckBox IsChecked="{Binding Settings.RememberLastTool}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top"/>
+
+      </Grid>
+      
+    </Grid>
+
+  </Grid>
+</UserControl>

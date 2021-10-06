@@ -4,11 +4,11 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ToolBox.Shared;
+using ToolBox.Console.Base;
 
-namespace ToolBox
+namespace ToolBox.Console
 {
-  class ConsoleStartUpConfiguration : IStartUpCnfiguration
+  public class StartUpConfiguration
   {
     public List<IConsoleTool> Tools { get; private set; }
     protected static ILogger log => LogManager.GetCurrentClassLogger();
@@ -47,7 +47,7 @@ namespace ToolBox
       return app;
     }
 
-    public ConsoleStartUpConfiguration(IEnumerable<string> args)
+    public StartUpConfiguration(IEnumerable<string> args)
     {
       this.Tools = new List<IConsoleTool>();
       this.args = args;

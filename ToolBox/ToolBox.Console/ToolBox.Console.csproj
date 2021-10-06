@@ -8,11 +8,11 @@
   <ItemGroup>
     <PackageReference Include="IvarI.MEF.Plugins" Version="1.0.0" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
-    <PackageReference Include="NLog" Version="4.7.9" />
+    <PackageReference Include="NLog" Version="4.7.11" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ToolBox.Shared\ToolBox.Shared.csproj" />
+    <ProjectReference Include="..\ToolBox.Console.Base\ToolBox.Console.Base.csproj" />
   </ItemGroup>
 
   <ItemGroup>

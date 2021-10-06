@@ -1,9 +1,8 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using System;
 using System.ComponentModel.Composition;
-using ToolBox.Shared;
+using ToolBox.Console.Base;
 
-namespace hwtool
+namespace hwtool.Console
 {
   [Export(typeof(IConsoleTool))]
   public class HwConsoleTool : IConsoleTool
@@ -29,7 +28,7 @@ namespace hwtool
 
     private void OnExecute()
     {
-      Console.WriteLine("HELLO WORLD!");
+      System.Console.WriteLine("HELLO WORLD!");
     }
   }
 }

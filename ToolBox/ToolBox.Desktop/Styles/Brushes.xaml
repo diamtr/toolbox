@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ToolBox.Desktop">
+
+  <!-- Colors: https://coolors.co/212738-f97068-d1d646-edf2ef-57c4e5 -->
+  <Color x:Key="GeneralBackground">#212738</Color>
+  <Color x:Key="InputAreaBackground">#3C4856</Color>
+  <Color x:Key="DisabledBackground">#53638D</Color>
+  
+  <Color x:Key="GeneralBorder">#53638D</Color>
+  
+  <Color x:Key="GeneralForeground">#EDF2EF</Color>
+  <Color x:Key="DisabledForeground">#D0DDD5</Color>
+  
+  <Color x:Key="HighlightForeground">#D1D646</Color>
+
+  <SolidColorBrush x:Key="GeneralBackgroundBrush" Color="{StaticResource GeneralBackground}" />
+  <SolidColorBrush x:Key="InputAreaBackgroundBrush" Color="{StaticResource InputAreaBackground}" />
+  <SolidColorBrush x:Key="DisabledBackgroundBrush" Color="{StaticResource DisabledBackground}" />
+
+  <SolidColorBrush x:Key="GeneralForegroundBrush" Color="{StaticResource GeneralForeground}" />
+  <SolidColorBrush x:Key="DisabledForegroundBrush" Color="{StaticResource DisabledForeground}"/>
+
+  <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource HighlightForeground}" />
+  
+  <SolidColorBrush x:Key="GeneralBorderBrush" Color="{StaticResource GeneralBorder}" />
+
+</ResourceDictionary>

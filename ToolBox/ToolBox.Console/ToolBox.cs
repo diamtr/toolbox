@@ -4,14 +4,14 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace ToolBox
+namespace ToolBox.Console
 {
   public class ToolBox
   {
     static ILogger log = LogManager.GetCurrentClassLogger();
     const string DefaultToolsDirectoryName = "tools";
     string defaultToolsDirectoryPath => Path.Join(AppDomain.CurrentDomain.BaseDirectory, DefaultToolsDirectoryName);
-    IStartUpCnfiguration startUpConfiguration;
+    StartUpConfiguration startUpConfiguration;
 
     public void CreateDefaultToolsDirectoryIfNotExists()
     {
@@ -41,7 +41,7 @@ namespace ToolBox
       this.startUpConfiguration.Run();
     }
 
-    public ToolBox(IStartUpCnfiguration configuration)
+    public ToolBox(StartUpConfiguration configuration)
     {
       this.startUpConfiguration = configuration;
     }

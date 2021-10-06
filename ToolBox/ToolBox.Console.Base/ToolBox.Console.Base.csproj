@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.2" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
   </ItemGroup>
 

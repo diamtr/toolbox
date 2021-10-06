@@ -1,9 +1,7 @@
-﻿using IvarI.Plugins.FileSystem;
-using NLog;
+﻿using NLog;
 using System;
-using System.Collections.Generic;
 
-namespace ToolBox
+namespace ToolBox.Console
 {
   sealed class StartUp
   {
@@ -13,7 +11,7 @@ namespace ToolBox
     {
       try
       {
-        var configuration = Configurations.Create(args);
+        var configuration = new StartUpConfiguration(args);
         var toolBox = new ToolBox(configuration);
         toolBox.CreateDefaultToolsDirectoryIfNotExists();
         toolBox.LoadTools();

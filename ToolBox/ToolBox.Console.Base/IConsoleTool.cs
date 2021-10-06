@@ -1,6 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 
-namespace ToolBox.Shared
+namespace ToolBox.Console.Base
 {
   public interface IConsoleTool
   {
