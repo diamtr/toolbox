@@ -1,20 +1,39 @@
-﻿namespace ToolBox.Desktop
+﻿using ToolBox.Desktop.Base;
+
+namespace ToolBox.Desktop
 {
   public class SettingsViewModel : ViewModelBase
   {
-    public Settings Settings
+    private const string SettingsOwnerName = "ToolBox";
+
+    public string ToolsPath
     {
       get
       {
-        return this.settings;
+        return this.toolsPath;
       }
       set
       {
-        this.settings = value;
+        this.toolsPath = value;
         this.OnPropertyChanged();
       }
     }
+    public bool RememberLastTool
+    {
+      get
+      {
+        return this.rememberLastTool;
+      }
+      set
+      {
+        this.rememberLastTool = value;
+        this.OnPropertyChanged();
+      }
+    }
+    public string LastDisplayedTool;
 
+    private string toolsPath;
+    private bool rememberLastTool;
     private Settings settings;
 
     public Command SaveSettingsCommand { get; private set; }
@@ -22,23 +41,28 @@
     private void InitCommands()
     {
       this.SaveSettingsCommand = new Command(
-        x => { SettingsProvider.SaveSettings(); },
+        x => { this.SaveSettings(); },
         x => true
       );
     }
 
     public void LoadSettings()
     {
-      this.Settings = SettingsProvider.GetSettings();
+      this.ToolsPath = this.settings.Get<string>(nameof(this.ToolsPath));
+      this.RememberLastTool = this.settings.Get<bool>(nameof(this.RememberLastTool));
+      this.LastDisplayedTool = this.settings.Get<string>(nameof(this.LastDisplayedTool));
     }
 
     public void SaveSettings()
     {
-      SettingsProvider.SaveSettings();
+      this.settings.Add(nameof(this.ToolsPath), this.ToolsPath);
+      this.settings.Add(nameof(this.RememberLastTool), this.RememberLastTool);
+      this.settings.Add(nameof(this.LastDisplayedTool), this.LastDisplayedTool);
     }
 
     public SettingsViewModel()
     {
+      this.settings = Settings.GetSettings(SettingsOwnerName);
       this.InitCommands();
     }
   }

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:msxb="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:ToolBox.Desktop"
+        xmlns:converter="clr-namespace:ToolBox.Desktop.Base.Converters;assembly=ToolBox.Desktop.Base"
         mc:Ignorable="d"
         Title="{Binding MainWindowTitle, Mode=OneWay}"
         WindowState="Maximized"
@@ -15,8 +16,7 @@
   <Window.Resources>
     <ResourceDictionary>
 
-      <!-- Converters -->
-      <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+      <converter:VisibilityBoolConverter x:Key="VisibilityBoolConverter"/>
 
       <DataTemplate DataType="{x:Type local:SettingsViewModel}">
         <local:SettingsView />
@@ -44,49 +44,40 @@
   </msxb:Interaction.Triggers>
 
   <Grid>
-
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-
     <!-- General Menu -->
     <Border Grid.Row="0"
-            BorderThickness="0,0,0,1" BorderBrush="{StaticResource InputAreaBackgroundBrush}">
-      <Grid Margin="20,10,20,10">
-
+            BorderThickness="0,0,0,2" BorderBrush="{StaticResource GeneralBorderBrush}"
+            Padding="25,20,25,20">
+      <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="350"/>
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-
         <ComboBox ItemsSource="{Binding ToolsDisplayNames}" Grid.Column="0"
                   SelectedItem="{Binding SelectedToolName}"
-                  MinWidth="300"
-                  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
+                  VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
         <ToggleButton x:Name="SettingsButton" Grid.Column="2"
                       VerticalAlignment="Center" HorizontalAlignment="Center">
           <TextBlock Text="Settings" />
         </ToggleButton>
-
       </Grid>
     </Border>
-
     <!-- Tool Area -->
     <Grid Grid.Row="1">
-
-      <ContentControl Content="{Binding SelectedTool}"
+      <Border Padding="10,5,10,5">
+        <Grid>
+          <ContentControl Content="{Binding SelectedTool}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-
-      <ContentControl Content="{Binding SettingsViewModel}"
-                      Visibility="{Binding ElementName=SettingsButton, Path=IsChecked, Converter={StaticResource BoolToVisibilityConverter}}"
+          <ContentControl Content="{Binding SettingsViewModel}"
+                      Visibility="{Binding ElementName=SettingsButton, Path=IsChecked, Converter={StaticResource VisibilityBoolConverter}}"
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-
-
+        </Grid>
+      </Border>
     </Grid>
-
   </Grid>
-
 </Window>

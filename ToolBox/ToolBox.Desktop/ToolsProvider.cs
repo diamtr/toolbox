@@ -35,7 +35,7 @@ namespace ToolBox.Desktop
     private bool hasLoadException;
     private ToolsLoadException toolsLoadException;
 
-    public static List<IDesktopTool> LoadTools(Settings settings)
+    public static List<IDesktopTool> LoadFrom(string path)
     {
       Instance.hasLoadException = false;
       Instance.toolsLoadException = null;
@@ -43,7 +43,7 @@ namespace ToolBox.Desktop
       try
       {
         var configuration = new Configuration();
-        configuration.AddSubDirectories(settings.ToolsPath);
+        configuration.AddSubDirectories(path);
         var loader = new Loader(configuration);
         return loader.Load<IDesktopTool>();
       }

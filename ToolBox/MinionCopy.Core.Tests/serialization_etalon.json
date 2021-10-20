@@ -1,0 +1,34 @@
+{
+  "$type": "MinionCopy.CopyFromListStrategy, MinionCopy.Core",
+  "Name": null,
+  "Items": [
+    {
+      "$type": "MinionCopy.CopyFileStrategy, MinionCopy.Core",
+      "Source": null,
+      "Destination": null,
+      "Replace": false,
+      "Rename": null
+    },
+    {
+      "$type": "MinionCopy.CopyDirectoryStrategy, MinionCopy.Core",
+      "Recursive": false,
+      "Source": null,
+      "Destination": null,
+      "Replace": false,
+      "Rename": null
+    },
+    {
+      "$type": "MinionCopy.CopyFromListStrategy, MinionCopy.Core",
+      "Name": null,
+      "Items": [],
+      "Source": null,
+      "Destination": null,
+      "Replace": false,
+      "Rename": null
+    }
+  ],
+  "Source": null,
+  "Destination": null,
+  "Replace": false,
+  "Rename": null
+}
