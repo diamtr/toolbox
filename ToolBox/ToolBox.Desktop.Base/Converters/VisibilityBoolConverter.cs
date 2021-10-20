@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace ToolBox.Desktop
+namespace ToolBox.Desktop.Base.Converters
 {
-  public class BoolToVisibilityConverter : IValueConverter
+  public class VisibilityBoolConverter : IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

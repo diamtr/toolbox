@@ -91,14 +91,19 @@ namespace ToolBox.Desktop
     {
       this.SettingsViewModel.LoadSettings();
       this.LoadTools();
-      var lastDisplayedTool = this.SettingsViewModel.Settings.LastDisplayedTool;
-      if (this.ToolsDisplayNames.Contains(lastDisplayedTool))
-        this.SelectedToolName = lastDisplayedTool;
+      if (this.SettingsViewModel.RememberLastTool)
+      {
+        var lastDisplayedTool = this.SettingsViewModel.LastDisplayedTool;
+        if (this.ToolsDisplayNames.Contains(lastDisplayedTool))
+          this.SelectedToolName = lastDisplayedTool;
+      }
     }
 
     private void OnWindowClosing()
     {
-      this.SettingsViewModel.Settings.LastDisplayedTool = this.SelectedToolName;
+      this.SettingsViewModel.LastDisplayedTool = this.SelectedToolName;
+      if (!this.SettingsViewModel.RememberLastTool)
+        this.SettingsViewModel.LastDisplayedTool = string.Empty;
       this.SettingsViewModel.SaveSettings();
     }
 
@@ -113,7 +118,7 @@ namespace ToolBox.Desktop
 
     private void LoadTools()
     {
-      var tools = ToolsProvider.LoadTools(SettingsProvider.GetSettings());
+      var tools = ToolsProvider.LoadFrom(this.SettingsViewModel.ToolsPath);
       if (ToolsProvider.HasLoadException)
         return;
       this.Tools.Clear();

@@ -11,11 +11,10 @@
       <Setter.Value>
         <ControlTemplate>
           <Border>
-            <Rectangle 
-            Margin="15,0,0,0"
-            StrokeThickness="1"
-            Stroke="#60000000"
-            StrokeDashArray="1 2"/>
+            <Rectangle Margin="15,0,0,0"
+                       StrokeThickness="1"
+                       Stroke="#60000000"
+                       StrokeDashArray="1 2"/>
           </Border>
         </ControlTemplate>
       </Setter.Value>

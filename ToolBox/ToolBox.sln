@@ -15,6 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolBox.Desktop.Base", "Too
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolBox.Console.Base", "ToolBox.Console.Base\ToolBox.Console.Base.csproj", "{136F08A1-DE73-407F-96A5-6C03A3C6DDEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinionCopy.Desktop", "MinionCopy.Desktop\MinionCopy.Desktop.csproj", "{CF4F35C3-51B7-4D56-8DD9-828A789430AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinionCopy.Core", "MinionCopy.Core\MinionCopy.Core.csproj", "{EFC4B3AC-2112-439A-998E-2C5C7969540A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinionCopy.Core.Tests", "MinionCopy.Core.Tests\MinionCopy.Core.Tests.csproj", "{B3EA9955-6285-41E7-9012-54FAE1354E90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +51,18 @@ Global
 		{136F08A1-DE73-407F-96A5-6C03A3C6DDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{136F08A1-DE73-407F-96A5-6C03A3C6DDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{136F08A1-DE73-407F-96A5-6C03A3C6DDEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4F35C3-51B7-4D56-8DD9-828A789430AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4F35C3-51B7-4D56-8DD9-828A789430AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4F35C3-51B7-4D56-8DD9-828A789430AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4F35C3-51B7-4D56-8DD9-828A789430AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC4B3AC-2112-439A-998E-2C5C7969540A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC4B3AC-2112-439A-998E-2C5C7969540A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC4B3AC-2112-439A-998E-2C5C7969540A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC4B3AC-2112-439A-998E-2C5C7969540A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3EA9955-6285-41E7-9012-54FAE1354E90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3EA9955-6285-41E7-9012-54FAE1354E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3EA9955-6285-41E7-9012-54FAE1354E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3EA9955-6285-41E7-9012-54FAE1354E90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

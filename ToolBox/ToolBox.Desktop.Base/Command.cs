@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace ToolBox.Desktop
+namespace ToolBox.Desktop.Base
 {
   public class Command : ICommand
   {

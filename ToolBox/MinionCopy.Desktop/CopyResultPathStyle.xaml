@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MinionCopy.Desktop">
+
+  <Style x:Key="CopyResultPathStyle" TargetType="{x:Type Path}">
+    <Setter Property="StrokeThickness" Value="2"/>
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding CopyResult}" Value="Success">
+        <Setter Property="Data" Value="M 0 3 L 3 7 L 7 0"/>
+        <Setter Property="Stroke" Value="Green"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding CopyResult}" Value="Failed">
+        <Setter Property="Data" Value="M 1 1 L 6 6 M 6 1 L 1 6"/>
+        <Setter Property="Stroke" Value="OrangeRed"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding CopyResult}" Value="Ignored">
+        <Setter Property="Data" Value="M 1 3 L 6 3"/>
+        <Setter Property="Stroke" Value="Gray"/>
+      </DataTrigger>
+      <DataTrigger Binding="{Binding CopyResult}" Value="None">
+        <Setter Property="Data" Value="{x:Null}"/>
+        <Setter Property="Stroke" Value="Transparent"/>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+  
+</ResourceDictionary>

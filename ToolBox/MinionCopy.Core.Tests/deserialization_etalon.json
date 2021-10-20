@@ -1,0 +1,58 @@
+{
+  "$type": "MinionCopy.CopyFromListStrategy, MinionCopy.Core",
+  "Name": null,
+  "Items": [
+    {
+      "$type": "MinionCopy.CopyFileStrategy, MinionCopy.Core",
+      "Source": "tsf1",
+      "Destination": "tdf1",
+      "Replace": false,
+      "Rename": null
+    },
+    {
+      "$type": "MinionCopy.CopyDirectoryStrategy, MinionCopy.Core",
+      "Recursive": false,
+      "Source": "tsd1",
+      "Destination": "tdd1",
+      "Replace": true,
+      "Rename": null
+    },
+    {
+      "$type": "MinionCopy.CopyFromListStrategy, MinionCopy.Core",
+      "Name": null,
+      "Items": [
+        {
+          "$type": "MinionCopy.CopyFileStrategy, MinionCopy.Core",
+          "Source": "tsf2",
+          "Destination": "tdf2",
+          "Replace": true,
+          "Rename": "tmpf"
+        },
+        {
+          "$type": "MinionCopy.CopyDirectoryStrategy, MinionCopy.Core",
+          "Recursive": true,
+          "Source": "tsd2",
+          "Destination": "tdd2",
+          "Replace": false,
+          "Rename": "tmpd"
+        },
+        {
+          "$type": "MinionCopy.CopyFromListStrategy, MinionCopy.Core",
+          "Items": [],
+          "Source": "tl2",
+          "Destination": null,
+          "Replace": false,
+          "Rename": null
+        }
+      ],
+      "Source": "tl1",
+      "Destination": null,
+      "Replace": false,
+      "Rename": null
+    }
+  ],
+  "Source": "testname",
+  "Destination": null,
+  "Replace": false,
+  "Rename": null
+}

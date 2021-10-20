@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
-namespace ToolBox.Desktop
+namespace ToolBox.Desktop.Base
 {
   public abstract class ViewModelBase : INotifyPropertyChanged
   {
