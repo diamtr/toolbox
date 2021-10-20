@@ -5,6 +5,8 @@ namespace ToolBox.Desktop
   public class SettingsViewModel : ViewModelBase
   {
     private const string SettingsOwnerName = "ToolBox";
+    private const string DefaultToolsPath = ".\\Tools";
+    private const bool DefaultRememberLastTool = true;
 
     public string ToolsPath
     {
@@ -48,8 +50,8 @@ namespace ToolBox.Desktop
 
     public void LoadSettings()
     {
-      this.ToolsPath = this.settings.Get<string>(nameof(this.ToolsPath));
-      this.RememberLastTool = this.settings.Get<bool>(nameof(this.RememberLastTool));
+      this.ToolsPath = this.settings.Get<string>(nameof(this.ToolsPath), DefaultToolsPath);
+      this.RememberLastTool = this.settings.Get<bool>(nameof(this.RememberLastTool), DefaultRememberLastTool);
       this.LastDisplayedTool = this.settings.Get<string>(nameof(this.LastDisplayedTool));
     }
 
