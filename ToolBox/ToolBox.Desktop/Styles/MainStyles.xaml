@@ -36,6 +36,8 @@
     <Setter Property="MinHeight" Value="20"/>
     <Setter Property="MinWidth" Value="75"/>
     <Setter Property="Padding" Value="10,1,10,3"/>
+    <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}"/>
+    <Setter Property="Background" Value="{StaticResource GeneralBackgroundBrush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToggleButton">
@@ -52,18 +54,15 @@
       </Setter.Value>
     </Setter>
     <Style.Triggers>
-      <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Cursor" Value="Hand"/>
-      </Trigger>
       <Trigger Property="IsChecked" Value="True">
-        <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}"/>
-        <Setter Property="Background" Value="{StaticResource GeneralBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource HighlightBrush}"/>
       </Trigger>
       <Trigger Property="IsChecked" Value="False">
-        <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}"/>
-        <Setter Property="Background" Value="{StaticResource GeneralBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource GeneralBorderBrush}"/>
+      </Trigger>
+      <Trigger Property="IsMouseOver" Value="True">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="{StaticResource HighlightBrush}"/>
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -71,6 +70,7 @@
   <!-- Button -->
   <Style TargetType="{x:Type Button}">
     <Setter Property="MinWidth" Value="75"/>
+    <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}"/>
     <Setter Property="Background" Value="{StaticResource GeneralBackgroundBrush}"/>
     <Setter Property="BorderBrush" Value="{StaticResource GeneralBorderBrush}"/>
     <Setter Property="Padding" Value="10,1,10,3"/>
