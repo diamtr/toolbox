@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ToolBox.Desktop.Base;
 
 namespace MinionCopy.Desktop
@@ -32,6 +33,7 @@ namespace MinionCopy.Desktop
 
     private CopyFileStrategy strategy;
     private CopyResult copyResult;
+    private CopyException copyException;
 
     public event Action<ICopyStrategyViewModel> RemoveRequested;
 
@@ -45,16 +47,26 @@ namespace MinionCopy.Desktop
     public void Copy()
     {
       this.CopyResult = CopyResult.None;
+      this.copyException = null;
 
       try
       {
         this.Strategy.Copy();
         this.CopyResult = CopyResult.Success;
       }
-      catch
+      catch (Exception ex)
       {
+        this.copyException = new CopyException(this, ex);
         this.CopyResult = CopyResult.Failed;
       }
+    }
+
+    public List<CopyException> GetCopyExceptions()
+    {
+      var exceptions = new List<CopyException>();
+      if (this.copyException != null)
+        exceptions.Add(this.copyException);
+      return exceptions;
     }
 
     public void InvokeRequestRemoveFromParent()

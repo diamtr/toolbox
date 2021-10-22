@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
@@ -121,6 +122,18 @@ namespace MinionCopy.Desktop
         this.CopyResult = CopyResult.Success;
     }
 
+    public List<CopyException> GetCopyExceptions()
+    {
+      var exceptions = new List<CopyException>();
+      foreach (var item in this.DisplayItems)
+      {
+        var itemExceptions = item.GetCopyExceptions();
+        if (itemExceptions.Any())
+          exceptions.AddRange(itemExceptions);
+      }
+      return exceptions;
+    }
+
     public void AddCopyFileStrategy()
     {
       var newViewModel = new CopyFileStrategyViewModel();
@@ -196,7 +209,7 @@ namespace MinionCopy.Desktop
       this.RemoveRequested?.Invoke(this);
     }
 
-    private void DisplayItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void DisplayItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
       if (e.Action == NotifyCollectionChangedAction.Add)
       {

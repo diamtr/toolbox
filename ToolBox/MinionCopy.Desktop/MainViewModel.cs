@@ -1,10 +1,12 @@
-﻿using ToolBox.Desktop.Base;
+﻿using System.Collections.ObjectModel;
+using ToolBox.Desktop.Base;
 
 namespace MinionCopy.Desktop
 {
   public class MainViewModel : ViewModelBase
   {
     private const string SettingsOwnerName = "MinionCopy";
+
     public CopyFromListStrategyViewModel CopyFromListStrategyViewModel
     {
       get
@@ -17,6 +19,7 @@ namespace MinionCopy.Desktop
         this.OnPropertyChanged();
       }
     }
+    public ObservableCollection<CopyException> CopyExceptions { get; set; }
 
     private CopyFromListStrategyViewModel copyFromListStrategyViewModel;
     private Settings settings;
@@ -30,6 +33,15 @@ namespace MinionCopy.Desktop
         return;
 
       this.CopyFromListStrategyViewModel.Copy();
+      this.RefreshCopyExceptions();
+    }
+
+    private void RefreshCopyExceptions()
+    {
+      this.CopyExceptions.Clear();
+      var exceptions = this.CopyFromListStrategyViewModel.GetCopyExceptions();
+      foreach (var exception in exceptions)
+        this.CopyExceptions.Add(exception);
     }
 
     private void UserControlLoaded()
@@ -65,6 +77,7 @@ namespace MinionCopy.Desktop
       this.settings = Settings.GetSettings(SettingsOwnerName);
       this.CopyFromListStrategyViewModel = new CopyFromListStrategyViewModel();
       this.CopyFromListStrategyViewModel.PropertyChanged += CopyFromListStrategyViewModel_LastStrategyPathChanged;
+      this.CopyExceptions = new ObservableCollection<CopyException>();
       this.InitCommands();
     }
   }
