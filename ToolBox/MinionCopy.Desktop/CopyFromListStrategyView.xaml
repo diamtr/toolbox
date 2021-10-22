@@ -79,7 +79,16 @@
         <Button Command="{Binding SaveCopyFromListStrategyCommand}" Content="Save" Margin="0,0,30,0"/>
         <ToggleButton x:Name="RenameButton" Content="Rename" />
       </StackPanel>
-      <Button Content="X" Command="{Binding RequestRemoveCommand}" MinWidth="16" HorizontalAlignment="Right" Grid.Column="2"/>
+      <Button Command="{Binding RequestRemoveCommand}"
+              MinWidth="16"
+              HorizontalAlignment="Right"
+              Grid.Column="2">
+        <Button.Content>
+          <Path StrokeThickness="2"
+                Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                Data="M 0 0 L 8 8 M 8 0 L 0 8"/>
+        </Button.Content>
+      </Button>
     </Grid>
     <Grid Grid.Row="1"
           Visibility="{Binding ElementName=ShowListButton, Path=IsChecked, Converter={StaticResource VisibilityBoolConverter}}">
