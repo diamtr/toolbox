@@ -11,7 +11,7 @@ namespace MinionCopy
     public override ICopyStrategy WithSourceExistsValidation()
     {
       if (!(new DirectoryInfo(this.Source).Exists))
-        throw new ArgumentException($"{nameof(CopyDirectoryStrategy)}. Directory '{nameof(this.Source)}' does not exist.");
+        throw new ArgumentException($"{nameof(CopyDirectoryStrategy)}. Directory '{this.Source}' does not exist.");
 
       return this;
     }
