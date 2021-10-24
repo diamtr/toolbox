@@ -69,6 +69,8 @@ namespace MinionCopy.Desktop
     {
       if (e.PropertyName != nameof(this.SelectectedCopyException))
         return;
+      if (this.SelectectedCopyException == null)
+        return;
       this.CopyFromListStrategyViewModel.SetSelectedItem(this.SelectectedCopyException.Owner);
     }
 
