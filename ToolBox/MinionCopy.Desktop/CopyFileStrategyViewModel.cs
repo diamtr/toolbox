@@ -69,6 +69,16 @@ namespace MinionCopy.Desktop
       return exceptions;
     }
 
+    public bool HasItem(ICopyStrategyViewModel item)
+    {
+      return Equals(this, item);
+    }
+
+    public void SetSelectedItem(ICopyStrategyViewModel item)
+    {
+      return;
+    }
+
     public void InvokeRequestRemoveFromParent()
     {
       this.RemoveRequested?.Invoke(this);

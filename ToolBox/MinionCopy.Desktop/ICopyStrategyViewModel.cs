@@ -9,6 +9,8 @@ namespace MinionCopy.Desktop
     public ICopyStrategy GetStrategy();
     public void Copy();
     public List<CopyException> GetCopyExceptions();
+    public bool HasItem(ICopyStrategyViewModel item);
+    public void SetSelectedItem(ICopyStrategyViewModel item);
 
     public event Action<ICopyStrategyViewModel> RemoveRequested;
   }

@@ -60,12 +60,38 @@ namespace MinionCopy.Desktop
         this.OnPropertyChanged();
       }
     }
+    public ICopyStrategyViewModel SelectedItem
+    {
+      get
+      {
+        return this.selectedItem;
+      }
+      set
+      {
+        this.selectedItem = value;
+        this.OnPropertyChanged();
+      }
+    }
+    public bool ShowList
+    {
+      get
+      {
+        return this.showList;
+      }
+      set
+      {
+        this.showList = value;
+        this.OnPropertyChanged();
+      }
+    }
 
     protected readonly string DefaultInitialDirectory = Path.Combine(Environment.CurrentDirectory, "Tools", "minioncopy");
     private string displayName;
     private CopyFromListStrategy strategy;
     private CopyResult copyResult;
     private string lastStrategyPath;
+    private ICopyStrategyViewModel selectedItem;
+    private bool showList;
 
     public event Action<ICopyStrategyViewModel> RemoveRequested;
 
@@ -132,6 +158,11 @@ namespace MinionCopy.Desktop
           exceptions.AddRange(itemExceptions);
       }
       return exceptions;
+    }
+
+    public bool HasItem(ICopyStrategyViewModel item)
+    {
+      return this.DisplayItems.Any(x => x.HasItem(item));
     }
 
     public void AddCopyFileStrategy()
@@ -207,6 +238,25 @@ namespace MinionCopy.Desktop
     public void InvokeRequestRemoveFromParent()
     {
       this.RemoveRequested?.Invoke(this);
+    }
+
+    public void SetSelectedItem(ICopyStrategyViewModel item)
+    {
+      if (item == null)
+        return;
+
+
+      var hasItem = this.HasItem(item);
+      if (!hasItem)
+      {
+        this.SelectedItem = null;
+        return;
+      }
+      
+      this.ShowList = hasItem;
+      this.SelectedItem = this.DisplayItems.FirstOrDefault(x => Equals(x, item));
+      foreach (var displayItem in this.DisplayItems)
+        displayItem.SetSelectedItem(item);
     }
 
     private void DisplayItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -288,6 +338,7 @@ namespace MinionCopy.Desktop
       this.DisplayName = "<New list>";
       this.DisplayItems = new ObservableCollection<ICopyStrategyViewModel>();
       this.DisplayItems.CollectionChanged += this.DisplayItems_CollectionChanged;
+      this.ShowList = true;
       this.InitCommands();
     }
   }

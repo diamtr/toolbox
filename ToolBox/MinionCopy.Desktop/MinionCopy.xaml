@@ -68,7 +68,8 @@
           </ToggleButton>
         </StackPanel>
         <ListView Grid.Row="1"
-                  ItemsSource="{Binding CopyExceptions}"/>
+                  ItemsSource="{Binding CopyExceptions}"
+                  SelectedItem="{Binding SelectectedCopyException}"/>
       </Grid>
     </Grid>
   </Grid>
