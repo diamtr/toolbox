@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MinionCopy.Desktop
 {
@@ -7,6 +8,9 @@ namespace MinionCopy.Desktop
     public CopyResult CopyResult { get; set; }
     public ICopyStrategy GetStrategy();
     public void Copy();
+    public List<CopyException> GetCopyExceptions();
+    public bool HasItem(ICopyStrategyViewModel item);
+    public void SetSelectedItem(ICopyStrategyViewModel item);
 
     public event Action<ICopyStrategyViewModel> RemoveRequested;
   }

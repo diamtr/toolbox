@@ -38,7 +38,7 @@ namespace MinionCopy
         return this;
 
       if (!(new FileInfo(this.Source).Exists))
-        throw new ArgumentException($"{nameof(CopyFromListStrategy)}. File in '{nameof(this.Source)}' does not exist.");
+        throw new ArgumentException($"{nameof(CopyFromListStrategy)}. File '{this.Source}' does not exist.");
 
       return this;
     }

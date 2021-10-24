@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
@@ -59,12 +60,38 @@ namespace MinionCopy.Desktop
         this.OnPropertyChanged();
       }
     }
+    public ICopyStrategyViewModel SelectedItem
+    {
+      get
+      {
+        return this.selectedItem;
+      }
+      set
+      {
+        this.selectedItem = value;
+        this.OnPropertyChanged();
+      }
+    }
+    public bool ShowList
+    {
+      get
+      {
+        return this.showList;
+      }
+      set
+      {
+        this.showList = value;
+        this.OnPropertyChanged();
+      }
+    }
 
     protected readonly string DefaultInitialDirectory = Path.Combine(Environment.CurrentDirectory, "Tools", "minioncopy");
     private string displayName;
     private CopyFromListStrategy strategy;
     private CopyResult copyResult;
     private string lastStrategyPath;
+    private ICopyStrategyViewModel selectedItem;
+    private bool showList;
 
     public event Action<ICopyStrategyViewModel> RemoveRequested;
 
@@ -119,6 +146,23 @@ namespace MinionCopy.Desktop
         this.CopyResult = CopyResult.Failed;
       else if (this.DisplayItems.Any(x => x.CopyResult == CopyResult.Success))
         this.CopyResult = CopyResult.Success;
+    }
+
+    public List<CopyException> GetCopyExceptions()
+    {
+      var exceptions = new List<CopyException>();
+      foreach (var item in this.DisplayItems)
+      {
+        var itemExceptions = item.GetCopyExceptions();
+        if (itemExceptions.Any())
+          exceptions.AddRange(itemExceptions);
+      }
+      return exceptions;
+    }
+
+    public bool HasItem(ICopyStrategyViewModel item)
+    {
+      return this.DisplayItems.Any(x => x.HasItem(item));
     }
 
     public void AddCopyFileStrategy()
@@ -196,7 +240,26 @@ namespace MinionCopy.Desktop
       this.RemoveRequested?.Invoke(this);
     }
 
-    private void DisplayItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    public void SetSelectedItem(ICopyStrategyViewModel item)
+    {
+      if (item == null)
+        return;
+
+
+      var hasItem = this.HasItem(item);
+      if (!hasItem)
+      {
+        this.SelectedItem = null;
+        return;
+      }
+      
+      this.ShowList = hasItem;
+      this.SelectedItem = this.DisplayItems.FirstOrDefault(x => Equals(x, item));
+      foreach (var displayItem in this.DisplayItems)
+        displayItem.SetSelectedItem(item);
+    }
+
+    private void DisplayItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
       if (e.Action == NotifyCollectionChangedAction.Add)
       {
@@ -275,6 +338,7 @@ namespace MinionCopy.Desktop
       this.DisplayName = "<New list>";
       this.DisplayItems = new ObservableCollection<ICopyStrategyViewModel>();
       this.DisplayItems.CollectionChanged += this.DisplayItems_CollectionChanged;
+      this.ShowList = true;
       this.InitCommands();
     }
   }
