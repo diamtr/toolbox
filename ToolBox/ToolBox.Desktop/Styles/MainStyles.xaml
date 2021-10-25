@@ -16,6 +16,20 @@
   <Style x:Key="GeneralWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource {x:Type Window}}">
     <Setter Property="Background" Value="{StaticResource GeneralBackgroundBrush}" />
   </Style>
+
+  <Style TargetType="{x:Type GridSplitter}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type GridSplitter}">
+          <Grid>
+            <Border Background="{TemplateBinding Background}"
+                    BorderBrush="{StaticResource GeneralBorderBrush}"
+                    BorderThickness="2"/>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
   
   <!-- TextBlock -->
   <Style TargetType="{x:Type TextBlock}">
@@ -38,6 +52,7 @@
     <Setter Property="Padding" Value="10,1,10,3"/>
     <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}"/>
     <Setter Property="Background" Value="{StaticResource GeneralBackgroundBrush}"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToggleButton">

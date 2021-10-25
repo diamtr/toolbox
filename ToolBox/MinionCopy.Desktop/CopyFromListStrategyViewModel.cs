@@ -148,16 +148,16 @@ namespace MinionCopy.Desktop
         this.CopyResult = CopyResult.Success;
     }
 
-    public List<CopyException> GetCopyExceptions()
+    public List<ICopyDetailedResult> GetCopyDetailedResults()
     {
-      var exceptions = new List<CopyException>();
+      var detailedResults = new List<ICopyDetailedResult>();
       foreach (var item in this.DisplayItems)
       {
-        var itemExceptions = item.GetCopyExceptions();
-        if (itemExceptions.Any())
-          exceptions.AddRange(itemExceptions);
+        var itemDetailedResults = item.GetCopyDetailedResults();
+        if (itemDetailedResults.Any())
+          detailedResults.AddRange(itemDetailedResults);
       }
-      return exceptions;
+      return detailedResults;
     }
 
     public bool HasItem(ICopyStrategyViewModel item)
@@ -244,7 +244,6 @@ namespace MinionCopy.Desktop
     {
       if (item == null)
         return;
-
 
       var hasItem = this.HasItem(item);
       if (!hasItem)

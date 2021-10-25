@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:msxb="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:MinionCopy.Desktop"
+             xmlns:converter="clr-namespace:ToolBox.Desktop.Base.Converters;assembly=ToolBox.Desktop.Base"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
   <UserControl.Resources>
+    
     <DataTemplate DataType="{x:Type local:CopyFileStrategyViewModel}">
       <local:CopyFileStrategyView/>
     </DataTemplate>
@@ -19,8 +21,14 @@
       <local:CopyFromListStrategyView/>
     </DataTemplate>
     <DataTemplate DataType="{x:Type local:CopyException}">
-      <local:CopyExceptionView/>
+      <local:CopyDetailedResultView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type local:CopySuccess}">
+      <local:CopyDetailedResultView/>
+    </DataTemplate>
+
+    <converter:VisibilityBoolConverter x:Key="VisibilityBoolConverter"/>
+
   </UserControl.Resources>
   
   <UserControl.DataContext>
@@ -66,13 +74,30 @@
         <StackPanel Orientation="Horizontal"
                     Grid.Row="0"
                     Margin="0,5,0,5">
-          <ToggleButton>
+          <RadioButton x:Name="ShowCopyStatusButton"
+                       Style="{StaticResource {x:Type ToggleButton}}"
+                       IsChecked="True">
+            <TextBlock Text="Status"/>
+          </RadioButton>
+          <RadioButton x:Name="ShowCopyExceptionsButton"
+                       Style="{StaticResource {x:Type ToggleButton}}">
             <TextBlock Text="{Binding CopyExceptions.Count, StringFormat=Errors ({0})}"/>
-          </ToggleButton>
+          </RadioButton>
+          <RadioButton x:Name="ShowCopyDetailedResultsButton" Style="{StaticResource {x:Type ToggleButton}}">
+            <TextBlock Text="{Binding CopyDetailedResults.Count, StringFormat=All ({0})}"/>
+          </RadioButton>
         </StackPanel>
+        <TextBlock Grid.Row="1"
+                   Text="{Binding TotalResults}"
+                   Visibility="{Binding ElementName=ShowCopyStatusButton, Path=IsChecked, Converter={StaticResource VisibilityBoolConverter}}"/>
         <ListView Grid.Row="1"
                   ItemsSource="{Binding CopyExceptions}"
-                  SelectedItem="{Binding SelectectedCopyException}"/>
+                  SelectedItem="{Binding SelectedCopyException}"
+                  Visibility="{Binding ElementName=ShowCopyExceptionsButton, Path=IsChecked, Converter={StaticResource VisibilityBoolConverter}}"/>
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding CopyDetailedResults}"
+                  SelectedItem="{Binding SelectedCopyDetailedResult}"
+                  Visibility="{Binding ElementName=ShowCopyDetailedResultsButton, Path=IsChecked, Converter={StaticResource VisibilityBoolConverter}}"/>
       </Grid>
     </Grid>
   </Grid>

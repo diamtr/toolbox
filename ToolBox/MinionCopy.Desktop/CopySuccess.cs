@@ -2,26 +2,23 @@
 
 namespace MinionCopy.Desktop
 {
-  public class CopyException : ICopyDetailedResult
+  public class CopySuccess : ICopyDetailedResult
   {
-    private const string DefaultMessage = @"<Empty>";
-
     public CopyResult CopyResult { get; private set; }
     public string Message
     {
       get
       {
-        return $"Error: {this.Exception?.Message ?? DefaultMessage}";
+        return $"Ok. {this.Owner.GetStrategy().Source} >> {this.Owner.GetStrategy().Destination}";
       }
     }
     public ICopyStrategyViewModel Owner { get; private set; }
     public Exception Exception { get; private set; }
 
-    public CopyException(ICopyStrategyViewModel owner, Exception exception)
+    public CopySuccess(ICopyStrategyViewModel owner)
     {
-      this.CopyResult = CopyResult.Failed;
+      this.CopyResult = CopyResult.Success;
       this.Owner = owner;
-      this.Exception = exception;
     }
   }
 }

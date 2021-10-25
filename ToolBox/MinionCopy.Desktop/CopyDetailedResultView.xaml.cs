@@ -16,9 +16,9 @@ namespace MinionCopy.Desktop
   /// <summary>
   /// Interaction logic for CopyExceptionView.xaml
   /// </summary>
-  public partial class CopyExceptionView : UserControl
+  public partial class CopyDetailedResultView : UserControl
   {
-    public CopyExceptionView()
+    public CopyDetailedResultView()
     {
       InitializeComponent();
     }

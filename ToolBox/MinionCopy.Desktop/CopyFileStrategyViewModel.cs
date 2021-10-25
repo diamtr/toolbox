@@ -33,7 +33,7 @@ namespace MinionCopy.Desktop
 
     private CopyFileStrategy strategy;
     private CopyResult copyResult;
-    private CopyException copyException;
+    private ICopyDetailedResult copyDetailedResult;
 
     public event Action<ICopyStrategyViewModel> RemoveRequested;
 
@@ -47,26 +47,27 @@ namespace MinionCopy.Desktop
     public void Copy()
     {
       this.CopyResult = CopyResult.None;
-      this.copyException = null;
+      this.copyDetailedResult = null;
 
       try
       {
         this.Strategy.Copy();
+        this.copyDetailedResult = new CopySuccess(this);
         this.CopyResult = CopyResult.Success;
       }
       catch (Exception ex)
       {
-        this.copyException = new CopyException(this, ex);
+        this.copyDetailedResult = new CopyException(this, ex);
         this.CopyResult = CopyResult.Failed;
       }
     }
 
-    public List<CopyException> GetCopyExceptions()
+    public List<ICopyDetailedResult> GetCopyDetailedResults()
     {
-      var exceptions = new List<CopyException>();
-      if (this.copyException != null)
-        exceptions.Add(this.copyException);
-      return exceptions;
+      var detailedResults = new List<ICopyDetailedResult>();
+      if (this.copyDetailedResult != null)
+        detailedResults.Add(this.copyDetailedResult);
+      return detailedResults;
     }
 
     public bool HasItem(ICopyStrategyViewModel item)
