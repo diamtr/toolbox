@@ -44,7 +44,12 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"/>
       <Grid Grid.Column="1">
-        <TextBox x:Name="SourceTextBox" Text="{Binding Strategy.Source}" TextWrapping="WrapWithOverflow"/>
+        <TextBox x:Name="SourceTextBox"
+                 Text="{Binding Strategy.Source}"
+                 TextWrapping="WrapWithOverflow"
+                 AllowDrop="True"
+                 Drop="TextBox_Drop"
+                 PreviewDragOver="TextBox_PreviewDragOver"/>
         <TextBlock Text="Source"
                    Visibility="{Binding ElementName=SourceTextBox, Path=Text.IsEmpty, Converter={StaticResource VisibilityBoolConverter}}"
                    IsHitTestVisible="False"
@@ -53,7 +58,12 @@
       </Grid>
       <TextBlock Text="d >>" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
       <Grid Grid.Column="3">
-        <TextBox x:Name="DestinationTextBox" Text="{Binding Strategy.Destination}"/>
+        <TextBox x:Name="DestinationTextBox"
+                 Text="{Binding Strategy.Destination}"
+                 TextWrapping="WrapWithOverflow"
+                 AllowDrop="True"
+                 Drop="TextBox_Drop"
+                 PreviewDragOver="TextBox_PreviewDragOver"/>
         <TextBlock Text="Destination"
                    Visibility="{Binding ElementName=DestinationTextBox, Path=Text.IsEmpty, Converter={StaticResource VisibilityBoolConverter}}"
                    IsHitTestVisible="False"
