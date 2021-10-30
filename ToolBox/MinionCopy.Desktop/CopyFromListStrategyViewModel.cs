@@ -287,6 +287,17 @@ namespace MinionCopy.Desktop
       this.DisplayItems.Remove(sender);
     }
 
+    private void DisplayName_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+      if (e.PropertyName != nameof(this.DisplayName))
+        return;
+
+      if (this.Strategy == null)
+        return;
+
+      this.Strategy.Name = this.DisplayName;
+    }
+
     private void InitCommands()
     {
       this.AddCopyFileStrategyCommand = new Command(
@@ -332,6 +343,7 @@ namespace MinionCopy.Desktop
 
     public CopyFromListStrategyViewModel()
     {
+      this.PropertyChanged += DisplayName_PropertyChanged;
       this.Strategy = new CopyFromListStrategy();
       this.CopyResult = CopyResult.None;
       this.DisplayName = "<New list>";
