@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="RunForrestPlugin.ScriptDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunForrestPlugin"
+             xmlns:res="clr-namespace:RunForrestPlugin.Properties"
+             mc:Ignorable="d">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\Brushes.xaml" />
+        <ResourceDictionary Source="..\Styles.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+
+  <Border Padding="10"
+          Background="{StaticResource ControlBackgroundBrush}">
+    
+    <Grid>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <StackPanel Grid.Row="0"
+                  Orientation="Vertical">
+
+        <TextBlock Text="Command Line"/>
+        <TextBox Text="{Binding ScriptData.Body}"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 Margin="0,0,0,10"/>
+
+        <TextBlock Text="Working Directory" />
+        <TextBox Text="{Binding ScriptData.WorkingDirectory}"
+                 Margin="0,0,0,10"/>
+
+        <TextBlock Text="Comment" />
+        <TextBox Text="{Binding ScriptData.Comment}"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 Margin="0,0,0,10"/>
+
+      </StackPanel>
+
+      <Button Grid.Row="1"
+              HorizontalAlignment="Right"
+              Margin="0,20,0,0"
+              Content="{x:Static res:Resources.ScriptDataViewCloseButton}"
+              Command="{Binding CloseScriptDataViewCommand}"/>
+      
+    </Grid>
+    
+  </Border>
+  
+</UserControl>

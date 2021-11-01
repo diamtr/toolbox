@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="RunForrestPlugin.PlayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunForrestPlugin"
+             mc:Ignorable="d" >
+  
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\Brushes.xaml" />
+        <ResourceDictionary Source="..\Styles.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </UserControl.Resources>
+  
+  <Grid>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <ProgressBar Grid.Row="0"
+                 Margin="0,0,0,10"
+                 VerticalAlignment="Center"
+                 Height="5"
+                 IsIndeterminate="False"
+                 Background="{StaticResource ControlBackgroundBrush}"
+                 Foreground="{StaticResource HighlihtBrush}"
+                 BorderBrush="{x:Null}"
+                 Maximum="{Binding Total}"
+                 Value="{Binding Current}" />
+
+    <StackPanel Grid.Row="1"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center">
+      <Button Command="{Binding StopCommand}">
+        <Path Data="M-5,-5 L5,-5 L5,5 L-5,5 L-5,-5"
+              Stretch="Uniform"
+              Stroke="{StaticResource GeneralForegroundBrush}"
+              Fill="{StaticResource GeneralForegroundBrush}" />
+      </Button>
+      <Button Command="{Binding PlayCommand}">
+        <Path Data="M-7,-7 L5,0 L-7,7 L-7,-7"
+              Stretch="Uniform"
+              Stroke="{StaticResource GeneralForegroundBrush}"
+              Fill="{StaticResource GeneralForegroundBrush}" />
+      </Button>
+      <Button Command="{Binding ForwardCommand}">
+        <Path Data="M-5,-5 L0,0 L0,-5 L5,0 L0,5 L0,0 L-5,5 L-5,-5"
+              Stretch="Uniform"
+              Stroke="{StaticResource GeneralForegroundBrush}"
+              Fill="{StaticResource GeneralForegroundBrush}" />
+      </Button>
+    </StackPanel>
+
+  </Grid>
+</UserControl>

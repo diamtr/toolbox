@@ -15,11 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolBox.Desktop.Base", "Too
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolBox.Console.Base", "ToolBox.Console.Base\ToolBox.Console.Base.csproj", "{136F08A1-DE73-407F-96A5-6C03A3C6DDEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinionCopy.Desktop", "MinionCopy.Desktop\MinionCopy.Desktop.csproj", "{CF4F35C3-51B7-4D56-8DD9-828A789430AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinionCopy.Desktop", "MinionCopy.Desktop\MinionCopy.Desktop.csproj", "{CF4F35C3-51B7-4D56-8DD9-828A789430AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinionCopy.Core", "MinionCopy.Core\MinionCopy.Core.csproj", "{EFC4B3AC-2112-439A-998E-2C5C7969540A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinionCopy.Core.Tests", "MinionCopy.Core.Tests\MinionCopy.Core.Tests.csproj", "{B3EA9955-6285-41E7-9012-54FAE1354E90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunForrest.Desktop", "RunForrest.Desktop\RunForrest.Desktop.csproj", "{F755775E-656E-4340-AD04-A821DBCE4ECC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunForrest.Desktop.Tests", "RunForrest.Desktop.Tests\RunForrest.Desktop.Tests.csproj", "{B136600F-D92A-4FF4-BAAD-A895720D77B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{B3EA9955-6285-41E7-9012-54FAE1354E90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3EA9955-6285-41E7-9012-54FAE1354E90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3EA9955-6285-41E7-9012-54FAE1354E90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F755775E-656E-4340-AD04-A821DBCE4ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F755775E-656E-4340-AD04-A821DBCE4ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F755775E-656E-4340-AD04-A821DBCE4ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F755775E-656E-4340-AD04-A821DBCE4ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B136600F-D92A-4FF4-BAAD-A895720D77B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B136600F-D92A-4FF4-BAAD-A895720D77B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B136600F-D92A-4FF4-BAAD-A895720D77B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B136600F-D92A-4FF4-BAAD-A895720D77B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

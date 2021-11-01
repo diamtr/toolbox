@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="RunForrestPlugin.ControlPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunForrestPlugin"
+             xmlns:res="clr-namespace:RunForrestPlugin.Properties"
+             mc:Ignorable="d">
+
+  <UserControl.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="..\Brushes.xaml" />
+        <ResourceDictionary Source="..\Styles.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <local:BoolEnumConverter x:Key="BoolEnumConverter"/>
+
+      <DataTemplate DataType="{x:Type local:Player}">
+        <local:PlayerView />
+      </DataTemplate>
+
+    </ResourceDictionary>
+  </UserControl.Resources>
+  
+  <Border Padding="10,0,10,10"
+          Background="{StaticResource ControlBackgroundBrush}">
+    
+    <Grid>
+
+      <Grid.RowDefinitions>
+        <!-- 0 :: Menu -->
+        <RowDefinition Height="Auto" />
+        <!-- 1 :: Content -->
+        <RowDefinition Height="Auto" />
+        <!-- 2 :: Player -->
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <!-- MENU -->
+      <StackPanel Grid.Row="0"
+                  Margin="0,0,0,5"
+                  Orientation="Horizontal">
+
+        <Button Style="{StaticResource InlineButton}"
+                Command="{Binding OpenScriptsFileCommand}"
+                Content="{x:Static res:Resources.OpenScriptsFileButton}" />
+
+        <Button Style="{StaticResource RicentButton}"
+                Margin="0,0,10,0" >
+          <Button.ContextMenu>
+            <ContextMenu ItemsSource="{Binding RiecentScripts}">
+            </ContextMenu>
+          </Button.ContextMenu>
+        </Button>
+
+        <Button Style="{StaticResource InlineButton}"
+                Command="{Binding SaveScriptsFileCommand}"
+                Content="{x:Static res:Resources.SaveScriptsFileButton}" />
+
+        <Button Style="{StaticResource InlineButton}"
+                Command="{Binding ClearScriptsCommand}"
+                Content="{x:Static res:Resources.NewScriptsButton}" />
+
+      </StackPanel>
+      
+      <!-- CONTENT -->
+      <Grid Grid.Row="1"
+            Margin="0,5,0,5">
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- Additional Content Area Buttons -->
+        <StackPanel Grid.Column="0"
+                    Margin="0,0,5,0"
+                    Orientation="Vertical">
+          <RadioButton Content="{x:Static res:Resources.LogButton}"
+                       IsChecked="{Binding AdditionalContentAreaType, Converter={StaticResource BoolEnumConverter}, ConverterParameter=Log}"/>
+          <RadioButton Content="{x:Static res:Resources.VariablesButton}"
+                       IsChecked="{Binding AdditionalContentAreaType, Converter={StaticResource BoolEnumConverter}, ConverterParameter=Variables}"/>
+          <RadioButton Content="{x:Static res:Resources.ScriptButton}"
+                       IsChecked="{Binding AdditionalContentAreaType, Converter={StaticResource BoolEnumConverter}, ConverterParameter=Script}"/>
+          
+        </StackPanel>
+        
+        <!-- Content -->
+        <Grid Grid.Column="1">
+          <StackPanel Orientation="Vertical"
+                      Background="{StaticResource GeneralBackgroundBrush}">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="File:" Foreground="{StaticResource GrayForegroundBrush}" />
+              <TextBlock Text="{Binding OpenedFile}" Foreground="{StaticResource GrayForegroundBrush}" />
+            </StackPanel>
+
+            <StackPanel>
+              <TextBlock HorizontalAlignment="Center" Text="{Binding NowExecuting.Body}" FontWeight="Bold"/>
+              <TextBlock HorizontalAlignment="Center" Text="{Binding NowExecuting.WorkingDirectory}" />
+              <TextBlock HorizontalAlignment="Center" Text="{Binding NowExecuting.Comment}" />
+            </StackPanel>
+          </StackPanel>          
+        </Grid>
+        
+      </Grid>
+
+      <!-- PLAYER -->
+      <ContentControl Grid.Row="2"
+                      Margin="0,5,0,0"
+                      Content="{Binding Player}" />
+
+    </Grid>
+    
+  </Border>
+</UserControl>
