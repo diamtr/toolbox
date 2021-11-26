@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
+using RunForrest.Desktop;
 using System;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Web.Script.Serialization;
 
 namespace RunForrestPlugin.Tests
 {
@@ -177,30 +176,6 @@ namespace RunForrestPlugin.Tests
       var dateTimeNow = DateTime.Now;
       variables.SaveToFile();
       Assert.Less(variables.LastSaveDateTime - dateTimeNow, TimeSpan.FromSeconds(1));
-    }
-
-    [Test]
-    public void VariablesLoadedFromDefaultFile()
-    {
-      var defaultPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "rfp_variables.json");
-      var givenText = @"[{""Name"":""Name1"",""Value"":""Value1""},{""Name"":""Name2"",""Value"":""Value2""}]";
-      File.WriteAllText(defaultPath, givenText);
-      var variables = new Variables();
-      Assert.IsEmpty(variables.Items);
-      variables.LoadFromFile();
-      Assert.AreEqual(2, variables.Items.Count);
-      Assert.AreEqual(1, variables.Items.Where(x => x.Name == "Name1" && x.Value == "Value1").Count());
-      Assert.AreEqual(1, variables.Items.Where(x => x.Name == "Name2" && x.Value == "Value2").Count());
-    }
-
-    [Test]
-    public void VariablesLoadedFromNotExistsFile()
-    {
-      var notExistingPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "rfp_variables_not_exists.json");
-      var variables = new Variables();
-      Assert.IsEmpty(variables.Items);
-      variables.LoadFromFile(notExistingPath);
-      Assert.AreEqual(0, variables.Items.Count);
     }
 
     [Test]

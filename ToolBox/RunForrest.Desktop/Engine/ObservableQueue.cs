@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
   // https://stackoverflow.com/a/4266692/8878639
   public class ObservableQueue<T>: INotifyCollectionChanged, IEnumerable<T>

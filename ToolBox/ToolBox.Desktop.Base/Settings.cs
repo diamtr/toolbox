@@ -40,16 +40,20 @@ namespace ToolBox.Desktop.Base
 
     public T Get<T>(string name, T defaultValue)
     {
-      var ownerSettings = new List<Setting>();
-      using (var settingsContext = new SettingsContext())
-        ownerSettings.AddRange(settingsContext.Settings.Where(x => x.Owner == this.Owner));
-
-      var setting = ownerSettings.FirstOrDefault(x => x.Name == name);
+      var setting = this.GetAll().FirstOrDefault(x => x.Name == name);
 
       if (setting == null)
         return defaultValue;
 
       return (T)Convert.ChangeType(setting.Value, typeof(T));
+    }
+
+    public List<Setting> GetAll()
+    {
+      var ownerSettings = new List<Setting>();
+      using (var settingsContext = new SettingsContext())
+        ownerSettings.AddRange(settingsContext.Settings.Where(x => x.Owner == this.Owner));
+      return ownerSettings;
     }
 
     public void Update(string name, object value)

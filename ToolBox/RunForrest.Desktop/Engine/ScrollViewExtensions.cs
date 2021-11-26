@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RunForrestPlugin.Extensions
+namespace RunForrest.Desktop.Extensions
 {
   public class ScrollViewerExtensions
   {

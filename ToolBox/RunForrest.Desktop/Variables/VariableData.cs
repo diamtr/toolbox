@@ -1,4 +1,4 @@
-﻿namespace RunForrestPlugin
+﻿namespace RunForrest.Desktop
 {
   public class VariableData
   {

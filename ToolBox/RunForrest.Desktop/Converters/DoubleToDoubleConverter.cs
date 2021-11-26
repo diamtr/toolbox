@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
   public class DoubleToDoubleConverter : IValueConverter
   {

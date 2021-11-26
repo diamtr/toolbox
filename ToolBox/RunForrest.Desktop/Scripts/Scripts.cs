@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using ToolBox.Shared;
+using ToolBox.Desktop.Base;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
   public class Scripts : ViewModelBase
   {
@@ -79,7 +79,9 @@ namespace RunForrestPlugin
     {
       var scripts = ScriptData.Deserialize(File.ReadAllLines(path))
         .Select(x => new Script() { ScriptData = x });
-      this.Items.ClearAddRange(scripts);
+      this.Items.Clear();
+      foreach (var script in scripts)
+        this.Items.Add(script);
     }
 
     public void SaveToFile(object sender, string path)

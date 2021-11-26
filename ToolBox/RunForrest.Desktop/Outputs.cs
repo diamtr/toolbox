@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using ToolBox.Shared;
+using ToolBox.Desktop.Base;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
   public class Outputs : ViewModelBase
   {

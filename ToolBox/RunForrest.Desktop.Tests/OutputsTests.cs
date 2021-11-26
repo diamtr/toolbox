@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using RunForrest.Desktop;
 
 namespace RunForrestPlugin.Tests
 {

@@ -4,15 +4,15 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
-using ToolBox.Shared;
+using ToolBox.Desktop.Base;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
   public class Variables : ViewModelBase
   {
     #region Constants
 
+    private const string SettingsOwnerName = "RunForrest";
     private const string DefaultVariablesFileName = @"rfp_variables.json";
 
     #endregion
@@ -103,35 +103,24 @@ namespace RunForrestPlugin
 
     public void SaveToFile(string path = DefaultVariablesFileName)
     {
-      path = this.GetVariablesFilePath(path);
-      var content = new StringBuilder();
-      var jss = new JavaScriptSerializer();
-      jss.Serialize(this.Items, content);
-      File.WriteAllText(path, content.ToString());
+      var settings = Settings.GetSettings(SettingsOwnerName);
+      foreach (var variable in this.Items)
+      {
+        if (settings.HasSetting(variable.Name))
+          settings.Update(variable.Name, variable.Value);
+        else
+          settings.Add(variable.Name, variable.Value);
+      }
       this.LastSaveDateTime = DateTime.Now;
     }
 
-    public void LoadFromFile(string path = DefaultVariablesFileName)
+    public void LoadFromSettings()
     {
-      path = this.GetVariablesFilePath(path);
-      if (!File.Exists(path))
-        return;
-      var text = File.ReadAllText(path);
-      var jss = new JavaScriptSerializer();
-      var variablesList = jss.Deserialize<List<VariableData>>(text);
-      this.Items.ClearAddRange(variablesList);
-    }
-
-    private string GetVariablesFilePath(string path)
-    {
-      var dir = System.AppDomain.CurrentDomain.BaseDirectory;
-      if (string.IsNullOrWhiteSpace(path))
-        return Path.Combine(dir, DefaultVariablesFileName);
-
-      if (!Path.IsPathRooted(path))
-        return Path.Combine(dir, path);
-
-      return path;
+      var settings = Settings.GetSettings(SettingsOwnerName);
+      var variablesList = settings.GetAll();
+      this.Items.Clear();
+      foreach (var variable in variablesList)
+        this.Items.Add(new VariableData() { Name = variable.Name, Value = variable.Value });
     }
 
     #endregion

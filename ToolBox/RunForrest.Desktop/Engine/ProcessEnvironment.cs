@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
   public class ProcessEnvironment
   {
@@ -126,10 +125,12 @@ namespace RunForrestPlugin
     private List<Process> GetChildProcesses32(Process process)
     {
       var children = new List<Process>();
-      var query = $"Select * From Win32_Process Where ParentProcessID={process.Id}";
-      var childProcesses32 = new ManagementObjectSearcher(query).Get();
-      foreach (var co in childProcesses32)
-        children.Add(Process.GetProcessById(Convert.ToInt32(co["ProcessId"])));
+      
+      #warning Need another way
+      //var query = $"Select * From Win32_Process Where ParentProcessID={process.Id}";
+      //var childProcesses32 = new ManagementObjectSearcher(query).Get();
+      //foreach (var co in childProcesses32)
+      //  children.Add(Process.GetProcessById(Convert.ToInt32(co["ProcessId"])));
 
       return children;
     }

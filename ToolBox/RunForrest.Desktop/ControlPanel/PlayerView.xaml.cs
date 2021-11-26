@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
     /// <summary>
     /// Interaction logic for PlayerView.xaml

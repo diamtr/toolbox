@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
-namespace RunForrestPlugin
+namespace RunForrest.Desktop
 {
   public class BoolEnumConverter : IValueConverter
   {
