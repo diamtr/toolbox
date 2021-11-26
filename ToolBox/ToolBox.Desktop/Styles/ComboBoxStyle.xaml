@@ -43,11 +43,13 @@
       </VisualStateManager.VisualStateGroups>
 
       <Border Grid.ColumnSpan="2" x:Name="Border"
-              BorderBrush="{StaticResource GeneralBorderBrush}" 
               BorderThickness="1, 1, 1, 1">
         <Border.Background>
           <SolidColorBrush Color="{StaticResource InputAreaBackground}"/>
         </Border.Background>
+        <Border.BorderBrush>
+          <SolidColorBrush Color="{StaticResource GeneralBorder}"/>
+        </Border.BorderBrush>
       </Border>
 
 
@@ -68,7 +70,8 @@
 
   <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
     <Border x:Name="PART_ContentHost"
-            Focusable="False" Background="{TemplateBinding Background}" />
+            Focusable="False"
+            Background="{TemplateBinding Background}" />
   </ControlTemplate>
 
   <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
@@ -125,7 +128,7 @@
                               ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                               Margin="3,3,23,3"
                               VerticalAlignment="Stretch"
-                              HorizontalAlignment="Left">
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
             </ContentPresenter>
             <TextBox x:Name="PART_EditableTextBox"
                      Style="{x:Null}"

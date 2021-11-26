@@ -29,6 +29,7 @@ namespace RunForrest.Desktop
     public Variables Variables { get; protected set; }
     public Outputs Outputs { get; protected set; }
     public Scripts Scripts { get; protected set; }
+    public MainMenuViewModel MainMenuViewModel { get; private set; }
 
     #endregion
 
@@ -222,6 +223,7 @@ namespace RunForrest.Desktop
     
     public MainViewModel()
     {
+      this.MainMenuViewModel = new MainMenuViewModel();
       this.Variables = new Variables();
       this.Outputs = new Outputs();
       this.Scripts = new Scripts();

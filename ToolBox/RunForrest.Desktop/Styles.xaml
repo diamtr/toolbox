@@ -22,28 +22,6 @@
     <Setter Property="CaretBrush" Value="{StaticResource GeneralForegroundBrush}" />
   </Style>
 
-  <Style TargetType="{x:Type Button}">
-    <Setter Property="Cursor" Value="Hand" />
-    <Setter Property="Background" Value="{StaticResource GeneralBackgroundBrush}" />
-    <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}" />
-    <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Button}">
-          <Border Background="{TemplateBinding Background}">
-            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-                              Margin="25,5,25,5" />
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource HighlihtBrush}" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
   <Style TargetType="{x:Type RadioButton}">
     <Setter Property="Template">
       <Setter.Value>
