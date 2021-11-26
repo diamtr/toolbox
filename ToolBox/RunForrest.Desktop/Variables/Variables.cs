@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
 using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
@@ -13,7 +10,6 @@ namespace RunForrest.Desktop
     #region Constants
 
     private const string SettingsOwnerName = "RunForrest";
-    private const string DefaultVariablesFileName = @"rfp_variables.json";
 
     #endregion
 
@@ -61,7 +57,7 @@ namespace RunForrest.Desktop
         );
 
       this.SaveVariablesCommand = new Command(
-        x => { this.SaveToFile(); },
+        x => { this.Save(); },
         x => true
         );
     }
@@ -101,7 +97,7 @@ namespace RunForrest.Desktop
       this.Items.Remove(variable);
     }
 
-    public void SaveToFile(string path = DefaultVariablesFileName)
+    public void Save()
     {
       var settings = Settings.GetSettings(SettingsOwnerName);
       foreach (var variable in this.Items)

@@ -1,10 +1,9 @@
 ﻿using NUnit.Framework;
-using RunForrest.Desktop;
 using System;
 using System.IO;
 using System.Linq;
 
-namespace RunForrestPlugin.Tests
+namespace RunForrest.Desktop.Tests
 {
   [TestFixture]
   public class VariablesTests
@@ -97,85 +96,6 @@ namespace RunForrestPlugin.Tests
       Assert.AreEqual(1, variables.Items.Count);
       Assert.AreEqual("Name2", variables.Items.First().Name);
       Assert.AreEqual("Value2", variables.Items.First().Value);
-    }
-
-    [Test]
-    public void GetPathToSaveVariablesIfNotPassed()
-    {
-      var baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-      var defaultPath = Path.Combine(baseDir, "rfp_variables.json");
-      var variables = new Variables();
-      var getVariablesFilePathMethod =
-        variables.GetType()
-        .GetMethods(System.Reflection.BindingFlags.Instance |
-                    System.Reflection.BindingFlags.NonPublic)
-        .FirstOrDefault(x => x.Name == "GetVariablesFilePath");
-      Assert.IsNotNull(getVariablesFilePathMethod);
-      var path = getVariablesFilePathMethod.Invoke(variables, new object[] { null });
-      Assert.AreEqual(defaultPath, path);
-    }
-
-    [Test]
-    public void GetPathToSaveVariablesIfPassedRelative()
-    {
-      var baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-      var expectedPath = Path.Combine(baseDir, "Scripts\\rfp_variables.json");
-      var passedPath = @"Scripts\rfp_variables.json";
-      var variables = new Variables();
-      var getVariablesFilePathMethod =
-        variables.GetType()
-        .GetMethods(System.Reflection.BindingFlags.Instance |
-                    System.Reflection.BindingFlags.NonPublic)
-        .FirstOrDefault(x => x.Name == "GetVariablesFilePath");
-      Assert.IsNotNull(getVariablesFilePathMethod);
-      var path = getVariablesFilePathMethod.Invoke(variables, new object[] { passedPath });
-      Assert.AreEqual(expectedPath, path);
-    }
-
-    [Test]
-    public void GetPathToSaveVariablesIfPassedRooted()
-    {
-      var expectedPath = @"D:\\rfp_variables.json";
-      var passedPath = @"D:\\rfp_variables.json";
-      var variables = new Variables();
-      var getVariablesFilePathMethod =
-        variables.GetType()
-        .GetMethods(System.Reflection.BindingFlags.Instance |
-                    System.Reflection.BindingFlags.NonPublic)
-        .FirstOrDefault(x => x.Name == "GetVariablesFilePath");
-      Assert.IsNotNull(getVariablesFilePathMethod);
-      var path = getVariablesFilePathMethod.Invoke(variables, new object[] { passedPath });
-      Assert.AreEqual(expectedPath, path);
-    }
-
-    [Test]
-    public void VariablesSavedToDefaultFile()
-    {
-      var variables = new Variables();
-      var variable1 = new VariableData() { Name = "Name1", Value = "Value1" };
-      var variable2 = new VariableData() { Name = "Name2", Value = "Value2" };
-      variables.AddNewVariable(variable1);
-      variables.AddNewVariable(variable2);
-      variables.SaveToFile();
-      var defaultPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "rfp_variables.json");
-      Assert.IsTrue(File.Exists(defaultPath));
-      var text = File.ReadAllText(defaultPath);
-      Assert.IsNotEmpty(text);
-      var expectedText = @"[{""Name"":""Name1"",""Value"":""Value1""},{""Name"":""Name2"",""Value"":""Value2""}]";
-      Assert.AreEqual(expectedText, text);
-    }
-
-    [Test]
-    public void CheckVariablesLastSaveDateTime()
-    {
-      var variables = new Variables();
-      var variable1 = new VariableData() { Name = "Name1", Value = "Value1" };
-      var variable2 = new VariableData() { Name = "Name2", Value = "Value2" };
-      variables.AddNewVariable(variable1);
-      variables.AddNewVariable(variable2);
-      var dateTimeNow = DateTime.Now;
-      variables.SaveToFile();
-      Assert.Less(variables.LastSaveDateTime - dateTimeNow, TimeSpan.FromSeconds(1));
     }
 
     [Test]

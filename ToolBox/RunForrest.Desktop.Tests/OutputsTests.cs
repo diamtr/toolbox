@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using RunForrest.Desktop;
 
-namespace RunForrestPlugin.Tests
+namespace RunForrest.Desktop.Tests
 {
   [TestFixture]
   public class OutputsTests

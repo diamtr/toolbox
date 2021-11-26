@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
-using RunForrest.Desktop;
 using System.Collections.Generic;
 using TestStack.BDDfy;
 
-namespace RunForrestPlugin.Tests
+namespace RunForrest.Desktop.Tests
 {
   [TestFixture]
   public class ScriptDataSerializationTests

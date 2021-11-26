@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RunForrestPlugin.Tests
+namespace RunForrest.Desktop.Tests
 {
   class BatchSerializationCases
   {

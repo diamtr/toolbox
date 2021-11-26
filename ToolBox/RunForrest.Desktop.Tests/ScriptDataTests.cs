@@ -1,8 +1,7 @@
 ﻿using NUnit.Framework;
-using RunForrest.Desktop;
 using System.Collections.Generic;
 
-namespace RunForrestPlugin.Tests
+namespace RunForrest.Desktop.Tests
 {
   [TestFixture]
   public class ScriptDataTests
