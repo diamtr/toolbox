@@ -45,12 +45,12 @@
         <local:OutputsView />
       </DataTemplate>
 
-      <DataTemplate DataType="{x:Type local:Scripts}">
-        <local:ScriptsView />
+      <DataTemplate DataType="{x:Type local:ScriptsListViewModel}">
+        <local:ScriptsListView />
       </DataTemplate>
 
       <DataTemplate DataType="{x:Type local:Script}">
-        <local:ScriptDataView />
+        <local:ScriptDataView/>
       </DataTemplate>
 
       <DataTemplate DataType="{x:Type local:ControlPanel}">
@@ -86,7 +86,7 @@
 
       <!-- Scripts List -->
       <ContentControl Grid.Row="2"
-                      Content="Scripts List" />
+                      Content="{Binding ScriptsListViewModel}" />
 
     </Grid>
     
@@ -118,7 +118,7 @@
 
         <!-- Scripts View -->
         <Grid Grid.Row="1">
-          <ContentControl Content="{Binding Scripts}" />
+          <ContentControl Content="{Binding ScriptsListViewModel}" />
         </Grid>
 
         <!-- Grid Splitter -->

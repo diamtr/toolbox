@@ -28,7 +28,7 @@ namespace RunForrest.Desktop
     public ControlPanel ControlPanel { get; protected set; }
     public Variables Variables { get; protected set; }
     public Outputs Outputs { get; protected set; }
-    public Scripts Scripts { get; protected set; }
+    public ScriptsListViewModel ScriptsListViewModel { get; protected set; }
     public MainMenuViewModel MainMenuViewModel { get; private set; }
 
     #endregion
@@ -63,8 +63,8 @@ namespace RunForrest.Desktop
 
     private async void RunScriptsExecution()
     {
-      if (this.Scripts.Items.Any(x => x.IsRunning))
-        return;
+      //if (this.ScriptsListViewModel.Items.Any(x => x.IsRunning))
+      //  return;
 
       this.Outputs.Clear();
       this.ControlPanel.AdditionalContentAreaType = AdditionalContentAreaType.Log;
@@ -101,13 +101,13 @@ namespace RunForrest.Desktop
 
     private List<Script> GetScriptsToExecute()
     {
-      var hasCheckedScripts = this.Scripts.Items.Any(x => x.IsChecked);
-      var scriptVmsToExecute = this.Scripts.Items.ToList();
+      //var hasCheckedScripts = this.ScriptsListViewModel.Items.Any(x => x.IsChecked);
+      //var scriptVmsToExecute = this.ScriptsListViewModel.Items.ToList();
 
-      if (hasCheckedScripts)
-        scriptVmsToExecute = scriptVmsToExecute.Where(x => x.IsChecked).ToList();
+      //if (hasCheckedScripts)
+      //  scriptVmsToExecute = scriptVmsToExecute.Where(x => x.IsChecked).ToList();
 
-      return scriptVmsToExecute;
+      return new List<Script>();
     }
 
     private Task GetScriptsExecutionTask(IEnumerable<Script> scripts,
@@ -147,10 +147,10 @@ namespace RunForrest.Desktop
 
     private void RemoveScripts()
     {
-      var scripts = this.Scripts.Items.Where(x => !x.IsChecked);
-      this.Scripts.Items.Clear();
-      foreach (var script in scripts)
-        this.Scripts.Items.Add(script);
+      //var scripts = this.ScriptsListViewModel.Items.Where(x => !x.IsChecked);
+      //this.ScriptsListViewModel.Items.Clear();
+      //foreach (var script in scripts)
+      //  this.ScriptsListViewModel.Items.Add(script);
     }
 
     private void CopyScriptsExecutionLogSelectedItems(object parameter)
@@ -180,7 +180,7 @@ namespace RunForrest.Desktop
           this.AdditionalContentAreaViewModel = this.Outputs;
           break;
         case AdditionalContentAreaType.Script:
-          this.AdditionalContentAreaViewModel = this.Scripts.SelectedItem;
+          this.AdditionalContentAreaViewModel = this.ScriptsListViewModel.SelectedItem;
           break;
         default:
           this.AdditionalContentAreaViewModel = null;
@@ -197,7 +197,7 @@ namespace RunForrest.Desktop
       }
 
       if (e.PropertyName == "SelectedItem")
-        if (this.Scripts.SelectedItem != null)
+        if (this.ScriptsListViewModel.SelectedItem != null)
           this.ControlPanel.AdditionalContentAreaType = AdditionalContentAreaType.Script;
         else
           this.ControlPanel.AdditionalContentAreaType = AdditionalContentAreaType.Empty;
@@ -215,7 +215,7 @@ namespace RunForrest.Desktop
 
     private void ClearScripts()
     {
-      this.Scripts.Items.Clear();
+      this.ScriptsListViewModel.Items.Clear();
       this.Outputs.Clear();
     }
 
@@ -226,16 +226,16 @@ namespace RunForrest.Desktop
       this.MainMenuViewModel = new MainMenuViewModel();
       this.Variables = new Variables();
       this.Outputs = new Outputs();
-      this.Scripts = new Scripts();
-      this.Scripts.PropertyChanged += this.OnScriptsChanged;
+      this.ScriptsListViewModel = new ScriptsListViewModel();
+      this.ScriptsListViewModel.PropertyChanged += this.OnScriptsChanged;
       this.ControlPanel = new ControlPanel();
       this.ControlPanel.ClearScripts += this.ClearScripts;
-      this.ControlPanel.LoadScriptsFromFile += this.Scripts.LoadFromFile;
-      this.ControlPanel.SaveScriptsToFile += this.Scripts.SaveToFile;
+      this.ControlPanel.LoadScriptsFromFile += this.ScriptsListViewModel.LoadFromFile;
+      this.ControlPanel.SaveScriptsToFile += this.ScriptsListViewModel.SaveToFile;
       this.ControlPanel.AdditionalContentAreaTypeChanged += this.AdditionalContentAreaTypeChanged;
       this.ControlPanel.Player.Play += this.RunScriptsExecution;
       this.ControlPanel.Player.Stop += this.StopAllScriptExecution;
-      this.ControlPanel.Player.Forward += this.Scripts.AbortRunningScriptExecution;
+      this.ControlPanel.Player.Forward += this.ScriptsListViewModel.AbortRunningScriptExecution;
 
       this.InitCommands();
     }

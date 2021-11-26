@@ -18,9 +18,9 @@ namespace RunForrest.Desktop
   /// <summary>
   /// Interaction logic for ScriptsView.xaml
   /// </summary>
-  public partial class ScriptsView : UserControl
+  public partial class ScriptsListView : UserControl
   {
-    public ScriptsView()
+    public ScriptsListView()
     {
       InitializeComponent();
     }

@@ -9,14 +9,14 @@ namespace RunForrest.Desktop.Tests
     [Test]
     public void CreateScriptsClass()
     {
-      var scripts = new Scripts();
+      var scripts = new ScriptsListViewModel();
       Assert.IsEmpty(scripts.Items);
     }
 
     [Test]
     public void AddNewCommand()
     {
-      var scripts = new Scripts();
+      var scripts = new ScriptsListViewModel();
       Assert.IsEmpty(scripts.Items);
 
       var command = scripts.AddNewScriptCommand;
@@ -31,7 +31,7 @@ namespace RunForrest.Desktop.Tests
     [Test]
     public void RemoveSelectedScriptsCommand()
     {
-      var scripts = new Scripts();
+      var scripts = new ScriptsListViewModel();
       Assert.IsEmpty(scripts.Items);
 
       var command = scripts.RemoveSelectedScriptsCommand;
