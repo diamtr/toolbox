@@ -41,8 +41,19 @@ namespace RunForrest.Desktop
     private void CreateNewScript()
     {
       var newScript = new ScriptViewModel();
+      newScript.DeleteRequested += this.OnScriptViewModelDeleteRequested;
       this.Items.Add(newScript);
       this.SelectedItem = newScript;
+    }
+
+    private void OnScriptViewModelDeleteRequested(ScriptViewModel sender)
+    {
+      if (sender == null)
+        return;
+
+      sender.DeleteRequested -= this.OnScriptViewModelDeleteRequested;
+      if (this.Items.Any(x => Equals(x, sender)))
+        this.Items.Remove(sender);
     }
 
     private void AttachToSelectedItemCloseEvent(Script newValue)

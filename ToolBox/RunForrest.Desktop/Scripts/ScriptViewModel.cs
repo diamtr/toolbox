@@ -1,9 +1,11 @@
-﻿using ToolBox.Desktop.Base;
+﻿using System;
+using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
 {
   public class ScriptViewModel : ViewModelBase
   {
+    public event Action<ScriptViewModel> DeleteRequested;
 
     public Command DeleteCommand { get; private set; }
     public Command MuteCommand { get; private set; }
@@ -13,7 +15,7 @@ namespace RunForrest.Desktop
     private void InitCommands()
     {
       this.DeleteCommand = new Command(
-        x => { },
+        x => { this.RaiseDeleteRequested(); },
         x => true
         );
 
@@ -31,6 +33,11 @@ namespace RunForrest.Desktop
         x => { },
         x => true
         );
+    }
+
+    private void RaiseDeleteRequested()
+    {
+      this.DeleteRequested?.Invoke(this);
     }
 
     public ScriptViewModel() : base()

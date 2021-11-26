@@ -49,8 +49,8 @@
         <local:ScriptsListView />
       </DataTemplate>
 
-      <DataTemplate DataType="{x:Type local:Script}">
-        <local:ScriptDataView/>
+      <DataTemplate DataType="{x:Type local:ScriptViewModel}">
+        <local:ScriptView/>
       </DataTemplate>
 
       <DataTemplate DataType="{x:Type local:ControlPanel}">
