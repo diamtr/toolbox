@@ -5,32 +5,46 @@ namespace RunForrest.Desktop
 {
   public class ScriptViewModel : ViewModelBase
   {
+    public bool IsMuteChecked
+    {
+      get
+      {
+        return this.isMuteChecked;
+      }
+      set
+      {
+        this.isMuteChecked = value;
+        this.OnPropertyChanged();
+        if (this.isMuteChecked && this.IsSoloChecked)
+          this.IsSoloChecked = false;
+      }
+    }
+    public bool IsSoloChecked
+    {
+      get
+      {
+        return this.isSoloChecked;
+      }
+      set
+      {
+        this.isSoloChecked = value;
+        this.OnPropertyChanged();
+        if (this.isSoloChecked && this.IsMuteChecked)
+          this.IsMuteChecked = false;
+      }
+    }
+
     public event Action<ScriptViewModel> DeleteRequested;
 
+    private bool isMuteChecked;
+    private bool isSoloChecked;
+
     public Command DeleteCommand { get; private set; }
-    public Command MuteCommand { get; private set; }
-    public Command SoloCommand { get; private set; }
-    public Command RunCommand { get; private set; }
 
     private void InitCommands()
     {
       this.DeleteCommand = new Command(
         x => { this.RaiseDeleteRequested(); },
-        x => true
-        );
-
-      this.MuteCommand = new Command(
-        x => { },
-        x => true
-        );
-
-      this.SoloCommand = new Command(
-        x => { },
-        x => true
-        );
-
-      this.RunCommand = new Command(
-        x => { },
         x => true
         );
     }

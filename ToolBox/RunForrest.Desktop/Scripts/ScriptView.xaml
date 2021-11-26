@@ -17,8 +17,12 @@
     <!-- Solo/Mute -->
     <StackPanel Grid.Column="0"
                 VerticalAlignment="Center">
-      <ToggleButton Content="S" MinWidth="5"/>
-      <ToggleButton Content="M" MinWidth="5"/>
+      <ToggleButton Content="S"
+                    MinWidth="5"
+                    IsChecked="{Binding IsSoloChecked}"/>
+      <ToggleButton Content="M"
+                    MinWidth="5"
+                    IsChecked="{Binding IsMuteChecked}"/>
     </StackPanel>
     
     
