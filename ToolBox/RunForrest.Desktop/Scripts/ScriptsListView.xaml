@@ -8,36 +8,26 @@
              mc:Ignorable="d">
 
   <Grid>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <!--Add / Remove Script Buttons-->
+    <WrapPanel Grid.Row="0"
+               Margin="10">
+      <Button Command="{Binding AddNewScriptCommand}"
+              Content="{x:Static res:Resources.AddScriptButton}" />
+      <Button Command="{Binding RemoveSelectedScriptsCommand}"
+              Content="{x:Static res:Resources.RemoveScriptButton}" />
+    </WrapPanel>
     
-    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                  VerticalScrollBarVisibility="Auto">
-
-      <Grid>
-
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <!-- Scripts List -->
-        <ListView Grid.Row="0"
+    <!--Scripts List-->
+    <ListView Grid.Row="1"
               ItemsSource="{Binding Items}"
-              SelectedItem="{Binding SelectedItem}"
-              ScrollViewer.CanContentScroll="False"/>
+              SelectedItem="{Binding SelectedItem}"/>
 
-        <!-- Add / Remove Script Buttons -->
-        <WrapPanel Grid.Row="1"
-                   Margin="10">
-          <Button Command="{Binding AddNewScriptCommand}"
-                  Content="{x:Static res:Resources.AddScriptButton}" />
-          <Button Command="{Binding RemoveSelectedScriptsCommand}"
-                  Content="{x:Static res:Resources.RemoveScriptButton}" />
-        </WrapPanel>
-
-      </Grid>
-
-    </ScrollViewer>
-    
   </Grid>
 
 </UserControl>

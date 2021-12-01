@@ -72,7 +72,7 @@
       <ColumnDefinition Width="75*"/>
     </Grid.ColumnDefinitions>
 
-    <!-- Right Side -->
+    <!-- Left Side -->
     <Grid Grid.Column="0">
 
       <Grid.RowDefinitions>
@@ -86,7 +86,7 @@
 
       <!-- Scripts List -->
       <ContentControl Grid.Row="2"
-                      Content="{Binding ScriptsListViewModel}" />
+                      Content="{Binding ScriptsListViewModel}"/>
 
     </Grid>
     

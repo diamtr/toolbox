@@ -10,6 +10,7 @@
     <ResourceDictionary Source="ListViewStyle.xaml"/>
     <ResourceDictionary Source="ListViewItemStyle.xaml"/>
     <ResourceDictionary Source="ScrollBarStyle.xaml"/>
+    <ResourceDictionary Source="ToolTipStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Window -->

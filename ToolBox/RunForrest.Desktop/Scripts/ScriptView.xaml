@@ -5,35 +5,60 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RunForrest.Desktop"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-  <Grid>
+             d:DesignHeight="100" d:DesignWidth="350">
+  
+  <Border Padding="0,5,0,5">
+    <Grid>
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="Auto"/>
-    </Grid.ColumnDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
 
-    <!-- Solo/Mute -->
-    <StackPanel Grid.Column="0"
-                VerticalAlignment="Center">
-      <ToggleButton Content="S"
-                    MinWidth="5"
-                    IsChecked="{Binding IsSoloChecked}"/>
-      <ToggleButton Content="M"
-                    MinWidth="5"
-                    IsChecked="{Binding IsMuteChecked}"/>
-    </StackPanel>
-    
-    
-    
-    <!-- Delete -->
-    <StackPanel Grid.Column="2"
-                VerticalAlignment="Center">
-      <Button Content="X"
-              MinWidth="5"
-              Command="{Binding DeleteCommand}"/>
-    </StackPanel>
-    
-  </Grid>
+      <!--Solo/Mute--> 
+      <StackPanel Grid.Column="0"
+                  VerticalAlignment="Center">
+        <ToggleButton Content="S"
+                      ToolTip="Solo"
+                      MinWidth="5"
+                      Padding="3,0,3,3"
+                      IsChecked="{Binding IsSoloChecked}"/>
+        <ToggleButton Content="M"
+                      ToolTip="Mute"
+                      MinWidth="5"
+                      Padding="3,0,3,3"
+                      IsChecked="{Binding IsMuteChecked}"/>
+      </StackPanel>
+
+      <!--Script--> 
+      <Grid Grid.Column="1">
+        <TextBox Grid.Column="1"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Stretch"
+                 FontFamily="Courier New"/>
+      </Grid>
+
+      <!--Edit/Delete-->
+      <StackPanel Grid.Column="2"
+                  VerticalAlignment="Top">
+        <Button ToolTip="Edit"
+                MinWidth="0"
+                Padding="3,3,3,3">
+          <Path StrokeThickness="2"
+                Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                Data="M 0 8 L 2 8 M 4 8 L 6 8 M 8 8 L 10 8"/>
+        </Button>
+        <Button ToolTip="Remove"
+                MinWidth="0"
+                Padding="3,3,3,3"
+                Command="{Binding DeleteCommand}">
+          <Path StrokeThickness="2"
+                Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                Data="M 0 0 L 8 8 M 8 0 L 0 8"/>
+        </Button>
+      </StackPanel>
+
+    </Grid>
+  </Border>
 </UserControl>
