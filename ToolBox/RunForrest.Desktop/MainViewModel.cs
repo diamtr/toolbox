@@ -195,12 +195,6 @@ namespace RunForrest.Desktop
         this.ControlPanel.Player.Reset();
         this.Outputs.Clear();
       }
-
-      if (e.PropertyName == "SelectedItem")
-        if (this.ScriptsListViewModel.SelectedItem != null)
-          this.ControlPanel.AdditionalContentAreaType = AdditionalContentAreaType.Script;
-        else
-          this.ControlPanel.AdditionalContentAreaType = AdditionalContentAreaType.Empty;
     }
 
     private void ControlLoaded()

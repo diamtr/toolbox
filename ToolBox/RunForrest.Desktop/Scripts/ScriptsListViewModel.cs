@@ -31,7 +31,7 @@ namespace RunForrest.Desktop
     private void InitCommands()
     {
       this.AddNewScriptCommand = new Command(
-        x => { this.CreateNewScript(); },
+        x => { this.AddNewScript(); },
         x => true
         );
 
@@ -41,13 +41,12 @@ namespace RunForrest.Desktop
         );
     }
 
-    private void CreateNewScript()
+    private void AddNewScript()
     {
       var newScript = new ScriptViewModel();
       newScript.RemoveRequested += this.OnScriptViewModelRemoveRequested;
       newScript.ShowDetailsRequested += this.OnScriptViewModelShowDetailsRequested;
       this.Items.Add(newScript);
-      this.SelectedItem = newScript;
     }
 
     private void OnScriptViewModelRemoveRequested(ScriptViewModel sender)
