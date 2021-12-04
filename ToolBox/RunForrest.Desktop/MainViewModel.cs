@@ -215,7 +215,14 @@ namespace RunForrest.Desktop
 
     private void OnShowScriptDetailsRequested(ScriptDetailsViewModel sender)
     {
+      sender.ClosingRequested += this.OnScriptDetailsViewModelClosingRequested;
       this.AdditionalContentAreaViewModel = sender;
+    }
+
+    private void OnScriptDetailsViewModelClosingRequested(ScriptDetailsViewModel sender)
+    {
+      sender.ClosingRequested -= this.OnScriptDetailsViewModelClosingRequested;
+      this.AdditionalContentAreaViewModel = null;
     }
 
     #region ctors
