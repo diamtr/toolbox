@@ -31,6 +31,19 @@ namespace RunForrest.Desktop
       }
     }
 
+    public string Comment
+    {
+      get
+      {
+        return this.script.Comment;
+      }
+      set
+      {
+        this.script.Comment = value;
+        this.OnPropertyChanged();
+      }
+    }
+
     private ScriptModel script;
 
     public event Action<ScriptDetailsViewModel> ClosingRequested;
