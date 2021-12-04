@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RunForrest.Desktop"
-             xmlns:res="clr-namespace:RunForrest.Desktop.Properties"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             d:DesignHeight="200" d:DesignWidth="400">
 
   <Grid>
 
@@ -14,15 +14,18 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <!--Add / Remove Script Buttons-->
-    <WrapPanel Grid.Row="0"
-               Margin="10">
-      <Button Command="{Binding AddNewScriptCommand}"
-              Content="{x:Static res:Resources.AddScriptButton}" />
-      <Button Command="{Binding RemoveSelectedScriptsCommand}"
-              Content="{x:Static res:Resources.RemoveScriptButton}" />
-    </WrapPanel>
-    
+    <Button Grid.Row="0"
+            Margin="10"
+            MinWidth="0"
+            Padding="3"
+            Command="{Binding AddNewScriptCommand}"
+            ToolTip="Add new script"
+            HorizontalAlignment="Right">
+      <Path StrokeThickness="2"
+            Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+            Data="M 4 0 L 4 8 M 0 4 L 8 4"/>
+    </Button>
+
     <!--Scripts List-->
     <ListView Grid.Row="1"
               ItemsSource="{Binding Items}"

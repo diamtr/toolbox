@@ -120,9 +120,6 @@
   <data name="AbortScriptButton" xml:space="preserve">
     <value>Abort</value>
   </data>
-  <data name="AddScriptButton" xml:space="preserve">
-    <value>Add</value>
-  </data>
   <data name="AddVariableButton" xml:space="preserve">
     <value>Add Var</value>
   </data>
@@ -143,9 +140,6 @@
   </data>
   <data name="RecentScriptsButton" xml:space="preserve">
     <value>Recent</value>
-  </data>
-  <data name="RemoveScriptButton" xml:space="preserve">
-    <value>Remove</value>
   </data>
   <data name="RunScriptsButton" xml:space="preserve">
     <value>Run, Forrest, run!</value>
