@@ -63,16 +63,10 @@ namespace RunForrest.Desktop
 
     private async void RunScriptsExecution()
     {
-      //if (this.ScriptsListViewModel.Items.Any(x => x.IsRunning))
-      //  return;
-
       this.Outputs.Clear();
       this.ControlPanel.AdditionalContentAreaType = AdditionalContentAreaType.Log;
 
       var scriptVmsToExecute = this.GetScriptsToExecute();
-
-      this.ControlPanel.Player.Reset(scriptVmsToExecute.Count);
-
       await this.ExecuteScripts(scriptVmsToExecute);
     }
 
@@ -128,7 +122,6 @@ namespace RunForrest.Desktop
             script.OutputCatched += this.Outputs.Append;
             script.RunScript(this.Variables.Items);
             script.OutputCatched -= this.Outputs.Append;
-            this.ControlPanel.Player.IncCurrent();
             this.Outputs.Append(string.Empty);
           }
         }
@@ -192,7 +185,6 @@ namespace RunForrest.Desktop
     {
       if (e.PropertyName == "Items")
       {
-        this.ControlPanel.Player.Reset();
         this.Outputs.Clear();
       }
     }
@@ -237,9 +229,6 @@ namespace RunForrest.Desktop
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
       this.ControlPanel = new ControlPanel();
       this.ControlPanel.AdditionalContentAreaTypeChanged += this.AdditionalContentAreaTypeChanged;
-      this.ControlPanel.Player.Play += this.RunScriptsExecution;
-      this.ControlPanel.Player.Stop += this.StopAllScriptExecution;
-      this.ControlPanel.Player.Forward += this.ScriptsListViewModel.AbortRunningScriptExecution;
 
       this.InitCommands();
     }

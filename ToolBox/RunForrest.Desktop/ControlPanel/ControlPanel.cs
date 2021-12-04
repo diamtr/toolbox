@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
@@ -34,10 +33,6 @@ namespace RunForrest.Desktop
       set { this.nowExecuting = value; this.OnPropertyChanged(); }
     }
 
-    public Player Player { get; protected set; }
-
-    public System.Collections.Generic.List<string> RiecentScripts { get; set; }
-
     #endregion
 
     public event EventHandler<AdditionalContentAreaType> AdditionalContentAreaTypeChanged;
@@ -49,8 +44,6 @@ namespace RunForrest.Desktop
 
     public ControlPanel()
     {
-      this.RiecentScripts = new System.Collections.Generic.List<string>() { "Test 1", "Test 2", "Test 3" };
-      this.Player = new Player();
       this.AdditionalContentAreaType = AdditionalContentAreaType.Empty;
     }
   }

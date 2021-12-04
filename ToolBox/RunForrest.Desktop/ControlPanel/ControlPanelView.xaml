@@ -16,10 +16,6 @@
 
       <local:BoolEnumConverter x:Key="BoolEnumConverter"/>
 
-      <DataTemplate DataType="{x:Type local:Player}">
-        <local:PlayerView />
-      </DataTemplate>
-
     </ResourceDictionary>
   </UserControl.Resources>
   
@@ -77,11 +73,6 @@
         </Grid>
         
       </Grid>
-
-      <!-- PLAYER -->
-      <ContentControl Grid.Row="2"
-                      Margin="0,5,0,0"
-                      Content="{Binding Player}" />
 
     </Grid>
     
