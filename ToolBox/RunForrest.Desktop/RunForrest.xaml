@@ -53,6 +53,10 @@
         <local:ScriptView/>
       </DataTemplate>
 
+      <DataTemplate DataType="{x:Type local:ScriptDetailsViewModel}">
+        <local:ScriptDetailsView/>
+      </DataTemplate>
+
       <DataTemplate DataType="{x:Type local:ControlPanel}">
         <local:ControlPanelView />
       </DataTemplate>
@@ -105,32 +109,31 @@
       <!-- Scripts List & Additional Content Area -->
       <Grid Grid.Row="1">
 
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>-->
 
-          <!-- 0: Scripts -->
+          <!-- 0: Scripts --><!--
           <ColumnDefinition Width="35*" />
-          <!-- 1: Vertical Grid Splitter -->
+          --><!-- 1: Vertical Grid Splitter --><!--
           <ColumnDefinition Width="5" />
-          <!-- 2: Additional Content Area -->
+          --><!-- 2: Additional Content Area --><!--
           <ColumnDefinition Width="60*" />
 
         </Grid.ColumnDefinitions>
 
-        <!-- Scripts View -->
+        --><!-- Scripts View --><!--
         <Grid Grid.Row="1">
           <ContentControl Content="{Binding ScriptsListViewModel}" />
         </Grid>
 
-        <!-- Grid Splitter -->
+        --><!-- Grid Splitter --><!--
         <GridSplitter Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Stretch"
                     Width="3"
-                    Background="{StaticResource GeneralBackgroundBrush}"/>
+                    Background="{StaticResource GeneralBackgroundBrush}"/>-->
 
         <!-- Additional Content Area -->
-        <ContentControl Grid.Column="2"
-                      Content="{Binding AdditionalContentAreaViewModel}" />
+        <ContentControl Content="{Binding AdditionalContentAreaViewModel}" />
 
       </Grid>
 

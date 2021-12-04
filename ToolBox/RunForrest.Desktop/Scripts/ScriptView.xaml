@@ -36,7 +36,8 @@
         <TextBox Grid.Column="1"
                  TextWrapping="Wrap"
                  HorizontalAlignment="Stretch"
-                 FontFamily="Courier New"/>
+                 FontFamily="Courier New"
+                 Text="{Binding ScriptText}"/>
       </Grid>
 
       <!--Edit/Delete-->

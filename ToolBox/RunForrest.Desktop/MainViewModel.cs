@@ -219,9 +219,9 @@ namespace RunForrest.Desktop
       this.Outputs.Clear();
     }
 
-    private void OnShowScriptDetailsRequested(ScriptViewModel sender)
+    private void OnShowScriptDetailsRequested(ScriptDetailsViewModel sender)
     {
-      this.AdditionalContentAreaViewModel = new ScriptViewModel();
+      this.AdditionalContentAreaViewModel = sender;
     }
 
     #region ctors

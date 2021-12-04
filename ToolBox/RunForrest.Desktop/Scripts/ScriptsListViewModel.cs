@@ -23,7 +23,7 @@ namespace RunForrest.Desktop
 
     public ObservableCollection<ScriptViewModel> Items { get; set; }
 
-    public event Action<ScriptViewModel> ShowScriptDetailsRequested;
+    public event Action<ScriptDetailsViewModel> ShowScriptDetailsRequested;
 
     public Command AddNewScriptCommand { get; private set; }
     public Command RemoveSelectedScriptsCommand { get; private set; }
@@ -60,7 +60,7 @@ namespace RunForrest.Desktop
         this.Items.Remove(sender);
     }
 
-    private void OnScriptViewModelShowDetailsRequested(ScriptViewModel sender)
+    private void OnScriptViewModelShowDetailsRequested(ScriptDetailsViewModel sender)
     {
       if (sender == null)
         return;
