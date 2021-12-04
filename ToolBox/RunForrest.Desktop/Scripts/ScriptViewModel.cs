@@ -34,24 +34,26 @@ namespace RunForrest.Desktop
       }
     }
 
-    public event Action<ScriptViewModel> DeleteRequested;
+    public event Action<ScriptViewModel> ShowDetailsRequested;
+    public event Action<ScriptViewModel> RemoveRequested;
 
     private bool isMuteChecked;
     private bool isSoloChecked;
 
-    public Command DeleteCommand { get; private set; }
+    public Command ShowDetailsCommand { get; private set; }
+    public Command RemoveCommand { get; private set; }
 
     private void InitCommands()
     {
-      this.DeleteCommand = new Command(
-        x => { this.RaiseDeleteRequested(); },
+      this.ShowDetailsCommand = new Command(
+        x => { this.ShowDetailsRequested?.Invoke(this); },
         x => true
         );
-    }
 
-    private void RaiseDeleteRequested()
-    {
-      this.DeleteRequested?.Invoke(this);
+      this.RemoveCommand = new Command(
+        x => { this.RemoveRequested?.Invoke(this); },
+        x => true
+        );
     }
 
     public ScriptViewModel() : base()

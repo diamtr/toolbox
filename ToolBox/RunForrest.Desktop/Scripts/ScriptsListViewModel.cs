@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using ToolBox.Desktop.Base;
@@ -22,6 +23,8 @@ namespace RunForrest.Desktop
 
     public ObservableCollection<ScriptViewModel> Items { get; set; }
 
+    public event Action<ScriptViewModel> ShowScriptDetailsRequested;
+
     public Command AddNewScriptCommand { get; private set; }
     public Command RemoveSelectedScriptsCommand { get; private set; }
 
@@ -41,19 +44,28 @@ namespace RunForrest.Desktop
     private void CreateNewScript()
     {
       var newScript = new ScriptViewModel();
-      newScript.DeleteRequested += this.OnScriptViewModelDeleteRequested;
+      newScript.RemoveRequested += this.OnScriptViewModelRemoveRequested;
+      newScript.ShowDetailsRequested += this.OnScriptViewModelShowDetailsRequested;
       this.Items.Add(newScript);
       this.SelectedItem = newScript;
     }
 
-    private void OnScriptViewModelDeleteRequested(ScriptViewModel sender)
+    private void OnScriptViewModelRemoveRequested(ScriptViewModel sender)
     {
       if (sender == null)
         return;
 
-      sender.DeleteRequested -= this.OnScriptViewModelDeleteRequested;
+      sender.RemoveRequested -= this.OnScriptViewModelRemoveRequested;
       if (this.Items.Any(x => Equals(x, sender)))
         this.Items.Remove(sender);
+    }
+
+    private void OnScriptViewModelShowDetailsRequested(ScriptViewModel sender)
+    {
+      if (sender == null)
+        return;
+
+      this.ShowScriptDetailsRequested?.Invoke(sender);
     }
 
     private void AttachToSelectedItemCloseEvent(Script newValue)

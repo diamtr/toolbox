@@ -44,7 +44,8 @@
                   VerticalAlignment="Top">
         <Button ToolTip="Edit"
                 MinWidth="0"
-                Padding="3,3,3,3">
+                Padding="3,3,3,3"
+                Command="{Binding ShowDetailsCommand}">
           <Path StrokeThickness="2"
                 Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
                 Data="M 0 8 L 2 8 M 4 8 L 6 8 M 8 8 L 10 8"/>
@@ -52,7 +53,7 @@
         <Button ToolTip="Remove"
                 MinWidth="0"
                 Padding="3,3,3,3"
-                Command="{Binding DeleteCommand}">
+                Command="{Binding RemoveCommand}">
           <Path StrokeThickness="2"
                 Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
                 Data="M 0 0 L 8 8 M 8 0 L 0 8"/>

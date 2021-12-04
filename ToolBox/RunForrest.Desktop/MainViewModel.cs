@@ -219,6 +219,11 @@ namespace RunForrest.Desktop
       this.Outputs.Clear();
     }
 
+    private void OnShowScriptDetailsRequested(ScriptViewModel sender)
+    {
+      this.AdditionalContentAreaViewModel = new ScriptViewModel();
+    }
+
     #region ctors
     
     public MainViewModel()
@@ -228,6 +233,7 @@ namespace RunForrest.Desktop
       this.Outputs = new Outputs();
       this.ScriptsListViewModel = new ScriptsListViewModel();
       this.ScriptsListViewModel.PropertyChanged += this.OnScriptsChanged;
+      this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
       this.ControlPanel = new ControlPanel();
       this.ControlPanel.ClearScripts += this.ClearScripts;
       this.ControlPanel.LoadScriptsFromFile += this.ScriptsListViewModel.LoadFromFile;
