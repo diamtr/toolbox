@@ -236,9 +236,6 @@ namespace RunForrest.Desktop
       this.ScriptsListViewModel.PropertyChanged += this.OnScriptsChanged;
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
       this.ControlPanel = new ControlPanel();
-      this.ControlPanel.ClearScripts += this.ClearScripts;
-      this.ControlPanel.LoadScriptsFromFile += this.ScriptsListViewModel.LoadFromFile;
-      this.ControlPanel.SaveScriptsToFile += this.ScriptsListViewModel.SaveToFile;
       this.ControlPanel.AdditionalContentAreaTypeChanged += this.AdditionalContentAreaTypeChanged;
       this.ControlPanel.Player.Play += this.RunScriptsExecution;
       this.ControlPanel.Player.Stop += this.StopAllScriptExecution;

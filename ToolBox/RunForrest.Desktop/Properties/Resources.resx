@@ -129,12 +129,6 @@
   <data name="LogButton" xml:space="preserve">
     <value>LOG</value>
   </data>
-  <data name="NewScriptsButton" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="OpenScriptsFileButton" xml:space="preserve">
-    <value>Open</value>
-  </data>
   <data name="PluginDescription" xml:space="preserve">
     <value>TODO</value>
   </data>
@@ -143,9 +137,6 @@
   </data>
   <data name="RunScriptsButton" xml:space="preserve">
     <value>Run, Forrest, run!</value>
-  </data>
-  <data name="SaveScriptsFileButton" xml:space="preserve">
-    <value>Save</value>
   </data>
   <data name="SaveVariablesButtonName" xml:space="preserve">
     <value>Save</value>

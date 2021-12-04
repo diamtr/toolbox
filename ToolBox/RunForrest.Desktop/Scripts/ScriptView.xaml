@@ -22,12 +22,12 @@
         <ToggleButton Content="S"
                       ToolTip="Solo"
                       MinWidth="5"
-                      Padding="3,0,3,3"
+                      Padding="1,0,1,3"
                       IsChecked="{Binding IsSoloChecked}"/>
         <ToggleButton Content="M"
                       ToolTip="Mute"
                       MinWidth="5"
-                      Padding="3,0,3,3"
+                      Padding="1,0,1,3"
                       IsChecked="{Binding IsMuteChecked}"/>
       </StackPanel>
 

@@ -36,33 +36,6 @@
         <!-- 2 :: Player -->
         <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
-
-      <!-- MENU -->
-      <StackPanel Grid.Row="0"
-                  Margin="0,0,0,5"
-                  Orientation="Horizontal">
-
-        <Button Style="{StaticResource InlineButton}"
-                Command="{Binding OpenScriptsFileCommand}"
-                Content="{x:Static res:Resources.OpenScriptsFileButton}" />
-
-        <Button Style="{StaticResource RicentButton}"
-                Margin="0,0,10,0" >
-          <Button.ContextMenu>
-            <ContextMenu ItemsSource="{Binding RiecentScripts}">
-            </ContextMenu>
-          </Button.ContextMenu>
-        </Button>
-
-        <Button Style="{StaticResource InlineButton}"
-                Command="{Binding SaveScriptsFileCommand}"
-                Content="{x:Static res:Resources.SaveScriptsFileButton}" />
-
-        <Button Style="{StaticResource InlineButton}"
-                Command="{Binding ClearScriptsCommand}"
-                Content="{x:Static res:Resources.NewScriptsButton}" />
-
-      </StackPanel>
       
       <!-- CONTENT -->
       <Grid Grid.Row="1"

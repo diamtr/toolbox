@@ -123,21 +123,12 @@
   <data name="DeleteVariableButton" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="NewScriptsButton" xml:space="preserve">
-    <value>Новый</value>
-  </data>
-  <data name="OpenScriptsFileButton" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
   <data name="PluginDescription" xml:space="preserve">
     <value>1. Создай свою последовательность команд или используй существующие.
 2. Run, Forrest, run!</value>
   </data>
   <data name="RecentScriptsButton" xml:space="preserve">
     <value>Недавние</value>
-  </data>
-  <data name="SaveScriptsFileButton" xml:space="preserve">
-    <value>Сохранить</value>
   </data>
   <data name="SaveVariablesButtonName" xml:space="preserve">
     <value>Сохранить</value>
