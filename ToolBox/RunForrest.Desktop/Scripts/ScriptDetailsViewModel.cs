@@ -19,6 +19,11 @@ namespace RunForrest.Desktop
 
     private ScriptModel script;
 
+    public void Refresh()
+    {
+      this.OnPropertyChanged(nameof(this.ScriptText));
+    }
+
     public ScriptDetailsViewModel(ScriptModel script) : this()
     {
       this.script = script;

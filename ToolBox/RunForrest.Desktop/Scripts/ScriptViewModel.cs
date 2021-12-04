@@ -16,6 +16,7 @@ namespace RunForrest.Desktop
       {
         this.script.Text = value;
         this.OnPropertyChanged();
+        this.detailsViewModel.Refresh();
       }
     }
     public bool IsMuteChecked
@@ -51,6 +52,7 @@ namespace RunForrest.Desktop
     public event Action<ScriptViewModel> RemoveRequested;
 
     private ScriptModel script;
+    private ScriptDetailsViewModel detailsViewModel;
     private bool isMuteChecked;
     private bool isSoloChecked;
 
@@ -60,11 +62,7 @@ namespace RunForrest.Desktop
     private void InitCommands()
     {
       this.ShowDetailsCommand = new Command(
-        x => {
-          var detailsViewModel = new ScriptDetailsViewModel(this.script);
-          detailsViewModel.PropertyChanged += this.OnDetailsViewModelPropertyChanged;
-          this.ShowDetailsRequested?.Invoke(detailsViewModel);
-        },
+        x => { this.ShowDetailsRequested?.Invoke(this.detailsViewModel); },
         x => true
         );
 
@@ -83,6 +81,8 @@ namespace RunForrest.Desktop
     public ScriptViewModel() : base()
     {
       this.script = new ScriptModel();
+      this.detailsViewModel = new ScriptDetailsViewModel(this.script);
+      this.detailsViewModel.PropertyChanged += this.OnDetailsViewModelPropertyChanged;
       this.InitCommands();
     }
   }
