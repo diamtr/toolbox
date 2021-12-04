@@ -18,6 +18,19 @@ namespace RunForrest.Desktop
       }
     }
 
+    public string WorkingDirectory
+    {
+      get
+      {
+        return this.script.WorkingDirectory;
+      }
+      set
+      {
+        this.script.WorkingDirectory = value;
+        this.OnPropertyChanged();
+      }
+    }
+
     private ScriptModel script;
 
     public event Action<ScriptDetailsViewModel> ClosingRequested;
