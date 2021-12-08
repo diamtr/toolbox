@@ -202,7 +202,7 @@ namespace RunForrest.Desktop
     private void OnScriptDetailsViewModelClosingRequested(ScriptDetailsViewModel sender)
     {
       sender.ClosingRequested -= this.OnScriptDetailsViewModelClosingRequested;
-      this.AdditionalContentAreaViewModel = null;
+      this.AdditionalContentAreaViewModel = this.Outputs;
     }
 
     private void OnMainMenuViewModelOpenRequested(string filePath)
@@ -229,7 +229,7 @@ namespace RunForrest.Desktop
       this.MainMenuViewModel.SaveRequested += this.OnMainMenuViewModelSaveRequested;
       this.MainMenuViewModel.PinRequested += this.OnMainMenuViewModelPinRequested;
       this.Variables = new Variables();
-      this.Outputs = new Outputs();
+      this.Outputs = Outputs.Instance;
       this.ScriptsListViewModel = new ScriptsListViewModel();
       this.ScriptsListViewModel.PropertyChanged += this.OnScriptsChanged;
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;

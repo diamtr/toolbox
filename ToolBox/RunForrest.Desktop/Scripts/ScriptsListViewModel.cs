@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -15,8 +16,6 @@ namespace RunForrest.Desktop
       set
       {
         this.selectedItem = value;
-#warning AttachToSelectedItemCloseEvent()
-        //this.AttachToSelectedItemCloseEvent(value);
         this.OnPropertyChanged();
       }
     }
@@ -27,6 +26,7 @@ namespace RunForrest.Desktop
 
     public Command AddNewScriptCommand { get; private set; }
     public Command RemoveSelectedScriptsCommand { get; private set; }
+    public Command RunScriptsCommand { get; private set; }
 
     private void InitCommands()
     {
@@ -37,6 +37,11 @@ namespace RunForrest.Desktop
 
       this.RemoveSelectedScriptsCommand = new Command(
         x => { this.RemoveSelectedScript(); },
+        x => true
+        );
+
+      this.RunScriptsCommand = new Command(
+        x => { this.RunScripts(); },
         x => true
         );
     }
@@ -65,6 +70,22 @@ namespace RunForrest.Desktop
         return;
 
       this.ShowScriptDetailsRequested?.Invoke(sender);
+    }
+
+    private void RunScripts()
+    {
+      var scripts = this.GetScriptsToRun();
+      foreach (var script in scripts)
+        script.Run();
+    }
+
+    private List<ScriptViewModel> GetScriptsToRun()
+    {
+      var scripts = this.Items.Where(x => x.IsSoloChecked);
+      if (scripts.Any())
+        return scripts.ToList();
+
+      return this.Items.Where(x => !x.IsMuteChecked).ToList();
     }
 
     private void AttachToSelectedItemCloseEvent(Script newValue)

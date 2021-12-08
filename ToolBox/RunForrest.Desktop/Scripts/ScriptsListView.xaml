@@ -24,7 +24,8 @@
       </Grid.ColumnDefinitions>
 
       <Button Grid.Column="0"
-              Content="Run, Forrest! Run!"/>
+              Content="Run, Forrest! Run!"
+              Command="{Binding RunScriptsCommand}"/>
 
       <Button Grid.Column="2"
               MinWidth="0"

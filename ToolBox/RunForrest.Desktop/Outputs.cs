@@ -5,6 +5,31 @@ namespace RunForrest.Desktop
 {
   public class Outputs : ViewModelBase
   {
+    #region ctors
+
+    private Outputs()
+    {
+      this.Items = new ObservableQueue<string>();
+      this.MaxCount = 100;
+    }
+
+    #endregion
+
+    #region Singletone impl.
+
+    private static Outputs instance;
+    public static Outputs Instance
+    {
+      get
+      {
+        if (instance == null)
+          instance = new Outputs();
+        return instance;
+      }
+    }
+
+    #endregion
+
     public ObservableQueue<string> Items { get; set; }
     public int MaxCount { get; set; }
 
@@ -31,12 +56,6 @@ namespace RunForrest.Desktop
         Application.Current.Dispatcher.Invoke(() => { this.Items.Clear(); });
       else
         this.Items.Clear();
-    }
-
-    public Outputs()
-    {
-      this.Items = new ObservableQueue<string>();
-      this.MaxCount = 100;
     }
   }
 }
