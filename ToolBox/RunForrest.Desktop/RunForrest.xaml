@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:RunForrest.Desktop"
              xmlns:res="clr-namespace:RunForrest.Desktop.Properties"
              xmlns:msxb="http://schemas.microsoft.com/xaml/behaviors"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="800">
 
   <UserControl.DataContext>
     <local:MainViewModel />
@@ -57,10 +58,6 @@
         <local:ScriptDetailsView/>
       </DataTemplate>
 
-      <DataTemplate DataType="{x:Type local:ControlPanel}">
-        <local:ControlPanelView />
-      </DataTemplate>
-
       <DataTemplate DataType="{x:Type local:MainMenuViewModel}">
         <local:MainMenuView />
       </DataTemplate>
@@ -101,46 +98,19 @@
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
 
-      <!-- Control Panel -->
-      <ContentControl Grid.Row="0"
-                    Margin="0,5,0,5"
-                    Content="{Binding ControlPanel}" />
+      <Border Grid.Row="0"
+              BorderThickness="0,0,0,2"
+              Padding="0,5,0,5">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Text="{Binding OpenedFilePath, StringFormat=File: {0}}"/>
+        </StackPanel>
+      </Border>
 
-      <!-- Scripts List & Additional Content Area -->
-      <Grid Grid.Row="1">
-
-        <!--<Grid.ColumnDefinitions>-->
-
-          <!-- 0: Scripts --><!--
-          <ColumnDefinition Width="35*" />
-          --><!-- 1: Vertical Grid Splitter --><!--
-          <ColumnDefinition Width="5" />
-          --><!-- 2: Additional Content Area --><!--
-          <ColumnDefinition Width="60*" />
-
-        </Grid.ColumnDefinitions>
-
-        --><!-- Scripts View --><!--
-        <Grid Grid.Row="1">
-          <ContentControl Content="{Binding ScriptsListViewModel}" />
-        </Grid>
-
-        --><!-- Grid Splitter --><!--
-        <GridSplitter Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Stretch"
-                    Width="3"
-                    Background="{StaticResource GeneralBackgroundBrush}"/>-->
-
-        <!-- Additional Content Area -->
-        <ContentControl Content="{Binding AdditionalContentAreaViewModel}" />
-
-      </Grid>
-
+      <ContentControl Grid.Row="1"
+                      Content="{Binding AdditionalContentAreaViewModel}" />
+      
     </Grid>
 
   </Grid>
-  
-  
 
 </UserControl>

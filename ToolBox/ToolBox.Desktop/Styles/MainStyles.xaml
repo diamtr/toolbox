@@ -32,6 +32,11 @@
     </Setter>
   </Style>
   
+  <!-- Border -->
+  <Style TargetType="{x:Type Border}">
+    <Setter Property="BorderBrush" Value="{StaticResource GeneralBorderBrush}" />
+  </Style>
+  
   <!-- TextBlock -->
   <Style TargetType="{x:Type TextBlock}">
     <Setter Property="FontSize" Value="14"/>

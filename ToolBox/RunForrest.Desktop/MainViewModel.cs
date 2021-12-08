@@ -14,22 +14,33 @@ namespace RunForrest.Desktop
   {
 
     #region Fields & Properties
-
-    private ViewModelBase additionalContentAreaViewModel;
+    
+    public string OpenedFilePath
+    {
+      get
+      {
+        return this.openedFilePath;
+      }
+      set
+      {
+        this.openedFilePath = value;
+        this.OnPropertyChanged();
+      }
+    }
     public ViewModelBase AdditionalContentAreaViewModel
     {
       get { return this.additionalContentAreaViewModel; }
       protected set { this.additionalContentAreaViewModel = value; this.OnPropertyChanged(); }
     }
-
-    private TaskCompletionSource<bool> scriptsExecutionStopTcs;
-    private CancellationTokenSource scriptsExecutionCts;
-
-    public ControlPanel ControlPanel { get; protected set; }
     public Variables Variables { get; protected set; }
     public Outputs Outputs { get; protected set; }
     public ScriptsListViewModel ScriptsListViewModel { get; protected set; }
     public MainMenuViewModel MainMenuViewModel { get; private set; }
+
+    private string openedFilePath;
+    private ViewModelBase additionalContentAreaViewModel;
+    private TaskCompletionSource<bool> scriptsExecutionStopTcs;
+    private CancellationTokenSource scriptsExecutionCts;
 
     #endregion
 
@@ -64,7 +75,6 @@ namespace RunForrest.Desktop
     private async void RunScriptsExecution()
     {
       this.Outputs.Clear();
-      this.ControlPanel.AdditionalContentAreaType = AdditionalContentAreaType.Log;
 
       var scriptVmsToExecute = this.GetScriptsToExecute();
       await this.ExecuteScripts(scriptVmsToExecute);
@@ -95,12 +105,6 @@ namespace RunForrest.Desktop
 
     private List<Script> GetScriptsToExecute()
     {
-      //var hasCheckedScripts = this.ScriptsListViewModel.Items.Any(x => x.IsChecked);
-      //var scriptVmsToExecute = this.ScriptsListViewModel.Items.ToList();
-
-      //if (hasCheckedScripts)
-      //  scriptVmsToExecute = scriptVmsToExecute.Where(x => x.IsChecked).ToList();
-
       return new List<Script>();
     }
 
@@ -118,7 +122,6 @@ namespace RunForrest.Desktop
               break;
             var toExecute = script.ScriptData.SubstituteVriables(this.Variables.Items);
             this.Outputs.Append(toExecute.Body);
-            this.ControlPanel.NowExecuting = toExecute;
             script.OutputCatched += this.Outputs.Append;
             script.RunScript(this.Variables.Items);
             script.OutputCatched -= this.Outputs.Append;
@@ -127,7 +130,6 @@ namespace RunForrest.Desktop
         }
         finally
         {
-          this.ControlPanel.NowExecuting = null;
         }
       },
       cancellationToken);
@@ -136,14 +138,6 @@ namespace RunForrest.Desktop
     private void StopAllScriptExecution()
     {
       this.scriptsExecutionStopTcs?.TrySetResult(true);
-    }
-
-    private void RemoveScripts()
-    {
-      //var scripts = this.ScriptsListViewModel.Items.Where(x => !x.IsChecked);
-      //this.ScriptsListViewModel.Items.Clear();
-      //foreach (var script in scripts)
-      //  this.ScriptsListViewModel.Items.Add(script);
     }
 
     private void CopyScriptsExecutionLogSelectedItems(object parameter)
@@ -199,12 +193,6 @@ namespace RunForrest.Desktop
     {
     }
 
-    private void ClearScripts()
-    {
-      this.ScriptsListViewModel.Items.Clear();
-      this.Outputs.Clear();
-    }
-
     private void OnShowScriptDetailsRequested(ScriptDetailsViewModel sender)
     {
       sender.ClosingRequested += this.OnScriptDetailsViewModelClosingRequested;
@@ -217,18 +205,34 @@ namespace RunForrest.Desktop
       this.AdditionalContentAreaViewModel = null;
     }
 
+    private void OnMainMenuViewModelOpenRequested(string filePath)
+    {
+      this.OpenedFilePath = filePath;
+    }
+
+    private void OnMainMenuViewModelSaveRequested(string filePath)
+    {
+
+    }
+
+    private void OnMainMenuViewModelPinRequested()
+    {
+
+    }
+
     #region ctors
-    
+
     public MainViewModel()
     {
       this.MainMenuViewModel = new MainMenuViewModel();
+      this.MainMenuViewModel.OpenRequested += this.OnMainMenuViewModelOpenRequested;
+      this.MainMenuViewModel.SaveRequested += this.OnMainMenuViewModelSaveRequested;
+      this.MainMenuViewModel.PinRequested += this.OnMainMenuViewModelPinRequested;
       this.Variables = new Variables();
       this.Outputs = new Outputs();
       this.ScriptsListViewModel = new ScriptsListViewModel();
       this.ScriptsListViewModel.PropertyChanged += this.OnScriptsChanged;
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
-      this.ControlPanel = new ControlPanel();
-      this.ControlPanel.AdditionalContentAreaTypeChanged += this.AdditionalContentAreaTypeChanged;
 
       this.InitCommands();
     }
