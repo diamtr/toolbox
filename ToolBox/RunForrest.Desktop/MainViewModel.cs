@@ -72,74 +72,6 @@ namespace RunForrest.Desktop
 
     #region Command Functions
 
-    private async void RunScriptsExecution()
-    {
-      this.Outputs.Clear();
-
-      var scriptVmsToExecute = this.GetScriptsToExecute();
-      await this.ExecuteScripts(scriptVmsToExecute);
-    }
-
-    private async Task ExecuteScripts(List<Script> scripts)
-    {
-      this.scriptsExecutionCts = new CancellationTokenSource();
-      var cancellationToken = this.scriptsExecutionCts.Token;
-      this.scriptsExecutionStopTcs = new TaskCompletionSource<bool>();
-
-      var scriptsExecutionTask = this.GetScriptsExecutionTask(scripts, cancellationToken);
-      scriptsExecutionTask.Start();
-
-      await Task.Run(() =>
-      {
-        var completedTaskIndex = Task.WaitAny(scriptsExecutionTask, this.scriptsExecutionStopTcs.Task);
-        if (completedTaskIndex == 1)
-        {
-          this.scriptsExecutionCts.Cancel();
-          ProcessEnvironment.StopCurrentProcessExecution();
-        }
-      });
-
-      this.scriptsExecutionCts = null;
-      this.scriptsExecutionStopTcs = null;
-    }
-
-    private List<Script> GetScriptsToExecute()
-    {
-      return new List<Script>();
-    }
-
-    private Task GetScriptsExecutionTask(IEnumerable<Script> scripts,
-                                         CancellationToken cancellationToken)
-    {
-      return new Task(() =>
-      {
-        #warning TODO what about exceptions
-        try
-        {
-          foreach (var script in scripts)
-          {
-            if (cancellationToken.IsCancellationRequested)
-              break;
-            var toExecute = script.ScriptData.SubstituteVriables(this.Variables.Items);
-            this.Outputs.Append(toExecute.Body);
-            script.OutputCatched += this.Outputs.Append;
-            script.RunScript(this.Variables.Items);
-            script.OutputCatched -= this.Outputs.Append;
-            this.Outputs.Append(string.Empty);
-          }
-        }
-        finally
-        {
-        }
-      },
-      cancellationToken);
-    }
-
-    private void StopAllScriptExecution()
-    {
-      this.scriptsExecutionStopTcs?.TrySetResult(true);
-    }
-
     private void CopyScriptsExecutionLogSelectedItems(object parameter)
     {
       var items = ((IList)parameter).Cast<string>();
@@ -155,33 +87,6 @@ namespace RunForrest.Desktop
     }
 
     #endregion
-
-    private void AdditionalContentAreaTypeChanged(object sender, AdditionalContentAreaType acat)
-    {
-      switch (acat)
-      {
-        case AdditionalContentAreaType.Variables:
-          this.AdditionalContentAreaViewModel = this.Variables;
-          break;
-        case AdditionalContentAreaType.Log:
-          this.AdditionalContentAreaViewModel = this.Outputs;
-          break;
-        case AdditionalContentAreaType.Script:
-          this.AdditionalContentAreaViewModel = this.ScriptsListViewModel.SelectedItem;
-          break;
-        default:
-          this.AdditionalContentAreaViewModel = null;
-          break;
-      }
-    }
-
-    private void OnScriptsChanged(object sender, PropertyChangedEventArgs e)
-    {
-      if (e.PropertyName == "Items")
-      {
-        this.Outputs.Clear();
-      }
-    }
 
     private void ControlLoaded()
     {
@@ -231,9 +136,8 @@ namespace RunForrest.Desktop
       this.Variables = new Variables();
       this.Outputs = Outputs.Instance;
       this.ScriptsListViewModel = new ScriptsListViewModel();
-      this.ScriptsListViewModel.PropertyChanged += this.OnScriptsChanged;
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
-
+      this.AdditionalContentAreaViewModel = this.Outputs;
       this.InitCommands();
     }
 

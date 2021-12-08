@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace RunForrest.Desktop.Engine
 {
@@ -38,5 +39,15 @@ namespace RunForrest.Desktop.Engine
       return process;
     }
 
+    public void Execute(Process process)
+    {
+      Task.Run(() =>
+      {
+        process.Start();
+        process.BeginErrorReadLine();
+        process.BeginOutputReadLine();
+        process.WaitForExit();
+      });
+    }
   }
 }

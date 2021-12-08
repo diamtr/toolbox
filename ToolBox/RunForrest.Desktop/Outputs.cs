@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
@@ -10,7 +11,7 @@ namespace RunForrest.Desktop
     private Outputs()
     {
       this.Items = new ObservableQueue<string>();
-      this.MaxCount = 100;
+      this.MaxCount = 500;
     }
 
     #endregion
@@ -32,6 +33,13 @@ namespace RunForrest.Desktop
 
     public ObservableQueue<string> Items { get; set; }
     public int MaxCount { get; set; }
+
+    public void Append(object sender, DataReceivedEventArgs e)
+    {
+      if (e == null)
+        return;
+      this.Append(e.Data ?? string.Empty);
+    }
 
     public void Append(string line)
     {

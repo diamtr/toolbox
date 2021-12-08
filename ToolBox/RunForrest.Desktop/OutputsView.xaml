@@ -35,11 +35,7 @@
                   VerticalAlignment="Stretch"
                   extensions:ScrollViewerExtensions.AlwaysScrollToEnd="True"
                   VirtualizingPanel.IsVirtualizing="True">
-      <ListView ItemsSource="{Binding Items}"
-                BorderBrush="Transparent"
-                Background="{StaticResource ControlBackgroundBrush}"
-                Foreground="{StaticResource GeneralForegroundBrush}"
-                TextElement.FontFamily="Consolas">
+      <ListView ItemsSource="{Binding Items}">
       </ListView>
     </ScrollViewer>
   </Grid>

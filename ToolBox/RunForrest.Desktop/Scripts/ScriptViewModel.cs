@@ -61,12 +61,8 @@ namespace RunForrest.Desktop
 
     public void Run()
     {
-      Outputs.Instance.Append($"({typeof(ScriptViewModel).Name}) Run");
-      Outputs.Instance.Append(string.Empty);
-      Outputs.Instance.Append($"Text {this.ScriptText}");
-      Outputs.Instance.Append($"IsMuteChecked {this.IsMuteChecked}");
-      Outputs.Instance.Append($"IsSoloChecked {this.IsSoloChecked}");
-      Outputs.Instance.Append(string.Empty);
+      Outputs.Instance.Append($"Run {this.ScriptText}");
+      this.script.Run();
     }
 
     private void InitCommands()

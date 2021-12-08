@@ -74,9 +74,9 @@ namespace RunForrest.Desktop
 
     private void RunScripts()
     {
-      var scripts = this.GetScriptsToRun();
-      foreach (var script in scripts)
-        script.Run();
+      var scriptViewModels = this.GetScriptsToRun();
+      foreach (var scriptViewModel in scriptViewModels)
+        scriptViewModel.Run();
     }
 
     private List<ScriptViewModel> GetScriptsToRun()
