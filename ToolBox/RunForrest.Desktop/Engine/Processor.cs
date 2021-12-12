@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace RunForrest.Desktop.Engine
@@ -26,22 +27,37 @@ namespace RunForrest.Desktop.Engine
 
     #endregion
 
-    public Process GetNewProcess(ProcessOptions options)
+    public ProcessExecutionInfo GetProcessExecutionInfo(ProcessOptions options)
     {
-      var process = new Process();
-
       if (options == null)
-        return process;
+        throw new ArgumentNullException(nameof(options));
 
+      var process = new Process();
       process.EnableRaisingEvents = options.EnableRaisingEvents;
       process.StartInfo = options.StartInfo;
-      
-      return process;
+
+      return new ProcessExecutionInfo(process, this.GetConsoleExecutionTask(process));
     }
 
-    public void Execute(Process process)
+    public async Task Execute(ProcessExecutionInfo processExecutionInfo)
     {
-      Task.Run(() =>
+      processExecutionInfo.ExecutionTask.Start();
+      await Task.Run(() =>
+      {
+        var completedTaskIndex = Task.WaitAny(processExecutionInfo.ExecutionTask,
+                                              processExecutionInfo.ExecutionTaskCompletionSource.Task);
+        // Close ExecutionTaskCompletionSource if execution ended.
+        if (completedTaskIndex == 0)
+          processExecutionInfo.ExecutionTaskCompletionSource.TrySetCanceled();
+        // Break ExecutionTask if execution breaked.
+        if (completedTaskIndex == 1)
+        { /* put code here */ }
+      });
+    }
+
+    private Task GetConsoleExecutionTask(Process process)
+    {
+      return new Task(() =>
       {
         process.Start();
         process.BeginErrorReadLine();

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RunForrest.Desktop
 {
@@ -13,13 +14,13 @@ namespace RunForrest.Desktop
     public string WorkingDirectory { get; set; }
     public string Comment { get; set; }
 
-    public void Run()
+    public async Task Run()
     {
       var options = this.GetProcessOptions();
-      var process = Processor.Instance.GetNewProcess(options);
-      process.OutputDataReceived += Outputs.Instance.Append;
-      process.ErrorDataReceived += Outputs.Instance.Append;
-      Processor.Instance.Execute(process);
+      var processExecutionInfo = Processor.Instance.GetProcessExecutionInfo(options);
+      processExecutionInfo.Process.OutputDataReceived += Outputs.Instance.Append;
+      processExecutionInfo.Process.ErrorDataReceived += Outputs.Instance.Append;
+      await Processor.Instance.Execute(processExecutionInfo);
     }
 
     private ProcessOptions GetProcessOptions()

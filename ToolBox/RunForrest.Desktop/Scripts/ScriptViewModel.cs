@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
@@ -59,10 +60,10 @@ namespace RunForrest.Desktop
     public Command ShowDetailsCommand { get; private set; }
     public Command RemoveCommand { get; private set; }
 
-    public void Run()
+    public async Task Run()
     {
       Outputs.Instance.Append($"Run {this.ScriptText}");
-      this.script.Run();
+      await this.script.Run();
     }
 
     private void InitCommands()

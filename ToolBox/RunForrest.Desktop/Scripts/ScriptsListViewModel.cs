@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
@@ -72,11 +73,16 @@ namespace RunForrest.Desktop
       this.ShowScriptDetailsRequested?.Invoke(sender);
     }
 
-    private void RunScripts()
+    private async void RunScripts()
     {
       var scriptViewModels = this.GetScriptsToRun();
+      await this.RunScriptsAsync(scriptViewModels);
+    }
+
+    public async Task RunScriptsAsync(IEnumerable<ScriptViewModel> scriptViewModels)
+    {
       foreach (var scriptViewModel in scriptViewModels)
-        scriptViewModel.Run();
+        await scriptViewModel.Run();
     }
 
     private List<ScriptViewModel> GetScriptsToRun()
