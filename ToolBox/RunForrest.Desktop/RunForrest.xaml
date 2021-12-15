@@ -91,20 +91,29 @@
 
     </Grid>
     
+    <!-- Right Side -->
     <Grid Grid.Column="1">
 
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-      </Grid.RowDefinitions>
+      <Border Padding="10,0,10,0">
+        
+        <Grid>
 
-      <StackPanel Grid.Row="0" Orientation="Vertical">
-        <TextBlock Text="{Binding OpenedFilePath, StringFormat=File: {0}}"/>
-      </StackPanel>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
 
-      <ContentControl Grid.Row="1"
+          <ContentControl Grid.Row="0"
                       Content="{Binding AdditionalContentAreaViewModel}" />
-      
+
+          <StackPanel Grid.Row="1" Orientation="Vertical">
+            <TextBlock Text="{Binding OpenedFilePath}"/>
+          </StackPanel>
+
+        </Grid>
+        
+      </Border>
+
     </Grid>
 
   </Grid>

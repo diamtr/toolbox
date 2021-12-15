@@ -62,7 +62,7 @@ namespace RunForrest.Desktop
 
     public async Task Run()
     {
-      Outputs.Instance.Append($"Run {this.ScriptText}");
+      Outputs.Instance.Append($"{this.ScriptText}");
       await this.script.Run();
     }
 
