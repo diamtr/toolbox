@@ -22,14 +22,11 @@
                   VerticalAlignment="Stretch"
                   extensions:ScrollViewerExtensions.AlwaysScrollToEnd="True"
                   VirtualizingPanel.IsVirtualizing="True">
-      <ListView ItemsSource="{Binding Items}"
-                SelectionMode="Extended">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <TextBlock Text="{Binding Path=.}"/>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
+
+      <TextBox Text="{Binding Text, Mode=OneWay}" 
+               IsReadOnly="True"
+               TextWrapping="Wrap"/>
+
     </ScrollViewer>
   </Grid>
 </UserControl>

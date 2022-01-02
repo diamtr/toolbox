@@ -6,9 +6,11 @@
     <ResourceDictionary Source="Brushes.xaml"/>
     <ResourceDictionary Source="CheckBoxStyle.xaml"/>
     <ResourceDictionary Source="ComboBoxStyle.xaml"/>
+    <ResourceDictionary Source="ContextMenuStyle.xaml"/>
     <ResourceDictionary Source="TextBoxStyle.xaml"/>
     <ResourceDictionary Source="ListViewStyle.xaml"/>
     <ResourceDictionary Source="ListViewItemStyle.xaml"/>
+    <ResourceDictionary Source="MenuItemStyle.xaml"/>
     <ResourceDictionary Source="ScrollBarStyle.xaml"/>
     <ResourceDictionary Source="ToolTipStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>

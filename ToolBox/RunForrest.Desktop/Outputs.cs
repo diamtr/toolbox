@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Windows;
 using ToolBox.Desktop.Base;
 
@@ -6,12 +8,15 @@ namespace RunForrest.Desktop
 {
   public class Outputs : ViewModelBase
   {
+    private static readonly string NewLine = System.Environment.NewLine;
+
     #region ctors
 
     private Outputs()
     {
-      this.Items = new ObservableQueue<string>();
       this.MaxCount = 500;
+      this.Items = new ObservableQueue<string>();
+      this.Items.CollectionChanged += this.OnItemsCollectionChanged;
     }
 
     #endregion
@@ -31,6 +36,13 @@ namespace RunForrest.Desktop
 
     #endregion
 
+    public string Text
+    {
+      get
+      {
+        return string.Join(NewLine, this.Items);
+      }
+    }
     public ObservableQueue<string> Items { get; set; }
     public int MaxCount { get; set; }
 
@@ -64,6 +76,11 @@ namespace RunForrest.Desktop
         Application.Current.Dispatcher.Invoke(() => { this.Items.Clear(); });
       else
         this.Items.Clear();
+    }
+
+    private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+      this.OnPropertyChanged(nameof(this.Text));
     }
   }
 }

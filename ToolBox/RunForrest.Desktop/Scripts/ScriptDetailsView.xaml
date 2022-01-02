@@ -65,7 +65,7 @@
                      FontFamily="Courier New"/>
             <TextBlock Text="Working Directory"
                        Margin="5,0,0,0"
-                       Visibility="{Binding ElementName=ScriptTextTextBox, Path=Text.IsEmpty, Converter={StaticResource VisibilityBoolConverter}}"
+                       Visibility="{Binding ElementName=WorkingDirectoryTextBox, Path=Text.IsEmpty, Converter={StaticResource VisibilityBoolConverter}}"
                        IsHitTestVisible="False"
                        Opacity="0.4"/>
           </Grid>
