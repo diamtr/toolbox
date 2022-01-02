@@ -63,14 +63,13 @@ namespace RunForrest.Desktop
         );
     }
 
-    public ScriptDetailsViewModel(ScriptModel script) : this()
+    public ScriptDetailsViewModel() : this(new ScriptModel())
     {
-      this.script = script;
     }
 
-    public ScriptDetailsViewModel() : base()
+    public ScriptDetailsViewModel(ScriptModel script) : base()
     {
-      this.script = new ScriptModel();
+      this.script = script;
       this.InitCommands();
     }
   }

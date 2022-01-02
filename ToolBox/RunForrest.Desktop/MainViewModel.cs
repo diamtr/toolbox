@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,8 +30,10 @@ namespace RunForrest.Desktop
     }
     public ViewModelBase AdditionalContentAreaViewModel
     {
-      get { return this.additionalContentAreaViewModel; }
-      protected set { this.additionalContentAreaViewModel = value; this.OnPropertyChanged(); }
+      get
+      {
+        return this.contentAreaViewModelStack.Peek();
+      }
     }
     public Variables Variables { get; protected set; }
     public Outputs Outputs { get; protected set; }
@@ -38,7 +41,7 @@ namespace RunForrest.Desktop
     public MainMenuViewModel MainMenuViewModel { get; private set; }
 
     private string openedFilePath;
-    private ViewModelBase additionalContentAreaViewModel;
+    private Stack<ViewModelBase> contentAreaViewModelStack;
 
     #endregion
 
@@ -86,6 +89,24 @@ namespace RunForrest.Desktop
 
     #endregion
 
+    private void ShowContentAreaViewModel(ViewModelBase viewModel)
+    {
+      if (this.contentAreaViewModelStack.Count > 0 &&
+          this.contentAreaViewModelStack.Peek().GetType() == viewModel.GetType())
+        this.contentAreaViewModelStack.Pop();
+      this.contentAreaViewModelStack.Push(viewModel);
+      this.OnPropertyChanged(nameof(this.AdditionalContentAreaViewModel));
+    }
+
+    private void HideContentAreaViewModel(ViewModelBase viewModel)
+    {
+      if (this.contentAreaViewModelStack.Peek() != viewModel)
+        return;
+       
+      this.contentAreaViewModelStack.Pop();
+      this.OnPropertyChanged(nameof(this.AdditionalContentAreaViewModel));
+    }
+
     private void ControlLoaded()
     {
       if (!this.Variables.Items.Any())
@@ -96,16 +117,16 @@ namespace RunForrest.Desktop
     {
     }
 
-    private void OnShowScriptDetailsRequested(ScriptDetailsViewModel sender)
+    private void OnShowScriptDetailsRequested(ScriptDetailsViewModel scriptDetailsViewModel)
     {
-      sender.ClosingRequested += this.OnScriptDetailsViewModelClosingRequested;
-      this.AdditionalContentAreaViewModel = sender;
+      scriptDetailsViewModel.ClosingRequested += this.OnScriptDetailsViewModelClosingRequested;
+      this.ShowContentAreaViewModel(scriptDetailsViewModel);
     }
 
-    private void OnScriptDetailsViewModelClosingRequested(ScriptDetailsViewModel sender)
+    private void OnScriptDetailsViewModelClosingRequested(ScriptDetailsViewModel scriptDetailsViewModel)
     {
-      sender.ClosingRequested -= this.OnScriptDetailsViewModelClosingRequested;
-      this.AdditionalContentAreaViewModel = this.Outputs;
+      scriptDetailsViewModel.ClosingRequested -= this.OnScriptDetailsViewModelClosingRequested;
+      this.HideContentAreaViewModel(scriptDetailsViewModel);
     }
 
     private void OnMainMenuViewModelOpenRequested(string filePath)
@@ -121,13 +142,33 @@ namespace RunForrest.Desktop
 
     private void OnMainMenuViewModelPinRequested()
     {
+      var pinnedItemViewModel = this.CreateNewPinnedItemViewModel();
+      pinnedItemViewModel.ClosingRequested += this.OnPinnedItemViewModelClosingRequested;
+      this.ShowContentAreaViewModel(pinnedItemViewModel);
+    }
 
+    private void OnPinnedItemViewModelClosingRequested(PinnedItemViewModel pinnedItemViewModel)
+    {
+      pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
+      this.HideContentAreaViewModel(pinnedItemViewModel);
+    }
+
+    private PinnedItemViewModel CreateNewPinnedItemViewModel()
+    {
+      var pinnedItem = new PinnedItemModel();
+      if (!string.IsNullOrWhiteSpace(this.OpenedFilePath))
+      {
+        pinnedItem.Path = this.OpenedFilePath;
+        pinnedItem.Name = Path.GetFileNameWithoutExtension(this.OpenedFilePath);
+      }
+      return new PinnedItemViewModel(pinnedItem);
     }
 
     #region ctors
 
     public MainViewModel()
     {
+      this.contentAreaViewModelStack = new Stack<ViewModelBase>();
       this.MainMenuViewModel = new MainMenuViewModel();
       this.MainMenuViewModel.OpenRequested += this.OnMainMenuViewModelOpenRequested;
       this.MainMenuViewModel.SaveRequested += this.OnMainMenuViewModelSaveRequested;
@@ -136,7 +177,7 @@ namespace RunForrest.Desktop
       this.Outputs = Outputs.Instance;
       this.ScriptsListViewModel = new ScriptsListViewModel();
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
-      this.AdditionalContentAreaViewModel = this.Outputs;
+      this.ShowContentAreaViewModel(this.Outputs);
       this.InitCommands();
     }
 

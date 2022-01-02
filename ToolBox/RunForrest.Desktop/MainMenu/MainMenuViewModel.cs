@@ -7,7 +7,7 @@ namespace RunForrest.Desktop
 {
   public class MainMenuViewModel : ViewModelBase
   {
-    public ObservableCollection<string> PinnedItems { get; set; }
+    public ObservableCollection<PinnedItemModel> PinnedItems { get; set; }
     public string SelectedPinnedItem
     { 
       get
@@ -74,7 +74,7 @@ namespace RunForrest.Desktop
 
     public MainMenuViewModel() : base()
     {
-      this.PinnedItems = new ObservableCollection<string>();
+      this.PinnedItems = new ObservableCollection<PinnedItemModel>();
       this.InitCommands();
     }
   }
