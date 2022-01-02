@@ -85,9 +85,13 @@ namespace RunForrest.Desktop
         this.OnPropertyChanged(e.PropertyName);
     }
 
-    public ScriptViewModel() : base()
+    public ScriptViewModel() : this(new ScriptModel())
     {
-      this.Script = new ScriptModel();
+    }
+
+    public ScriptViewModel(ScriptModel script) : base()
+    {
+      this.Script = script;
       this.detailsViewModel = new ScriptDetailsViewModel(this.Script);
       this.detailsViewModel.PropertyChanged += this.OnDetailsViewModelPropertyChanged;
       this.InitCommands();

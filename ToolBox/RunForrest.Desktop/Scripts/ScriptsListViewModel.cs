@@ -49,10 +49,15 @@ namespace RunForrest.Desktop
 
     private void AddNewScript()
     {
-      var newScript = new ScriptViewModel();
-      newScript.RemoveRequested += this.OnScriptViewModelRemoveRequested;
-      newScript.ShowDetailsRequested += this.OnScriptViewModelShowDetailsRequested;
-      this.Items.Add(newScript);
+      this.AddNewScript(new ScriptModel());
+    }
+
+    private void AddNewScript(ScriptModel script)
+    {
+      var newScriptViewModel = new ScriptViewModel(script);
+      newScriptViewModel.RemoveRequested += this.OnScriptViewModelRemoveRequested;
+      newScriptViewModel.ShowDetailsRequested += this.OnScriptViewModelShowDetailsRequested;
+      this.Items.Add(newScriptViewModel);
     }
 
     private void OnScriptViewModelRemoveRequested(ScriptViewModel sender)
@@ -125,13 +130,12 @@ namespace RunForrest.Desktop
       //script.Abort();
     }
 
-    public void LoadFromFile(string path)
+    public void OpenFromFile(string path)
     {
-      //var scripts = ScriptData.Deserialize(File.ReadAllLines(path))
-      //  .Select(x => new Script() { ScriptData = x });
-      //this.Items.Clear();
-      //foreach (var script in scripts)
-      //  this.Items.Add(script);
+      var scripts = ScriptModel.Deserialize(File.ReadAllLines(path));
+      this.Items.Clear();
+      foreach (var script in scripts)
+        this.AddNewScript(script);
     }
 
     public void SaveToFile(string path)

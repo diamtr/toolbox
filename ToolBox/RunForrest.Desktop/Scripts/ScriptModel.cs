@@ -1,6 +1,8 @@
 ﻿using RunForrest.Desktop.Engine;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +30,36 @@ namespace RunForrest.Desktop
         sb.AppendLine(this.Text);
 
       return sb.ToString();
+    }
+
+    public static List<ScriptModel> Deserialize(IEnumerable<string> rawText)
+    {
+      var scripts = new List<ScriptModel>();
+
+      if (rawText == null || !rawText.Any())
+        return scripts;
+
+      var newScript = new ScriptModel();
+      foreach (var textLine in rawText)
+      {
+        if (string.IsNullOrWhiteSpace(textLine))
+          continue;
+        if (textLine.StartsWith("REM", System.StringComparison.InvariantCultureIgnoreCase))
+        {
+          newScript.Comment = textLine.Substring(3).Trim();
+          continue;
+        }
+        if (textLine.StartsWith("CD", System.StringComparison.InvariantCultureIgnoreCase))
+        {
+          newScript.WorkingDirectory = textLine.Substring(2).Trim();
+          continue;
+        }
+        newScript.Text = textLine;
+        scripts.Add(newScript);
+        newScript = new ScriptModel();
+      }
+
+      return scripts;
     }
 
     public async Task Run()

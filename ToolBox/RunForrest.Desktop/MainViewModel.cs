@@ -110,6 +110,8 @@ namespace RunForrest.Desktop
 
     private void OnMainMenuViewModelOpenRequested(string filePath)
     {
+      this.ScriptsListViewModel.OpenFromFile(filePath);
+      this.OpenedFilePath = filePath;
     }
 
     private void OnMainMenuViewModelSaveRequested(string filePath)
