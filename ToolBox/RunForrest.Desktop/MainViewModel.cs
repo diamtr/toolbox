@@ -39,8 +39,6 @@ namespace RunForrest.Desktop
 
     private string openedFilePath;
     private ViewModelBase additionalContentAreaViewModel;
-    private TaskCompletionSource<bool> scriptsExecutionStopTcs;
-    private CancellationTokenSource scriptsExecutionCts;
 
     #endregion
 
@@ -142,13 +140,5 @@ namespace RunForrest.Desktop
     }
 
     #endregion
-  }
-
-  public enum AdditionalContentAreaType
-  {
-    Log,
-    Variables,
-    Script,
-    Empty
   }
 }

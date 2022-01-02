@@ -75,8 +75,6 @@ namespace RunForrest.Desktop
     public MainMenuViewModel() : base()
     {
       this.PinnedItems = new ObservableCollection<string>();
-      this.PinnedItems.Add(@"D:\repos\toolbox\ToolBox\RunForrest.Desktop\MainViewModel.cs");
-      this.PinnedItems.Add(@"D:\repos\toolbox\ToolBox\RunForrest.Desktop\bin\Debug\netcoreapp3.1\ToolBox.Desktop.Base.dll");
       this.InitCommands();
     }
   }
