@@ -99,35 +99,11 @@ namespace RunForrest.Desktop
       return this.Items.Where(x => !x.IsMuteChecked).ToList();
     }
 
-    private void AttachToSelectedItemCloseEvent(Script newValue)
-    {
-      if (newValue == null)
-        return;
-      newValue.ScriptDataViewClosed += this.OnSelectedScriptClose;
-    }
-
-    private void OnSelectedScriptClose()
-    {
-      if (this.SelectedItem == null)
-        return;
-
-      //this.SelectedItem.ScriptDataViewClosed -= this.OnSelectedScriptClose;
-      this.SelectedItem = null;
-    }
-
     private void RemoveSelectedScript()
     {
       if (this.SelectedItem == null)
         return;
       this.Items.Remove(this.SelectedItem);
-    }
-
-    public void AbortRunningScriptExecution()
-    {
-      //var script = this.Items.SingleOrDefault(x => x.IsRunning);
-      //if (script == null)
-      //  return;
-      //script.Abort();
     }
 
     public void OpenFromFile(string path)
