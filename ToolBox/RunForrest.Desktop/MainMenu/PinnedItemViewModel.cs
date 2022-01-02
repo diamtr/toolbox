@@ -9,11 +9,11 @@ namespace RunForrest.Desktop
     {
       get
       {
-        return this.pinnedItem.Name;
+        return this.PinnedItem.Name;
       }
       set
       {
-        this.pinnedItem.Name = value;
+        this.PinnedItem.Name = value;
         this.OnPropertyChanged();
       }
     }
@@ -21,25 +21,31 @@ namespace RunForrest.Desktop
     {
       get
       {
-        return this.pinnedItem.Path;
+        return this.PinnedItem.Path;
       }
       set
       {
-        this.pinnedItem.Path = value;
+        this.PinnedItem.Path = value;
         this.OnPropertyChanged();
       }
     }
+    public PinnedItemModel PinnedItem { get; private set; }
 
     public event Action<PinnedItemViewModel> ClosingRequested;
+    public event Action<PinnedItemViewModel> PinAccepted;
 
     public Command RequestClosingCommand { get; private set; }
-
-    private PinnedItemModel pinnedItem;
+    public Command AcceptPinCommand { get; private set; }
 
     private void InitCommands()
     {
       this.RequestClosingCommand = new Command(
         x => { this.ClosingRequested?.Invoke(this); },
+        x => true
+        );
+
+      this.AcceptPinCommand = new Command(
+        x => { this.PinAccepted?.Invoke(this); },
         x => true
         );
     }
@@ -50,7 +56,7 @@ namespace RunForrest.Desktop
 
     public PinnedItemViewModel(PinnedItemModel pinnedItem) : base()
     {
-      this.pinnedItem = pinnedItem;
+      this.PinnedItem = pinnedItem;
       this.InitCommands();
     }
   }

@@ -144,12 +144,22 @@ namespace RunForrest.Desktop
     {
       var pinnedItemViewModel = this.CreateNewPinnedItemViewModel();
       pinnedItemViewModel.ClosingRequested += this.OnPinnedItemViewModelClosingRequested;
+      pinnedItemViewModel.PinAccepted += this.OnPinnedItemViewModelPinAccepted;
       this.ShowContentAreaViewModel(pinnedItemViewModel);
     }
 
     private void OnPinnedItemViewModelClosingRequested(PinnedItemViewModel pinnedItemViewModel)
     {
       pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
+      pinnedItemViewModel.PinAccepted -= this.OnPinnedItemViewModelPinAccepted;
+      this.HideContentAreaViewModel(pinnedItemViewModel);
+    }
+
+    private void OnPinnedItemViewModelPinAccepted(PinnedItemViewModel pinnedItemViewModel)
+    {
+      this.MainMenuViewModel.PinnedItemsAppend(pinnedItemViewModel.PinnedItem);
+      pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
+      pinnedItemViewModel.PinAccepted -= this.OnPinnedItemViewModelPinAccepted;
       this.HideContentAreaViewModel(pinnedItemViewModel);
     }
 

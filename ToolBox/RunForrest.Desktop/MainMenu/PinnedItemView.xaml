@@ -16,7 +16,8 @@
     
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <Button Grid.Row="0"
@@ -68,11 +69,21 @@
                        Opacity="0.4"/>
           </Grid>
 
+          <Button Grid.Row="2"
+                  Content="Pin"
+                  Margin="0,10,0,10"
+                  ToolTip="Pin"
+                  HorizontalAlignment="Right"
+                  Command="{Binding AcceptPinCommand}"
+                  />
+
         </StackPanel>
 
       </Grid>
 
     </Border>
 
+    
+    
   </Grid>
 </UserControl>

@@ -39,9 +39,8 @@
                  Margin="0,0,10,0"/>
 
       <ComboBox Grid.Column="1"
-                ItemsSource="{Binding PinnedItems}"
-                SelectedItem="{Binding SelectedPinnedItem}"
-                HorizontalContentAlignment="Right"
+                ItemsSource="{Binding PinnedItemNames}"
+                SelectedItem="{Binding SelectedPinnedItemName}"
                 IsEditable="False"/>
     </Grid>
     

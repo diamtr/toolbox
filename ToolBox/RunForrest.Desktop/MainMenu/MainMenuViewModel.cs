@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ToolBox.Desktop.Base;
 
@@ -7,21 +8,22 @@ namespace RunForrest.Desktop
 {
   public class MainMenuViewModel : ViewModelBase
   {
-    public ObservableCollection<PinnedItemModel> PinnedItems { get; set; }
-    public string SelectedPinnedItem
+    public ObservableCollection<string> PinnedItemNames { get; private set; }
+    public string SelectedPinnedItemName
     { 
       get
       {
-        return this.selectedPinnedItem;
+        return this.selectedPinnedItemName;
       }
       set
       {
-        this.selectedPinnedItem = value;
+        this.selectedPinnedItemName = value;
         this.OnPropertyChanged();
       }
     }
 
-    private string selectedPinnedItem;
+    private string selectedPinnedItemName;
+    private List<PinnedItemModel> pinnedItems;
 
     public event Action<string> OpenRequested;
     public event Action<string> SaveRequested;
@@ -30,6 +32,13 @@ namespace RunForrest.Desktop
     public Command OpenCommand { get; private set; }
     public Command SaveCommand { get; private set; }
     public Command PinCommand { get; private set; }
+
+    public void PinnedItemsAppend(PinnedItemModel pinnedItem)
+    {
+      this.pinnedItems.Add(pinnedItem);
+      this.PinnedItemNames.Add(pinnedItem.Name);
+      this.SelectedPinnedItemName = pinnedItem.Name;
+    }
 
     private void InitCommands()
     {
@@ -74,7 +83,8 @@ namespace RunForrest.Desktop
 
     public MainMenuViewModel() : base()
     {
-      this.PinnedItems = new ObservableCollection<PinnedItemModel>();
+      this.pinnedItems = new List<PinnedItemModel>();
+      this.PinnedItemNames = new ObservableCollection<string>();
       this.InitCommands();
     }
   }
