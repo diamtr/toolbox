@@ -110,12 +110,11 @@ namespace RunForrest.Desktop
 
     private void OnMainMenuViewModelOpenRequested(string filePath)
     {
-      this.OpenedFilePath = filePath;
     }
 
     private void OnMainMenuViewModelSaveRequested(string filePath)
     {
-
+      this.ScriptsListViewModel.SaveToFile(filePath);
     }
 
     private void OnMainMenuViewModelPinRequested()

@@ -11,11 +11,11 @@ namespace RunForrest.Desktop
     {
       get
       {
-        return this.script.Text;
+        return this.Script.Text;
       }
       set
       {
-        this.script.Text = value;
+        this.Script.Text = value;
         this.OnPropertyChanged();
         this.detailsViewModel.Refresh();
       }
@@ -48,11 +48,11 @@ namespace RunForrest.Desktop
           this.IsMuteChecked = false;
       }
     }
+    public ScriptModel Script { get; private set; }
 
     public event Action<ScriptDetailsViewModel> ShowDetailsRequested;
     public event Action<ScriptViewModel> RemoveRequested;
 
-    private ScriptModel script;
     private ScriptDetailsViewModel detailsViewModel;
     private bool isMuteChecked;
     private bool isSoloChecked;
@@ -63,7 +63,7 @@ namespace RunForrest.Desktop
     public async Task Run()
     {
       Outputs.Instance.Append($"{this.ScriptText}");
-      await this.script.Run();
+      await this.Script.Run();
     }
 
     private void InitCommands()
@@ -87,8 +87,8 @@ namespace RunForrest.Desktop
 
     public ScriptViewModel() : base()
     {
-      this.script = new ScriptModel();
-      this.detailsViewModel = new ScriptDetailsViewModel(this.script);
+      this.Script = new ScriptModel();
+      this.detailsViewModel = new ScriptDetailsViewModel(this.Script);
       this.detailsViewModel.PropertyChanged += this.OnDetailsViewModelPropertyChanged;
       this.InitCommands();
     }

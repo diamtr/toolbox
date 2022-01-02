@@ -14,6 +14,22 @@ namespace RunForrest.Desktop
     public string WorkingDirectory { get; set; }
     public string Comment { get; set; }
 
+    public override string ToString()
+    {
+      var sb = new StringBuilder();
+
+      if (!string.IsNullOrWhiteSpace(this.Comment))
+        sb.AppendLine($"REM {this.Comment}");
+
+      if (!string.IsNullOrWhiteSpace(this.WorkingDirectory))
+        sb.AppendLine($"CD {this.WorkingDirectory}");
+
+      if (!string.IsNullOrWhiteSpace(this.Text))
+        sb.AppendLine(this.Text);
+
+      return sb.ToString();
+    }
+
     public async Task Run()
     {
       var options = this.GetProcessOptions();

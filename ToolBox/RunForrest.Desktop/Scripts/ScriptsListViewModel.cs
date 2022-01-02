@@ -125,7 +125,7 @@ namespace RunForrest.Desktop
       //script.Abort();
     }
 
-    public void LoadFromFile(object sender, string path)
+    public void LoadFromFile(string path)
     {
       //var scripts = ScriptData.Deserialize(File.ReadAllLines(path))
       //  .Select(x => new Script() { ScriptData = x });
@@ -134,9 +134,9 @@ namespace RunForrest.Desktop
       //  this.Items.Add(script);
     }
 
-    public void SaveToFile(object sender, string path)
+    public void SaveToFile(string path)
     {
-      //File.WriteAllText(path, ScriptData.Serialize(this.Items.Select(x => x.ScriptData)));
+      File.WriteAllLines(path, this.Items.Select(x => x.Script.ToString()));
     }
 
     public ScriptsListViewModel()
