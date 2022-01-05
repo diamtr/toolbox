@@ -89,7 +89,7 @@ namespace RunForrest.Desktop
 
     #endregion
 
-    private void ShowContentAreaViewModel(ViewModelBase viewModel)
+    private void ShowInContent(ViewModelBase viewModel)
     {
       if (this.contentAreaViewModelStack.Count > 0 &&
           this.contentAreaViewModelStack.Peek().GetType() == viewModel.GetType())
@@ -98,7 +98,7 @@ namespace RunForrest.Desktop
       this.OnPropertyChanged(nameof(this.AdditionalContentAreaViewModel));
     }
 
-    private void HideContentAreaViewModel(ViewModelBase viewModel)
+    private void HideFromContent(ViewModelBase viewModel)
     {
       if (this.contentAreaViewModelStack.Peek() != viewModel)
         return;
@@ -120,13 +120,13 @@ namespace RunForrest.Desktop
     private void OnShowScriptDetailsRequested(ScriptDetailsViewModel scriptDetailsViewModel)
     {
       scriptDetailsViewModel.ClosingRequested += this.OnScriptDetailsViewModelClosingRequested;
-      this.ShowContentAreaViewModel(scriptDetailsViewModel);
+      this.ShowInContent(scriptDetailsViewModel);
     }
 
     private void OnScriptDetailsViewModelClosingRequested(ScriptDetailsViewModel scriptDetailsViewModel)
     {
       scriptDetailsViewModel.ClosingRequested -= this.OnScriptDetailsViewModelClosingRequested;
-      this.HideContentAreaViewModel(scriptDetailsViewModel);
+      this.HideFromContent(scriptDetailsViewModel);
     }
 
     private void OnMainMenuViewModelOpenRequested(string filePath)
@@ -145,14 +145,14 @@ namespace RunForrest.Desktop
       var pinnedItemViewModel = this.CreateNewPinnedItemViewModel();
       pinnedItemViewModel.ClosingRequested += this.OnPinnedItemViewModelClosingRequested;
       pinnedItemViewModel.PinAccepted += this.OnPinnedItemViewModelPinAccepted;
-      this.ShowContentAreaViewModel(pinnedItemViewModel);
+      this.ShowInContent(pinnedItemViewModel);
     }
 
     private void OnPinnedItemViewModelClosingRequested(PinnedItemViewModel pinnedItemViewModel)
     {
       pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
       pinnedItemViewModel.PinAccepted -= this.OnPinnedItemViewModelPinAccepted;
-      this.HideContentAreaViewModel(pinnedItemViewModel);
+      this.HideFromContent(pinnedItemViewModel);
     }
 
     private void OnPinnedItemViewModelPinAccepted(PinnedItemViewModel pinnedItemViewModel)
@@ -160,7 +160,7 @@ namespace RunForrest.Desktop
       this.MainMenuViewModel.PinnedItemsAppend(pinnedItemViewModel.PinnedItem);
       pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
       pinnedItemViewModel.PinAccepted -= this.OnPinnedItemViewModelPinAccepted;
-      this.HideContentAreaViewModel(pinnedItemViewModel);
+      this.HideFromContent(pinnedItemViewModel);
     }
 
     private PinnedItemViewModel CreateNewPinnedItemViewModel()
@@ -187,7 +187,7 @@ namespace RunForrest.Desktop
       this.Outputs = Outputs.Instance;
       this.ScriptsListViewModel = new ScriptsListViewModel();
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
-      this.ShowContentAreaViewModel(this.Outputs);
+      this.ShowInContent(this.Outputs);
       this.InitCommands();
     }
 
