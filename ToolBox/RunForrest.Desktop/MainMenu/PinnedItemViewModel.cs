@@ -33,9 +33,11 @@ namespace RunForrest.Desktop
 
     public event Action<PinnedItemViewModel> ClosingRequested;
     public event Action<PinnedItemViewModel> PinAccepted;
+    public event Action<PinnedItemViewModel> ApplyPinRequested;
 
     public Command RequestClosingCommand { get; private set; }
     public Command AcceptPinCommand { get; private set; }
+    public Command ApplyPinCommand { get; private set; }
 
     private void InitCommands()
     {
@@ -45,9 +47,20 @@ namespace RunForrest.Desktop
         );
 
       this.AcceptPinCommand = new Command(
-        x => { this.PinAccepted?.Invoke(this); },
+        x => { this.AcceptPin(); },
         x => true
         );
+
+      this.ApplyPinCommand = new Command(
+        x => { this.ApplyPinRequested?.Invoke(this); },
+        x => true
+        );
+    }
+
+    private void AcceptPin()
+    {
+      this.PinnedItem.SaveInSettings();
+      this.PinAccepted?.Invoke(this);
     }
 
     public PinnedItemViewModel() : this(new PinnedItemModel())

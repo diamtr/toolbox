@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
@@ -19,6 +20,8 @@ namespace RunForrest.Desktop
       {
         this.selectedPinnedItemName = value;
         this.OnPropertyChanged();
+        var item = this.pinnedItems.FirstOrDefault(x => x.Name == this.selectedPinnedItemName);
+        this.SelectedPinnedItemNameChanged?.Invoke(item);
       }
     }
 
@@ -28,6 +31,7 @@ namespace RunForrest.Desktop
     public event Action<string> OpenRequested;
     public event Action<string> SaveRequested;
     public event Action PinRequested;
+    public event Action<PinnedItemModel> SelectedPinnedItemNameChanged;
 
     public Command OpenCommand { get; private set; }
     public Command SaveCommand { get; private set; }
@@ -37,7 +41,6 @@ namespace RunForrest.Desktop
     {
       this.pinnedItems.Add(pinnedItem);
       this.PinnedItemNames.Add(pinnedItem.Name);
-      this.SelectedPinnedItemName = pinnedItem.Name;
     }
 
     private void InitCommands()

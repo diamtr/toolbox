@@ -69,13 +69,22 @@
                        Opacity="0.4"/>
           </Grid>
 
-          <Button Grid.Row="2"
-                  Content="Pin"
-                  Margin="0,10,0,10"
-                  ToolTip="Pin"
-                  HorizontalAlignment="Right"
-                  Command="{Binding AcceptPinCommand}"
-                  />
+          <StackPanel Grid.Row="2"
+                      Margin="0,10,0,10"
+                      Orientation="Horizontal"
+                      HorizontalAlignment="Right">
+
+            <Button Content="Apply"
+                    ToolTip="Apply pin"
+                    Command="{Binding ApplyPinCommand}"
+                    />
+
+            <Button Content="Pin"
+                    ToolTip="Pin"
+                    Command="{Binding AcceptPinCommand}"
+                    />
+            
+          </StackPanel>
 
         </StackPanel>
 
