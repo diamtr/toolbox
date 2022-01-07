@@ -49,8 +49,6 @@ namespace RunForrest.Desktop
     #region Commands
 
     public Command ControlLoadedCommand { get; private set; }
-    public Command ControlUnloadedCommand { get; private set; }
-    public Command CopyScriptsExecutionLogSelectedItemsCommand { get; private set; }
 
     private void InitCommands()
     {
@@ -58,34 +56,6 @@ namespace RunForrest.Desktop
         x => { this.ControlLoaded(); },
         x => true
         );
-
-      this.ControlUnloadedCommand = new Command(
-        x => { this.ControlUnloaded(); },
-        x => true
-        );
-
-      this.CopyScriptsExecutionLogSelectedItemsCommand = new Command(
-        x => { this.CopyScriptsExecutionLogSelectedItems(x); },
-        x => true
-        );
-    }
-
-    #endregion
-
-    #region Command Functions
-
-    private void CopyScriptsExecutionLogSelectedItems(object parameter)
-    {
-      var items = ((IList)parameter).Cast<string>();
-      if (items == null)
-        return;
-
-      var text = new StringBuilder();
-
-      foreach (var item in items)
-        text.AppendLine(item);
-
-      Clipboard.SetData(DataFormats.Text, text.ToString());
     }
 
     #endregion
@@ -121,10 +91,6 @@ namespace RunForrest.Desktop
         this.MainMenuViewModel.PinnedItemsAppend(item);
 
       this.onceLoaded = true;
-    }
-
-    private void ControlUnloaded()
-    {
     }
 
     private void OnShowScriptDetailsRequested(ScriptDetailsViewModel scriptDetailsViewModel)

@@ -17,9 +17,6 @@
     <msxb:EventTrigger EventName="Loaded">
       <msxb:InvokeCommandAction Command="{Binding ControlLoadedCommand}" />
     </msxb:EventTrigger>
-    <msxb:EventTrigger EventName="Unloaded">
-      <msxb:InvokeCommandAction Command="{Binding ControlUnloadedCommand}" />
-    </msxb:EventTrigger>
   </msxb:Interaction.Triggers>
 
   <UserControl.Resources>
@@ -108,7 +105,7 @@
           </Grid.RowDefinitions>
 
           <ContentControl Grid.Row="0"
-                      Content="{Binding AdditionalContentAreaViewModel}" />
+                          Content="{Binding AdditionalContentAreaViewModel}" />
 
           <StackPanel Grid.Row="1" Orientation="Vertical">
             <TextBlock Text="{Binding OpenedFilePath}"/>
