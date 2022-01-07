@@ -25,14 +25,6 @@
         <ResourceDictionary Source="Brushes.xaml"/>
         <ResourceDictionary Source="Styles.xaml" />
       </ResourceDictionary.MergedDictionaries>
-
-      <!-- Converters -->
-      <local:HasErrorToBrushConverter x:Key="HasErrorToBrushConverter" />
-      <local:IsRunningToBrushConverter x:Key="IsRunningToBrushConverter" />
-      <local:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
-      <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-      <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterReverse" Reverse="True" />
-      <local:DoubleToDoubleConverter x:Key="DoubleToDoubleConverter-10" Offset="-10" />
       
 
       <DataTemplate DataType="{x:Type local:Variables}">
