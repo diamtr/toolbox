@@ -61,18 +61,6 @@ namespace RunForrest.Desktop
       return instance;
     }
 
-    private void OnShowScriptDetailsRequested(ScriptDetailsViewModel scriptDetailsViewModel)
-    {
-      scriptDetailsViewModel.ClosingRequested += this.OnScriptDetailsViewModelClosingRequested;
-      this.Navigator.SetCurrent(scriptDetailsViewModel);
-    }
-
-    private void OnScriptDetailsViewModelClosingRequested(ScriptDetailsViewModel scriptDetailsViewModel)
-    {
-      scriptDetailsViewModel.ClosingRequested -= this.OnScriptDetailsViewModelClosingRequested;
-      this.Navigator.Forget(scriptDetailsViewModel);
-    }
-
     private void LoadScriptsFromFile(string filePath)
     {
       this.ScriptsListViewModel.OpenFromFile(filePath);
@@ -140,6 +128,14 @@ namespace RunForrest.Desktop
       this.Navigator.SetCurrent(pinnedItemViewModel);
     }
 
+    private void SetCurrentContent(ViewModelBase viewModel)
+    {
+      if (viewModel is IClosableViewModel)
+        ((IClosableViewModel)viewModel).CloseRequested += this.Navigator.Forget;
+
+      this.Navigator.SetCurrent(viewModel);
+    }
+
     private void ViewModelNavigator_ViewModelChanged()
     {
       this.OnPropertyChanged(nameof(this.ContentAreaViewModel));
@@ -158,7 +154,7 @@ namespace RunForrest.Desktop
       this.MainMenuViewModel.SelectedPinnedItemNameChanged += this.OnMainMenuVievModelSelectedPinnedItemNameChanged;
       this.Variables = new Variables();
       this.ScriptsListViewModel = new ScriptsListViewModel();
-      this.ScriptsListViewModel.ShowScriptDetailsRequested += this.OnShowScriptDetailsRequested;
+      this.ScriptsListViewModel.ShowScriptDetailsRequested += this.SetCurrentContent;
     }
 
     #endregion

@@ -3,7 +3,7 @@ using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
 {
-  public class ScriptDetailsViewModel : ViewModelBase
+  public class ScriptDetailsViewModel : ViewModelBase, IClosableViewModel
   {
     public string ScriptText
     {
@@ -46,7 +46,7 @@ namespace RunForrest.Desktop
 
     private ScriptModel script;
 
-    public event Action<ScriptDetailsViewModel> ClosingRequested;
+    public event Action<ViewModelBase> CloseRequested;
 
     public Command RequestClosingCommand { get; private set; }
 
@@ -58,7 +58,7 @@ namespace RunForrest.Desktop
     private void InitCommands()
     {
       this.RequestClosingCommand = new Command(
-        x => { this.ClosingRequested?.Invoke(this); },
+        x => { this.CloseRequested?.Invoke(this); },
         x => true
         );
     }
