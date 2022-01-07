@@ -87,7 +87,7 @@
                       Content="{Binding MainMenuViewModel}" />
 
       <!-- Scripts List -->
-      <ContentControl Grid.Row="2"
+      <ContentControl Grid.Row="1"
                       Content="{Binding ScriptsListViewModel}"/>
 
     </Grid>
