@@ -49,7 +49,7 @@ namespace RunForrest.Desktop
     {
       var instance = new MainViewModel();
       instance.Outputs = Outputs.Instance;
-      instance.Navigator.SetCurrent(instance.Outputs);
+      instance.SetCurrentContent(instance.Outputs);
 
       if (!instance.Variables.Items.Any())
         instance.Variables.LoadFromSettings();
@@ -67,41 +67,42 @@ namespace RunForrest.Desktop
       this.OpenedFilePath = filePath;
     }
 
-    private void OnMainMenuViewModelSaveRequested(string filePath)
+    private void MainMenuViewModel_SaveRequested(string filePath)
     {
       this.ScriptsListViewModel.SaveToFile(filePath);
     }
 
-    private void OnMainMenuViewModelPinRequested()
+    private void MainMenuViewModel_PinRequested()
     {
       var pinnedItemViewModel = this.CreateNewPinnedItemViewModel();
-      pinnedItemViewModel.ClosingRequested += this.OnPinnedItemViewModelClosingRequested;
-      pinnedItemViewModel.PinAccepted += this.OnPinnedItemViewModelPinAccepted;
-      this.Navigator.SetCurrent(pinnedItemViewModel);
+      pinnedItemViewModel.PinAccepted += this.PinnedItemViewModel_PinAccepted;
+      this.SetCurrentContent(pinnedItemViewModel);
     }
 
-    private void OnPinnedItemViewModelClosingRequested(PinnedItemViewModel pinnedItemViewModel)
+    private void MainMenuVievModel_SelectedPinnedItemNameChanged(PinnedItemModel newPinnedItemModel)
     {
-      pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
-      pinnedItemViewModel.PinAccepted -= this.OnPinnedItemViewModelPinAccepted;
-      this.Navigator.Forget(pinnedItemViewModel);
+      if (newPinnedItemModel == null)
+        return;
+
+      var pinnedItemViewModel = new PinnedItemViewModel(newPinnedItemModel);
+      pinnedItemViewModel.PinAccepted += this.PinnedItemViewModel_PinAccepted;
+      pinnedItemViewModel.ApplyPinRequested += this.PinnedItemViewModel_ApplyPinRequested;
+      this.SetCurrentContent(pinnedItemViewModel);
     }
 
-    private void OnPinnedItemViewModelPinAccepted(PinnedItemViewModel pinnedItemViewModel)
+    private void PinnedItemViewModel_PinAccepted(PinnedItemViewModel pinnedItemViewModel)
     {
       this.MainMenuViewModel.PinnedItemsAppend(pinnedItemViewModel.PinnedItem);
       this.MainMenuViewModel.SelectedPinnedItemName = pinnedItemViewModel.PinnedItem.Name;
-      pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
-      pinnedItemViewModel.PinAccepted -= this.OnPinnedItemViewModelPinAccepted;
-      this.Navigator.Forget(pinnedItemViewModel);
+      pinnedItemViewModel.PinAccepted -= this.PinnedItemViewModel_PinAccepted;
+      this.ForgetContent(pinnedItemViewModel);
     }
 
-    private void OnPinnedItemViewModelApplyPinRequested(PinnedItemViewModel pinnedItemViewModel)
+    private void PinnedItemViewModel_ApplyPinRequested(PinnedItemViewModel pinnedItemViewModel)
     {
-      pinnedItemViewModel.ClosingRequested -= this.OnPinnedItemViewModelClosingRequested;
-      pinnedItemViewModel.PinAccepted -= this.OnPinnedItemViewModelPinAccepted;
-      pinnedItemViewModel.ApplyPinRequested -= this.OnPinnedItemViewModelApplyPinRequested;
-      this.Navigator.Forget(pinnedItemViewModel);
+      pinnedItemViewModel.PinAccepted -= this.PinnedItemViewModel_PinAccepted;
+      pinnedItemViewModel.ApplyPinRequested -= this.PinnedItemViewModel_ApplyPinRequested;
+      this.ForgetContent(pinnedItemViewModel);
       this.LoadScriptsFromFile(pinnedItemViewModel.PinnedItem.Path);
     }
 
@@ -116,29 +117,20 @@ namespace RunForrest.Desktop
       return new PinnedItemViewModel(pinnedItem);
     }
 
-    private void OnMainMenuVievModelSelectedPinnedItemNameChanged(PinnedItemModel newPinnedItemModel)
-    {
-      if (newPinnedItemModel == null)
-        return;
-
-      var pinnedItemViewModel = new PinnedItemViewModel(newPinnedItemModel);
-      pinnedItemViewModel.ClosingRequested += this.OnPinnedItemViewModelClosingRequested;
-      pinnedItemViewModel.PinAccepted += this.OnPinnedItemViewModelPinAccepted;
-      pinnedItemViewModel.ApplyPinRequested += this.OnPinnedItemViewModelApplyPinRequested;
-      this.Navigator.SetCurrent(pinnedItemViewModel);
-    }
-
     private void SetCurrentContent(ViewModelBase viewModel)
     {
       if (viewModel is IClosableViewModel)
-        ((IClosableViewModel)viewModel).CloseRequested += this.Navigator.Forget;
+        ((IClosableViewModel)viewModel).CloseRequested += this.ForgetContent;
 
       this.Navigator.SetCurrent(viewModel);
     }
 
-    private void ViewModelNavigator_ViewModelChanged()
+    private void ForgetContent(ViewModelBase viewModel)
     {
-      this.OnPropertyChanged(nameof(this.ContentAreaViewModel));
+      if (viewModel is IClosableViewModel)
+        ((IClosableViewModel)viewModel).CloseRequested -= this.ForgetContent;
+
+      this.Navigator.Forget(viewModel);
     }
 
     #region ctors
@@ -146,12 +138,12 @@ namespace RunForrest.Desktop
     public MainViewModel()
     {
       this.Navigator = new ViewModelNavigator();
-      this.Navigator.ViewModelChanged += this.ViewModelNavigator_ViewModelChanged;
+      this.Navigator.ViewModelChanged += () => { this.OnPropertyChanged(nameof(this.ContentAreaViewModel)); };
       this.MainMenuViewModel = new MainMenuViewModel();
       this.MainMenuViewModel.OpenRequested += this.LoadScriptsFromFile;
-      this.MainMenuViewModel.SaveRequested += this.OnMainMenuViewModelSaveRequested;
-      this.MainMenuViewModel.PinRequested += this.OnMainMenuViewModelPinRequested;
-      this.MainMenuViewModel.SelectedPinnedItemNameChanged += this.OnMainMenuVievModelSelectedPinnedItemNameChanged;
+      this.MainMenuViewModel.SaveRequested += this.MainMenuViewModel_SaveRequested;
+      this.MainMenuViewModel.PinRequested += this.MainMenuViewModel_PinRequested;
+      this.MainMenuViewModel.SelectedPinnedItemNameChanged += this.MainMenuVievModel_SelectedPinnedItemNameChanged;
       this.Variables = new Variables();
       this.ScriptsListViewModel = new ScriptsListViewModel();
       this.ScriptsListViewModel.ShowScriptDetailsRequested += this.SetCurrentContent;

@@ -7,7 +7,8 @@ namespace RunForrest.Desktop
   [Export(typeof(IDesktopTool))]
   public class DesktopTool : IDesktopTool
   {
-    private UserControl instance;
+    private UserControl userControlInstance;
+    private object dataContextInstance;
 
     public string DisplayName
     {
@@ -19,10 +20,12 @@ namespace RunForrest.Desktop
 
     public UserControl GetUserControl()
     {
-      if (this.instance == null)
-        this.instance = new RunForrest();
-      this.instance.DataContext = MainViewModel.GetInstance();
-      return this.instance;
+      if (this.userControlInstance == null)
+        this.userControlInstance = new RunForrest();
+      if (this.dataContextInstance == null)
+        this.dataContextInstance = MainViewModel.GetInstance();
+      this.userControlInstance.DataContext = this.dataContextInstance;
+      return this.userControlInstance;
     }
   }
 }

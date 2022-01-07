@@ -3,7 +3,7 @@ using ToolBox.Desktop.Base;
 
 namespace RunForrest.Desktop
 {
-  public class PinnedItemViewModel : ViewModelBase
+  public class PinnedItemViewModel : ViewModelBase, IClosableViewModel
   {
     public string Name
     {
@@ -31,7 +31,7 @@ namespace RunForrest.Desktop
     }
     public PinnedItemModel PinnedItem { get; private set; }
 
-    public event Action<PinnedItemViewModel> ClosingRequested;
+    public event Action<ViewModelBase> CloseRequested;
     public event Action<PinnedItemViewModel> PinAccepted;
     public event Action<PinnedItemViewModel> ApplyPinRequested;
 
@@ -42,7 +42,7 @@ namespace RunForrest.Desktop
     private void InitCommands()
     {
       this.RequestClosingCommand = new Command(
-        x => { this.ClosingRequested?.Invoke(this); },
+        x => { this.CloseRequested?.Invoke(this); },
         x => true
         );
 
