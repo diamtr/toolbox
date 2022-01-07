@@ -39,6 +39,10 @@ namespace RunForrest.Desktop
 
     public void PinnedItemsAppend(PinnedItemModel pinnedItem)
     {
+      if (pinnedItems.Any(x => x.Name == pinnedItem.Name &&
+                               x.Path == pinnedItem.Path))
+        return;
+
       this.pinnedItems.Add(pinnedItem);
       this.PinnedItemNames.Add(pinnedItem.Name);
     }

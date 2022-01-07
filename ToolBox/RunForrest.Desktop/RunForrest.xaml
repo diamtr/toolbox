@@ -13,12 +13,6 @@
     <local:MainViewModel />
   </UserControl.DataContext>
 
-  <msxb:Interaction.Triggers>
-    <msxb:EventTrigger EventName="Loaded">
-      <msxb:InvokeCommandAction Command="{Binding ControlLoadedCommand}" />
-    </msxb:EventTrigger>
-  </msxb:Interaction.Triggers>
-
   <UserControl.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -97,7 +91,7 @@
           </Grid.RowDefinitions>
 
           <ContentControl Grid.Row="0"
-                          Content="{Binding AdditionalContentAreaViewModel}" />
+                          Content="{Binding ContentAreaViewModel}" />
 
           <StackPanel Grid.Row="1" Orientation="Vertical">
             <TextBlock Text="{Binding OpenedFilePath}"/>

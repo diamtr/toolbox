@@ -16,10 +16,12 @@ namespace RunForrest.Desktop
         return "Run, Forrest!";
       }
     }
+
     public UserControl GetUserControl()
     {
       if (this.instance == null)
         this.instance = new RunForrest();
+      this.instance.DataContext = MainViewModel.GetInstance();
       return this.instance;
     }
   }
