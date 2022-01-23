@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="RunForrest.Desktop.MainMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunForrest.Desktop"
+             mc:Ignorable="d" 
+             d:DesignHeight="90" d:DesignWidth="200">
+  <Grid Margin="0,0,0,10">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    
+    <!-- Buttons -->
+    <StackPanel Grid.Row="0"
+                Orientation="Horizontal"
+                Margin="0,20,0,10">
+      <Button Content="Open"
+              Command="{Binding OpenCommand}"/>
+      <Button Content="Save"
+              Command="{Binding SaveCommand}"/>
+      <Button Content="Pin"
+              Command="{Binding PinCommand}"/>
+    </StackPanel>
+
+    <!-- Pinned Scripts -->
+    <Grid Grid.Row="1">
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <TextBlock Grid.Column="0"
+                 Text="Pinned"
+                 VerticalAlignment="Center"
+                 Margin="0,0,10,0"/>
+
+      <ComboBox Grid.Column="1"
+                ItemsSource="{Binding PinnedItemNames}"
+                SelectedItem="{Binding SelectedPinnedItemName}"
+                IsEditable="False"/>
+    </Grid>
+    
+  </Grid>
+</UserControl>

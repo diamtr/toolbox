@@ -6,10 +6,13 @@
     <ResourceDictionary Source="Brushes.xaml"/>
     <ResourceDictionary Source="CheckBoxStyle.xaml"/>
     <ResourceDictionary Source="ComboBoxStyle.xaml"/>
+    <ResourceDictionary Source="ContextMenuStyle.xaml"/>
     <ResourceDictionary Source="TextBoxStyle.xaml"/>
     <ResourceDictionary Source="ListViewStyle.xaml"/>
     <ResourceDictionary Source="ListViewItemStyle.xaml"/>
+    <ResourceDictionary Source="MenuItemStyle.xaml"/>
     <ResourceDictionary Source="ScrollBarStyle.xaml"/>
+    <ResourceDictionary Source="ToolTipStyle.xaml"/>
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Window -->
@@ -29,6 +32,11 @@
         </ControlTemplate>
       </Setter.Value>
     </Setter>
+  </Style>
+  
+  <!-- Border -->
+  <Style TargetType="{x:Type Border}">
+    <Setter Property="BorderBrush" Value="{StaticResource GeneralBorderBrush}" />
   </Style>
   
   <!-- TextBlock -->

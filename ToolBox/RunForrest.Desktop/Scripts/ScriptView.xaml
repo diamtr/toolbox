@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="RunForrest.Desktop.ScriptView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RunForrest.Desktop"
+             xmlns:converter="clr-namespace:RunForrest.Desktop"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="350">
+
+  <UserControl.Resources>
+
+    <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+  </UserControl.Resources>
+  
+  <Border Padding="0,5,0,5">
+    <Grid>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+
+      <!--Solo/Mute--> 
+      <StackPanel Grid.Column="0"
+                  VerticalAlignment="Top">
+        <ToggleButton Content="S"
+                      ToolTip="Solo"
+                      MinWidth="5"
+                      Padding="1,0,1,3"
+                      IsChecked="{Binding IsSoloChecked}"/>
+        <ToggleButton Content="M"
+                      ToolTip="Mute"
+                      MinWidth="5"
+                      Padding="1,0,1,3"
+                      IsChecked="{Binding IsMuteChecked}"/>
+      </StackPanel>
+
+      <!--Script--> 
+      <Grid Grid.Column="1">
+        <TextBox Grid.Column="1"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Stretch"
+                 FontFamily="Courier New"
+                 Text="{Binding ScriptText}"/>
+      </Grid>
+      <Grid Grid.Column="1">
+        <TextBox Grid.Column="1"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Bottom"
+                 FontFamily="Courier New"
+                 Text="Running..."
+                 Opacity="0.6"
+                 Visibility="{Binding IsRunning, Converter={StaticResource BoolToVisibilityConverter}}"/>
+      </Grid>
+
+      <!--Edit/Delete-->
+      <StackPanel Grid.Column="2"
+                  VerticalAlignment="Top">
+        <Button ToolTip="Edit"
+                MinWidth="0"
+                Padding="3,3,3,3"
+                Command="{Binding ShowDetailsCommand}">
+          <Path StrokeThickness="2"
+                Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                Data="M 0 8 L 2 8 M 4 8 L 6 8 M 8 8 L 10 8"/>
+        </Button>
+        <Button ToolTip="Remove"
+                MinWidth="0"
+                Padding="3,3,3,3"
+                Command="{Binding RemoveCommand}">
+          <Path StrokeThickness="2"
+                Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                Data="M 0 0 L 8 8 M 8 0 L 0 8"/>
+        </Button>
+      </StackPanel>
+
+    </Grid>
+  </Border>
+</UserControl>
