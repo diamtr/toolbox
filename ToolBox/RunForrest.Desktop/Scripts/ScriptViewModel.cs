@@ -20,6 +20,18 @@ namespace RunForrest.Desktop
         this.detailsViewModel.Refresh();
       }
     }
+    public bool IsRunning
+    {
+      get
+      {
+        return this.isRunning;
+      }
+      set
+      {
+        this.isRunning = value;
+        this.OnPropertyChanged();
+      }
+    }
     public bool IsMuteChecked
     {
       get
@@ -54,6 +66,7 @@ namespace RunForrest.Desktop
     public event Action<ScriptViewModel> RemoveRequested;
 
     private ScriptDetailsViewModel detailsViewModel;
+    private bool isRunning;
     private bool isMuteChecked;
     private bool isSoloChecked;
 
@@ -62,8 +75,10 @@ namespace RunForrest.Desktop
 
     public async Task Run()
     {
+      this.IsRunning = true;
       Outputs.Instance.Append($"{this.ScriptText}");
       await this.Script.Run();
+      this.IsRunning = false;
     }
 
     private void InitCommands()
