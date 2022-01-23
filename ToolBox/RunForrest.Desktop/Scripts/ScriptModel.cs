@@ -21,10 +21,10 @@ namespace RunForrest.Desktop
       var sb = new StringBuilder();
 
       if (!string.IsNullOrWhiteSpace(this.Comment))
-        sb.AppendLine($"REM {this.Comment}");
+        sb.AppendLine($"rem {this.Comment}");
 
       if (!string.IsNullOrWhiteSpace(this.WorkingDirectory))
-        sb.AppendLine($"CD {this.WorkingDirectory}");
+        sb.AppendLine($"cd {this.WorkingDirectory}");
 
       if (!string.IsNullOrWhiteSpace(this.Text))
         sb.AppendLine(this.Text);
