@@ -44,12 +44,12 @@ namespace RunForrest.Desktop
       {
         if (string.IsNullOrWhiteSpace(textLine))
           continue;
-        if (textLine.StartsWith("REM", System.StringComparison.InvariantCultureIgnoreCase))
+        if (textLine.StartsWith("rem", System.StringComparison.InvariantCultureIgnoreCase))
         {
           newScript.Comment = textLine.Substring(3).Trim();
           continue;
         }
-        if (textLine.StartsWith("CD", System.StringComparison.InvariantCultureIgnoreCase))
+        if (textLine.StartsWith("cd", System.StringComparison.InvariantCultureIgnoreCase))
         {
           newScript.WorkingDirectory = textLine.Substring(2).Trim();
           continue;
