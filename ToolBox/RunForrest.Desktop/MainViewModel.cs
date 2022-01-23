@@ -75,6 +75,7 @@ namespace RunForrest.Desktop
     private void MainMenuViewModel_SaveRequested(string filePath)
     {
       this.ScriptsListViewModel.SaveToFile(filePath);
+      this.OpenedFilePath = filePath;
     }
 
     private void MainMenuViewModel_PinRequested()
