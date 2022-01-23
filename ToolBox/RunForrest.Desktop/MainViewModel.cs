@@ -84,15 +84,14 @@ namespace RunForrest.Desktop
       this.SetCurrentContent(pinnedItemViewModel);
     }
 
-    private void MainMenuVievModel_SelectedPinnedItemNameChanged(PinnedItemModel newPinnedItemModel)
+    private void MainMenuVievModel_SelectedPinnedItemChanged(PinnedItemViewModel selectedPinnedItemModel)
     {
-      if (newPinnedItemModel == null)
+      if (selectedPinnedItemModel == null)
         return;
 
-      var pinnedItemViewModel = new PinnedItemViewModel(newPinnedItemModel);
-      pinnedItemViewModel.PinAccepted += this.PinnedItemViewModel_PinAccepted;
-      pinnedItemViewModel.ApplyPinRequested += this.PinnedItemViewModel_ApplyPinRequested;
-      this.SetCurrentContent(pinnedItemViewModel);
+      selectedPinnedItemModel.PinAccepted += this.PinnedItemViewModel_PinAccepted;
+      selectedPinnedItemModel.ApplyPinRequested += this.PinnedItemViewModel_ApplyPinRequested;
+      this.SetCurrentContent(selectedPinnedItemModel);
     }
 
     private void PinnedItemViewModel_PinAccepted(PinnedItemViewModel pinnedItemViewModel)
@@ -153,6 +152,7 @@ namespace RunForrest.Desktop
       this.MainMenuViewModel.OpenRequested += this.LoadScriptsFromFile;
       this.MainMenuViewModel.SaveRequested += this.MainMenuViewModel_SaveRequested;
       this.MainMenuViewModel.PinRequested += this.MainMenuViewModel_PinRequested;
+      this.MainMenuViewModel.SelectedPinnedItemChanged += this.MainMenuVievModel_SelectedPinnedItemChanged;
       this.Variables = new Variables();
       this.ScriptsListViewModel = new ScriptsListViewModel();
     }
