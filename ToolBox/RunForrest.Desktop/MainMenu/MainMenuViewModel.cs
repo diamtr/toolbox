@@ -21,7 +21,7 @@ namespace RunForrest.Desktop
         this.selectedPinnedItemName = value;
         this.OnPropertyChanged();
         var item = this.pinnedItems.FirstOrDefault(x => x.Name == this.selectedPinnedItemName);
-        this.SelectedPinnedItemNameChanged?.Invoke(item);
+        this.SelectedPinnedItemChanged?.Invoke(new PinnedItemViewModel(item));
       }
     }
 
@@ -31,7 +31,7 @@ namespace RunForrest.Desktop
     public event Action<string> OpenRequested;
     public event Action<string> SaveRequested;
     public event Action PinRequested;
-    public event Action<PinnedItemModel> SelectedPinnedItemNameChanged;
+    public event Action<PinnedItemViewModel> SelectedPinnedItemChanged;
 
     public Command OpenCommand { get; private set; }
     public Command SaveCommand { get; private set; }

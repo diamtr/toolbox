@@ -48,6 +48,11 @@ namespace RunForrest.Desktop
     public static MainViewModel GetInstance()
     {
       var instance = new MainViewModel();
+
+      instance.Navigator.ViewModelChanged += () => { instance.OnPropertyChanged(nameof(instance.ContentAreaViewModel)); };
+      instance.MainMenuViewModel.SelectedPinnedItemChanged += instance.SetCurrentContent;
+      instance.ScriptsListViewModel.ShowScriptDetailsRequested += instance.SetCurrentContent;
+
       instance.Outputs = Outputs.Instance;
       instance.SetCurrentContent(instance.Outputs);
 
@@ -119,6 +124,9 @@ namespace RunForrest.Desktop
 
     private void SetCurrentContent(ViewModelBase viewModel)
     {
+      if (viewModel == null)
+        return;
+
       if (viewModel is IClosableViewModel)
         ((IClosableViewModel)viewModel).CloseRequested += this.ForgetContent;
 
@@ -127,6 +135,9 @@ namespace RunForrest.Desktop
 
     private void ForgetContent(ViewModelBase viewModel)
     {
+      if (viewModel == null)
+        return;
+
       if (viewModel is IClosableViewModel)
         ((IClosableViewModel)viewModel).CloseRequested -= this.ForgetContent;
 
@@ -138,15 +149,12 @@ namespace RunForrest.Desktop
     public MainViewModel()
     {
       this.Navigator = new ViewModelNavigator();
-      this.Navigator.ViewModelChanged += () => { this.OnPropertyChanged(nameof(this.ContentAreaViewModel)); };
       this.MainMenuViewModel = new MainMenuViewModel();
       this.MainMenuViewModel.OpenRequested += this.LoadScriptsFromFile;
       this.MainMenuViewModel.SaveRequested += this.MainMenuViewModel_SaveRequested;
       this.MainMenuViewModel.PinRequested += this.MainMenuViewModel_PinRequested;
-      this.MainMenuViewModel.SelectedPinnedItemNameChanged += this.MainMenuVievModel_SelectedPinnedItemNameChanged;
       this.Variables = new Variables();
       this.ScriptsListViewModel = new ScriptsListViewModel();
-      this.ScriptsListViewModel.ShowScriptDetailsRequested += this.SetCurrentContent;
     }
 
     #endregion
